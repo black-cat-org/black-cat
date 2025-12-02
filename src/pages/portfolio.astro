@@ -14,6 +14,7 @@ const projects = [
     tech: ['Next.js', 'Stripe', 'PostgreSQL', 'Redis', 'AWS'],
     gradient: 'from-purple-500 to-pink-500',
     year: '2024',
+    slug: 'ecommerce-premium',
   },
   {
     title: 'App de Gestión',
@@ -25,6 +26,7 @@ const projects = [
     tech: ['Flutter', 'Firebase', 'REST API', 'SQLite', 'Push Notifications'],
     gradient: 'from-blue-500 to-cyan-500',
     year: '2024',
+    slug: 'app-gestion',
   },
   {
     title: 'Dashboard Analytics',
@@ -36,6 +38,7 @@ const projects = [
     tech: ['React', 'D3.js', 'NestJS', 'WebSockets', 'PostgreSQL'],
     gradient: 'from-green-500 to-emerald-500',
     year: '2023',
+    slug: 'dashboard-analytics',
   },
   {
     title: 'Landing SaaS',
@@ -47,6 +50,7 @@ const projects = [
     tech: ['Astro', 'TailwindCSS', 'Vercel', 'HubSpot', 'Google Analytics'],
     gradient: 'from-orange-500 to-red-500',
     year: '2024',
+    slug: 'landing-saas',
   },
   {
     title: 'Fintech App',
@@ -58,6 +62,7 @@ const projects = [
     tech: ['NestJS', 'PostgreSQL', 'Redis', 'AWS', 'Microservices'],
     gradient: 'from-indigo-500 to-purple-500',
     year: '2023',
+    slug: 'fintech-app',
   },
   {
     title: 'Social Network',
@@ -69,6 +74,7 @@ const projects = [
     tech: ['Next.js', 'GraphQL', 'MongoDB', 'Cloudflare', 'S3'],
     gradient: 'from-pink-500 to-rose-500',
     year: '2023',
+    slug: 'social-network',
   },
 ];
 
@@ -157,7 +163,7 @@ const categories = ['Todos', ...new Set(projects.map(p => p.category))];
               </div>
 
               {/* Tech Stack */}
-              <div>
+              <div class="mb-6">
                 <h3 class="text-sm font-semibold text-gray-400 mb-3">TECNOLOGÍAS</h3>
                 <div class="flex flex-wrap gap-2">
                   {project.tech.map((tech) => (
@@ -167,6 +173,17 @@ const categories = ['Todos', ...new Set(projects.map(p => p.category))];
                   ))}
                 </div>
               </div>
+
+              {/* CTA Button */}
+              <a
+                href={`/portfolio/${project.slug}`}
+                class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50"
+              >
+                Ver Caso de Estudio Completo
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
             </div>
           </div>
         ))}

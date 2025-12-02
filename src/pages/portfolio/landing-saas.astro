@@ -1,0 +1,253 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/sections/Footer.astro';
+
+const project = {
+  title: 'Landing SaaS',
+  category: 'Sitio Web',
+  year: '2024',
+  client: 'CloudSync',
+  industry: 'SaaS B2B',
+  duration: '2 meses',
+  team: '2 desarrolladores + 1 copywriter',
+};
+
+const challenge = {
+  title: 'El Desafío',
+  description: 'CloudSync lanzaba un nuevo producto SaaS y necesitaba una landing page de alta conversión con animaciones sofisticadas, AB testing integrado y optimización SEO para competir en un mercado saturado. El objetivo era lograr un 5%+ de conversión.',
+  keyPoints: [
+    'Animaciones suaves y performantes',
+    'AB testing para optimizar conversión',
+    'SEO técnico avanzado (Core Web Vitals)',
+    'Integración con herramientas de marketing',
+  ],
+};
+
+const solution = {
+  title: 'La Solución',
+  description: 'Desarrollamos una landing con Astro para SSG máximo, agregando animaciones con GSAP y Lottie. Implementamos AB testing con Google Optimize y tracking avanzado con GTM. El resultado: una landing ultrarrápida (95+ Lighthouse) optimizada para conversión.',
+  technologies: ['Astro', 'React', 'GSAP', 'Lottie', 'TailwindCSS', 'Google Optimize', 'GTM', 'HubSpot'],
+  features: [
+    'Hero animado con scroll parallax',
+    'Secciones con animaciones on-scroll',
+    'Formulario multi-step optimizado',
+    'AB testing en CTAs y copy',
+    'Chat en vivo con Intercom',
+    'Pixel tracking (Facebook, LinkedIn)',
+    'Blog integrado con MDX',
+    'Schema markup para rich snippets',
+  ],
+};
+
+const results = [
+  { metric: '7.2%', description: 'Tasa de conversión promedio' },
+  { metric: '98', description: 'Google Lighthouse Score' },
+  { metric: '1.2s', description: 'First Contentful Paint' },
+  { metric: '15K+', description: 'Leads generados en 6 meses' },
+  { metric: '+250%', description: 'Aumento en tráfico orgánico' },
+  { metric: '32%', description: 'Reducción en costo por lead' },
+];
+
+const testimonial = {
+  quote: 'La landing de Black Cat no solo es hermosa, convierte como ninguna otra. Nuestro CAC se redujo drásticamente y el pipeline de ventas creció exponencialmente.',
+  author: 'David Kim',
+  role: 'CMO, CloudSync',
+};
+
+const gallery = [
+  { title: 'Hero Section', description: 'Animaciones parallax y CTAs destacados' },
+  { title: 'Features', description: 'Showcase interactivo de funcionalidades' },
+  { title: 'Pricing', description: 'Comparación de planes con AB testing' },
+  { title: 'Testimonials', description: 'Social proof con reviews verificadas' },
+];
+---
+
+<Layout
+  title={`${project.title} - Caso de Éxito | Black Cat`}
+  description={`Caso de éxito: ${project.title}. Landing page SaaS con 7.2% de conversión y 98 en Lighthouse.`}
+>
+  <Navigation />
+
+  <!-- Hero -->
+  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
+    <div class="max-w-7xl mx-auto">
+      <a href="/portfolio" class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 mb-8 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Volver al Portfolio
+      </a>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block px-3 py-1 bg-purple-600/10 text-purple-400 text-sm font-semibold rounded-full mb-4">
+            {project.category}
+          </div>
+          <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
+            {project.title}
+          </h1>
+          <p class="text-xl text-gray-400 mb-8">
+            Landing page de alta conversión que generó 15K+ leads en 6 meses.
+          </p>
+
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <div class="text-sm text-gray-400 mb-1">Cliente</div>
+              <div class="text-white font-semibold">{project.client}</div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-400 mb-1">Industria</div>
+              <div class="text-white font-semibold">{project.industry}</div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-400 mb-1">Duración</div>
+              <div class="text-white font-semibold">{project.duration}</div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-400 mb-1">Año</div>
+              <div class="text-white font-semibold">{project.year}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="h-96 rounded-2xl bg-linear-to-br from-green-500 to-emerald-500 opacity-90 flex items-center justify-center">
+          <div class="text-white text-9xl font-bold opacity-30">LS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenge -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">{challenge.title}</h2>
+      <p class="text-xl text-gray-300 leading-relaxed mb-8">
+        {challenge.description}
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {challenge.keyPoints.map((point) => (
+          <div class="flex items-start gap-3 bg-gray-900 border border-gray-800 rounded-lg p-4">
+            <svg class="w-6 h-6 text-purple-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-gray-300">{point}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">{solution.title}</h2>
+      <p class="text-xl text-gray-300 leading-relaxed mb-8">
+        {solution.description}
+      </p>
+
+      <div class="mb-8">
+        <h3 class="text-xl font-bold text-white mb-4">Stack Tecnológico</h3>
+        <div class="flex flex-wrap gap-3">
+          {solution.technologies.map((tech) => (
+            <span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-bold text-white mb-4">Features Implementadas</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {solution.features.map((feature) => (
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-purple-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-300 text-sm">{feature}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">Resultados</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        {results.map((result) => (
+          <div class="text-center">
+            <div class="text-4xl font-bold bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+              {result.metric}
+            </div>
+            <div class="text-gray-400 text-sm">{result.description}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 md:p-12 relative">
+        <div class="absolute top-8 right-8 text-6xl text-purple-600/10">"</div>
+        <p class="text-2xl text-gray-300 leading-relaxed mb-8 relative">
+          {testimonial.quote}
+        </p>
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-linear-to-br from-green-600 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold">
+            {testimonial.author.charAt(0)}
+          </div>
+          <div>
+            <div class="text-white font-semibold">{testimonial.author}</div>
+            <div class="text-gray-400 text-sm">{testimonial.role}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">Capturas del Proyecto</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {gallery.map((item, index) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all">
+            <div class={`h-48 rounded-lg bg-linear-to-br from-green-${500 + index * 100} to-emerald-${500 + index * 100} opacity-70 flex items-center justify-center mb-4`}>
+              <div class="text-white text-4xl font-bold opacity-30">{index + 1}</div>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">{item.title}</h3>
+            <p class="text-gray-400 text-sm">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">
+        ¿Necesitas una landing que convierta?
+      </h2>
+      <p class="text-xl text-gray-400 mb-8">
+        Diseñamos experiencias optimizadas para conversión
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contacto" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50">
+          Comenzar Proyecto
+        </a>
+        <a href="/portfolio" class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all">
+          Ver Más Proyectos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

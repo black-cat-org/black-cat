@@ -1,0 +1,253 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/sections/Footer.astro';
+
+const project = {
+  title: 'Dashboard Analytics',
+  category: 'Aplicación Web',
+  year: '2024',
+  client: 'DataViz Corp',
+  industry: 'Business Intelligence',
+  duration: '3 meses',
+  team: '4 desarrolladores + 1 data engineer',
+};
+
+const challenge = {
+  title: 'El Desafío',
+  description: 'DataViz Corp necesitaba un dashboard de analytics en tiempo real que procesara millones de eventos diarios, generara reportes visuales complejos y permitiera a usuarios no técnicos crear sus propios dashboards personalizados sin código.',
+  keyPoints: [
+    'Procesamiento de 5M+ eventos diarios',
+    'Visualizaciones complejas en tiempo real',
+    'Dashboard builder drag & drop',
+    'Exportación de reportes en múltiples formatos',
+  ],
+};
+
+const solution = {
+  title: 'La Solución',
+  description: 'Construimos una SPA con React y TypeScript, usando Recharts para visualizaciones avanzadas. Implementamos WebSockets para actualizaciones en tiempo real y un query builder visual con React DnD. El backend en NestJS procesa streams de datos con Apache Kafka.',
+  technologies: ['React', 'TypeScript', 'Recharts', 'React DnD', 'NestJS', 'PostgreSQL', 'Apache Kafka', 'Redis', 'Docker'],
+  features: [
+    'Visualizaciones en tiempo real (líneas, barras, mapas de calor)',
+    'Dashboard builder con drag & drop',
+    'Query builder visual sin SQL',
+    'Alertas personalizadas por métricas',
+    'Exportación a PDF, Excel, CSV',
+    'Colaboración con permisos granulares',
+    'Temas personalizables (claro/oscuro)',
+    'API REST para integraciones externas',
+  ],
+};
+
+const results = [
+  { metric: '5M+', description: 'Eventos procesados diarios' },
+  { metric: '<200ms', description: 'Latencia de visualización' },
+  { metric: '2,000+', description: 'Usuarios activos mensuales' },
+  { metric: '500+', description: 'Dashboards creados' },
+  { metric: '-70%', description: 'Reducción en tiempo de análisis' },
+  { metric: '99.99%', description: 'Uptime garantizado' },
+];
+
+const testimonial = {
+  quote: 'Black Cat nos entregó una plataforma de analytics que superó nuestras expectativas. Ahora nuestros clientes pueden tomar decisiones basadas en datos en tiempo real.',
+  author: 'Laura Martínez',
+  role: 'VP of Product, DataViz Corp',
+};
+
+const gallery = [
+  { title: 'Dashboard Principal', description: 'Vista general con métricas clave' },
+  { title: 'Dashboard Builder', description: 'Creación drag & drop sin código' },
+  { title: 'Gráficos Avanzados', description: 'Visualizaciones interactivas' },
+  { title: 'Reportes', description: 'Exportación en múltiples formatos' },
+];
+---
+
+<Layout
+  title={`${project.title} - Caso de Éxito | Black Cat`}
+  description={`Caso de éxito: ${project.title}. Dashboard de analytics en tiempo real que procesa 5M+ eventos diarios.`}
+>
+  <Navigation />
+
+  <!-- Hero -->
+  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
+    <div class="max-w-7xl mx-auto">
+      <a href="/portfolio" class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 mb-8 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Volver al Portfolio
+      </a>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block px-3 py-1 bg-purple-600/10 text-purple-400 text-sm font-semibold rounded-full mb-4">
+            {project.category}
+          </div>
+          <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
+            {project.title}
+          </h1>
+          <p class="text-xl text-gray-400 mb-8">
+            Plataforma de analytics en tiempo real que redujo el tiempo de análisis en 70%.
+          </p>
+
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <div class="text-sm text-gray-400 mb-1">Cliente</div>
+              <div class="text-white font-semibold">{project.client}</div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-400 mb-1">Industria</div>
+              <div class="text-white font-semibold">{project.industry}</div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-400 mb-1">Duración</div>
+              <div class="text-white font-semibold">{project.duration}</div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-400 mb-1">Año</div>
+              <div class="text-white font-semibold">{project.year}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="h-96 rounded-2xl bg-linear-to-br from-cyan-500 to-blue-500 opacity-90 flex items-center justify-center">
+          <div class="text-white text-9xl font-bold opacity-30">DA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenge -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">{challenge.title}</h2>
+      <p class="text-xl text-gray-300 leading-relaxed mb-8">
+        {challenge.description}
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {challenge.keyPoints.map((point) => (
+          <div class="flex items-start gap-3 bg-gray-900 border border-gray-800 rounded-lg p-4">
+            <svg class="w-6 h-6 text-purple-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-gray-300">{point}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">{solution.title}</h2>
+      <p class="text-xl text-gray-300 leading-relaxed mb-8">
+        {solution.description}
+      </p>
+
+      <div class="mb-8">
+        <h3 class="text-xl font-bold text-white mb-4">Stack Tecnológico</h3>
+        <div class="flex flex-wrap gap-3">
+          {solution.technologies.map((tech) => (
+            <span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-bold text-white mb-4">Features Implementadas</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {solution.features.map((feature) => (
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-purple-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-300 text-sm">{feature}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">Resultados</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        {results.map((result) => (
+          <div class="text-center">
+            <div class="text-4xl font-bold bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+              {result.metric}
+            </div>
+            <div class="text-gray-400 text-sm">{result.description}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 md:p-12 relative">
+        <div class="absolute top-8 right-8 text-6xl text-purple-600/10">"</div>
+        <p class="text-2xl text-gray-300 leading-relaxed mb-8 relative">
+          {testimonial.quote}
+        </p>
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-linear-to-br from-cyan-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+            {testimonial.author.charAt(0)}
+          </div>
+          <div>
+            <div class="text-white font-semibold">{testimonial.author}</div>
+            <div class="text-gray-400 text-sm">{testimonial.role}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">Capturas del Proyecto</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {gallery.map((item, index) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all">
+            <div class={`h-48 rounded-lg bg-linear-to-br from-cyan-${500 + index * 100} to-blue-${500 + index * 100} opacity-70 flex items-center justify-center mb-4`}>
+              <div class="text-white text-4xl font-bold opacity-30">{index + 1}</div>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">{item.title}</h3>
+            <p class="text-gray-400 text-sm">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">
+        ¿Necesitas un dashboard personalizado?
+      </h2>
+      <p class="text-xl text-gray-400 mb-8">
+        Transformamos tus datos en decisiones
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contacto" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50">
+          Comenzar Proyecto
+        </a>
+        <a href="/portfolio" class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all">
+          Ver Más Proyectos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
