@@ -1,16 +1,30 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import { Hero } from '../components/sections/Hero';
+import { Services } from '../components/sections/Services';
+import { TrustSection } from '../components/sections/TrustSection';
+import { Portfolio } from '../components/sections/Portfolio';
+import { Pricing } from '../components/sections/Pricing';
+import { Testimonials } from '../components/sections/Testimonials';
+import { Footer } from '../components/sections/Footer';
+import { DynamicIsland } from '../components/islands/DynamicIsland';
+import { ContactModal } from '../components/islands/ContactModal';
+import { QueryProvider } from '../components/base/QueryProvider';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout
+  title="Black Cat - Desarrollo Web Premium | React, Astro, NestJS"
+  description="Especialistas en desarrollo web de alto impacto. Creamos aplicaciones web, APIs, apps móviles y e-commerce con React, Astro, NestJS, Flutter y tecnologías modernas. Hosting, SSL y soporte 24/7."
+>
+  <QueryProvider client:only="react">
+    <DynamicIsland client:load />
+    <Hero client:load />
+    <Services client:visible />
+    <TrustSection client:visible />
+    <Portfolio client:visible />
+    <Pricing client:visible />
+    <Testimonials client:visible />
+    <Footer client:visible />
+    <ContactModal client:only="react" />
+  </QueryProvider>
+</Layout>

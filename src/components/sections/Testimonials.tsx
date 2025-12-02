@@ -1,0 +1,93 @@
+import { Card } from '../base/Card';
+
+const testimonials = [
+  {
+    name: 'Carlos Mendoza',
+    role: 'CEO, TechStart',
+    image: '👨‍💼',
+    content: 'Black Cat transformó nuestra idea en una plataforma escalable en tiempo récord. Su expertise en React y NestJS nos permitió lanzar 3 meses antes de lo previsto.',
+    rating: 5,
+  },
+  {
+    name: 'María González',
+    role: 'Founder, StyleShop',
+    image: '👩‍💼',
+    content: 'Nuestra tienda online pasó de 0 a 10k visitas mensuales. El SEO y la velocidad de carga son impecables. Totalmente recomendados para e-commerce.',
+    rating: 5,
+  },
+  {
+    name: 'Juan Pérez',
+    role: 'CTO, FinanceApp',
+    image: '👨‍💻',
+    content: 'La aplicación móvil que desarrollaron con Flutter superó todas nuestras expectativas. Interface fluida, código limpio y soporte excepcional.',
+    rating: 5,
+  },
+  {
+    name: 'Ana Rodríguez',
+    role: 'Marketing Director, GrowthCo',
+    image: '👩‍💻',
+    content: 'Landing page premium con animaciones increíbles. Aumentamos la conversión en un 40%. El equipo es profesional y cumple los plazos.',
+    rating: 5,
+  },
+];
+
+export function Testimonials() {
+  return (
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-black">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <p className="text-purple-400 font-semibold mb-2">TESTIMONIOS</p>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            Lo que dicen nuestros clientes
+          </h2>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Resultados reales de proyectos exitosos
+          </p>
+        </div>
+
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <Card key={index} className="relative">
+              {/* Quote Icon */}
+              <div className="absolute top-6 right-6 text-6xl text-purple-600/10">
+                "
+              </div>
+
+              <div className="relative space-y-4">
+                {/* Stars */}
+                <div className="flex gap-1">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className="w-5 h-5 text-yellow-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+
+                {/* Content */}
+                <p className="text-gray-300 leading-relaxed text-lg">
+                  {testimonial.content}
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-4 pt-4">
+                  <div className="text-4xl">{testimonial.image}</div>
+                  <div>
+                    <div className="font-semibold text-white">{testimonial.name}</div>
+                    <div className="text-sm text-gray-400">{testimonial.role}</div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
