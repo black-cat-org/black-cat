@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/sections/Footer.astro';
+
+const tools = [
+  { name: 'Figma', icon: '🎨', level: 95 },
+  { name: 'Adobe XD', icon: '🔷', level: 88 },
+  { name: 'Sketch', icon: '💎', level: 85 },
+  { name: 'Framer', icon: '⚡', level: 80 },
+];
+
+const services = [
+  { icon: '🔍', title: 'Research UX', description: 'Análisis de usuarios, competencia y mercado' },
+  { icon: '✏️', title: 'Wireframes', description: 'Estructuras de bajo y alto fidelidad' },
+  { icon: '🎨', title: 'UI Design', description: 'Interfaces visuales atractivas y funcionales' },
+  { icon: '🔄', title: 'Prototipos', description: 'Prototipos interactivos navegables' },
+  { icon: '📱', title: 'Responsive', description: 'Adaptación para todos los dispositivos' },
+  { icon: '♿', title: 'Accesibilidad', description: 'WCAG 2.1 AA compliance' },
+];
+---
+
+<Layout title="Diseño UI/UX - Black Cat" description="Diseño de interfaces centrado en el usuario con Figma y herramientas modernas.">
+  <Navigation />
+
+  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-600/20 rounded-full text-sm text-purple-400 mb-6">
+        <span class="text-2xl">🎨</span>
+        <span>Diseño Premium</span>
+      </div>
+      <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
+        Diseño <span class="bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">UI/UX</span>
+      </h1>
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+        Interfaces intuitivas que convierten. Diseño centrado en el usuario con metodología probada.
+      </p>
+      <a href="/contacto" class="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50">
+        Solicitar Presupuesto
+      </a>
+    </div>
+  </section>
+
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold text-white mb-12 text-center">Herramientas</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {tools.map((tool) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-600 transition-all">
+            <div class="text-5xl mb-4">{tool.icon}</div>
+            <h3 class="text-lg font-bold text-white mb-3">{tool.name}</h3>
+            <div class="w-full bg-gray-800 rounded-full h-2">
+              <div class="bg-linear-to-r from-purple-600 to-pink-600 h-2 rounded-full" style={`width: ${tool.level}%`}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold text-white mb-12 text-center">Servicios de Diseño</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map((service) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all">
+            <div class="text-4xl mb-4">{service.icon}</div>
+            <h3 class="text-xl font-bold text-white mb-2">{service.title}</h3>
+            <p class="text-gray-400">{service.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">¿Necesitas diseño profesional?</h2>
+      <p class="text-xl text-gray-400 mb-8">Creemos juntos una experiencia memorable</p>
+      <a href="/contacto" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50 inline-block">
+        Comenzar Proyecto
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

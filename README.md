@@ -11,7 +11,7 @@ Landing page profesional desarrollada con **Astro** (content-first), diseño min
 
 ## 📁 Estructura del Proyecto
 
-```
+```text
 black-cat/
 ├── src/
 │   ├── components/
@@ -29,6 +29,15 @@ black-cat/
 │   ├── pages/                      # Rutas (file-based routing)
 │   │   ├── index.astro             # Home
 │   │   ├── servicios.astro         # Todos los servicios
+│   │   ├── servicios/              # Páginas individuales de servicios
+│   │   │   ├── desarrollo-web.astro
+│   │   │   ├── backend-apis.astro
+│   │   │   ├── apps-moviles.astro
+│   │   │   ├── diseno-uiux.astro
+│   │   │   ├── infraestructura.astro
+│   │   │   ├── ecommerce.astro
+│   │   │   ├── hosting-ssl.astro
+│   │   │   └── soporte-tecnico.astro
 │   │   ├── portfolio.astro         # Proyectos destacados
 │   │   ├── precios.astro           # Planes y precios
 │   │   ├── sobre-nosotros.astro    # About us
@@ -50,11 +59,13 @@ black-cat/
 ### Pasos
 
 1. **Instalar dependencias**
+
 ```bash
 npm install
 ```
 
 2. **Ejecutar en desarrollo**
+
 ```bash
 npm run dev
 ```
@@ -62,6 +73,7 @@ npm run dev
 El sitio estará disponible en `http://localhost:4321`
 
 3. **Build de producción**
+
 ```bash
 npm run build
 ```
@@ -82,6 +94,7 @@ El formulario usa **FormSubmit.co** (servicio gratuito sin backend):
 
 1. Abre `src/pages/contacto.astro`
 2. En la línea 72, reemplaza el email:
+
 ```astro
 action="https://formsubmit.co/TU_EMAIL_AQUI"
 ```
@@ -89,7 +102,8 @@ action="https://formsubmit.co/TU_EMAIL_AQUI"
 3. Al enviar el primer formulario, FormSubmit te enviará un email de confirmación
 4. La página de éxito está en `src/pages/gracias.astro`
 
-### Características del formulario:
+### Características del formulario
+
 - ✅ Sin backend requerido
 - ✅ Protección anti-spam (honeypot)
 - ✅ Sin CAPTCHA
@@ -101,6 +115,7 @@ action="https://formsubmit.co/TU_EMAIL_AQUI"
 ### Colores y Estilos
 
 Los colores principales están en TailwindCSS:
+
 - Purple: `#8B5CF6` - CTA principal
 - Pink: `#EC4899` - Acentos
 - Gray/Black: Background oscuro
@@ -110,23 +125,28 @@ Los colores principales están en TailwindCSS:
 Edita los archivos en `src/components/sections/` y `src/pages/`:
 
 **Servicios:**
+
 - Lista completa: `src/pages/servicios.astro` (línea 5)
 - Grid home: `src/components/sections/Services.astro` (línea 3)
 
 **Portfolio:**
+
 - Proyectos: `src/pages/portfolio.astro` (línea 5)
 - Preview home: `src/components/sections/Portfolio.astro` (línea 3)
 
 **Precios:**
+
 - Planes: `src/components/sections/Pricing.astro` (línea 3)
 - Add-ons: `src/pages/precios.astro` (línea 31)
 
 **Equipo:**
+
 - `src/pages/sobre-nosotros.astro` (línea 5)
 
 ### WhatsApp
 
 Actualiza el número de WhatsApp (formato: código país + número sin espacios):
+
 - `src/components/sections/Hero.astro` (línea 37)
 - `src/components/sections/Footer.astro` (línea 42)
 - `src/pages/contacto.astro` (línea 196)
@@ -153,6 +173,7 @@ Actualiza el número de WhatsApp (formato: código país + número sin espacios)
 ### Otros proveedores
 
 El proyecto genera archivos estáticos. Compatible con:
+
 - GitHub Pages
 - Cloudflare Pages
 - AWS S3 + CloudFront
@@ -160,23 +181,40 @@ El proyecto genera archivos estáticos. Compatible con:
 
 ## 📈 Performance
 
-- **Build time**: ~8s
-- **Páginas generadas**: 7 (todas estáticas)
+- **Build time**: ~10s
+- **Páginas generadas**: 15 (todas estáticas)
+  - 1 Home
+  - 1 Servicios overview + 8 servicios individuales
+  - 1 Portfolio
+  - 1 Precios
+  - 1 Sobre Nosotros
+  - 1 Contacto
+  - 1 Gracias
 - **Lighthouse Score**: 95+ esperado
 - **Core Web Vitals**: Optimizado
-- **SEO**: Meta tags completos
+- **SEO**: Meta tags completos en todas las páginas
 
 ## 🔧 Características Implementadas
 
 ### Páginas
 
-✅ **Home** - Hero, servicios, stats, portfolio preview, pricing, testimonios
-✅ **Servicios** - 8 servicios detallados con features y tech stack
-✅ **Portfolio** - 6 proyectos con desafíos, soluciones y resultados
-✅ **Precios** - 3 planes + add-ons + FAQ
-✅ **Sobre Nosotros** - Equipo, valores, misión, visión, timeline
-✅ **Contacto** - Formulario funcional + info de contacto
-✅ **Gracias** - Thank you page con auto-redirect
+✅ **Home** (`/`) - Hero, servicios, stats, portfolio preview, pricing, testimonios
+✅ **Servicios** (`/servicios`) - Overview de 8 servicios con links a páginas individuales
+✅ **Servicios Individuales** (8 páginas):
+
+- `/servicios/desarrollo-web` - React, Astro, Next.js
+- `/servicios/backend-apis` - NestJS, Node.js, APIs REST/GraphQL
+- `/servicios/apps-moviles` - Flutter, React Native
+- `/servicios/diseno-uiux` - Figma, Adobe XD
+- `/servicios/infraestructura` - AWS, Docker, Kubernetes
+- `/servicios/ecommerce` - Shopify, WooCommerce
+- `/servicios/hosting-ssl` - Hosting + SSL + CDN
+- `/servicios/soporte-tecnico` - Mantenimiento continuo
+  ✅ **Portfolio** (`/portfolio`) - 6 proyectos con desafíos, soluciones y resultados
+  ✅ **Precios** (`/precios`) - 3 planes + add-ons + FAQ
+  ✅ **Sobre Nosotros** (`/sobre-nosotros`) - Equipo, valores, misión, visión, timeline
+  ✅ **Contacto** (`/contacto`) - Formulario funcional + info de contacto
+  ✅ **Gracias** (`/gracias`) - Thank you page con auto-redirect
 
 ### Componentes
 
@@ -228,7 +266,8 @@ Este proyecto está bajo la Licencia MIT.
 ## 📧 Contacto
 
 **Black Cat Development**
-- Email: info@blackcat.dev
+
+- Email: <info@blackcat.dev>
 - WhatsApp: +54 9 11 2345-6789
 
 ---

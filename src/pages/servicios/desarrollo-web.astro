@@ -1,0 +1,284 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/sections/Footer.astro';
+
+const technologies = [
+  { name: 'React', level: 95, description: 'Componentes reactivos y state management' },
+  { name: 'Astro', level: 90, description: 'SSG/SSR para performance óptimo' },
+  { name: 'Next.js', level: 92, description: 'Full-stack con React' },
+  { name: 'TypeScript', level: 95, description: 'Type-safe development' },
+  { name: 'Vue.js', level: 85, description: 'Progressive framework' },
+  { name: 'Svelte', level: 80, description: 'Compilador ultrarrápido' },
+];
+
+const features = [
+  {
+    title: 'Single Page Applications',
+    description: 'SPAs con carga instantánea y navegación fluida sin recargas.',
+    icon: '⚡',
+  },
+  {
+    title: 'Server Side Rendering',
+    description: 'SSR para SEO perfecto y first contentful paint ultrarrápido.',
+    icon: '🚀',
+  },
+  {
+    title: 'Static Site Generation',
+    description: 'SSG para sitios blazing fast con deploy edge.',
+    icon: '📄',
+  },
+  {
+    title: 'Progressive Web Apps',
+    description: 'PWAs con offline support y push notifications.',
+    icon: '📱',
+  },
+  {
+    title: 'Optimización SEO',
+    description: 'Meta tags, schema markup, sitemap y performance 100/100.',
+    icon: '🎯',
+  },
+  {
+    title: 'Responsive Design',
+    description: 'Mobile-first con breakpoints optimizados para todos los dispositivos.',
+    icon: '📐',
+  },
+];
+
+const process = [
+  {
+    step: '1',
+    title: 'Análisis y Planning',
+    description: 'Entendemos tus objetivos, audiencia y requerimientos técnicos.',
+    duration: '1-2 días',
+  },
+  {
+    step: '2',
+    title: 'Diseño UI/UX',
+    description: 'Wireframes, mockups y prototipos interactivos en Figma.',
+    duration: '3-5 días',
+  },
+  {
+    step: '3',
+    title: 'Desarrollo',
+    description: 'Código limpio, testing continuo y deploy en staging.',
+    duration: '2-4 semanas',
+  },
+  {
+    step: '4',
+    title: 'Testing y QA',
+    description: 'Testing manual, automatizado, performance y seguridad.',
+    duration: '3-5 días',
+  },
+  {
+    step: '5',
+    title: 'Deploy y Launch',
+    description: 'Configuración de servidor, CI/CD y monitoreo.',
+    duration: '1-2 días',
+  },
+  {
+    step: '6',
+    title: 'Soporte',
+    description: 'Mantenimiento, actualizaciones y nuevas features.',
+    duration: 'Continuo',
+  },
+];
+
+const cases = [
+  {
+    title: 'E-commerce con 10k usuarios/día',
+    result: 'Next.js + Stripe, <1s load time, 40% conversión',
+  },
+  {
+    title: 'Landing SaaS con 100 Lighthouse',
+    result: 'Astro + TailwindCSS, 0.8s FCP, +35% leads',
+  },
+  {
+    title: 'Dashboard analytics tiempo real',
+    result: 'React + D3.js, 1M+ data points, <100ms latency',
+  },
+];
+---
+
+<Layout
+  title="Desarrollo Web - Black Cat | React, Astro, Next.js"
+  description="Desarrollo de aplicaciones web modernas con React, Astro y Next.js. SPAs, SSR, SSG y PWAs optimizadas para performance y SEO."
+>
+  <Navigation />
+
+  <!-- Hero -->
+  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-600/20 rounded-full text-sm text-purple-400 mb-6">
+            <span class="text-2xl">⚛️</span>
+            <span>Servicio Premium</span>
+          </div>
+          <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
+            Desarrollo Web <span class="bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Moderno</span>
+          </h1>
+          <p class="text-xl text-gray-400 leading-relaxed mb-8">
+            Aplicaciones web de alto rendimiento con las tecnologías más avanzadas. Rápidas, escalables y optimizadas para conversión.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/contacto" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50 text-center">
+              Solicitar Presupuesto
+            </a>
+            <a href="/portfolio" class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all text-center">
+              Ver Proyectos
+            </a>
+          </div>
+        </div>
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <h3 class="text-2xl font-bold text-white mb-6">¿Qué incluye?</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <div>
+                <div class="text-white font-semibold">Diseño UI/UX profesional</div>
+                <div class="text-gray-400 text-sm">Wireframes, mockups y prototipos interactivos</div>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <div>
+                <div class="text-white font-semibold">Código limpio y documentado</div>
+                <div class="text-gray-400 text-sm">Best practices y patrones de diseño</div>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <div>
+                <div class="text-white font-semibold">Testing completo</div>
+                <div class="text-gray-400 text-sm">Unit, integration y E2E tests</div>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <div>
+                <div class="text-white font-semibold">Deploy y CI/CD</div>
+                <div class="text-gray-400 text-sm">Configuración completa de infraestructura</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technologies -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">
+        Stack Tecnológico
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {technologies.map((tech) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-white">{tech.name}</h3>
+              <span class="text-purple-400 font-bold">{tech.level}%</span>
+            </div>
+            <div class="w-full bg-gray-800 rounded-full h-2 mb-3">
+              <div class="bg-linear-to-r from-purple-600 to-pink-600 h-2 rounded-full" style={`width: ${tech.level}%`}></div>
+            </div>
+            <p class="text-gray-400 text-sm">{tech.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">
+        Características Principales
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all">
+            <div class="text-4xl mb-4">{feature.icon}</div>
+            <h3 class="text-xl font-bold text-white mb-2">{feature.title}</h3>
+            <p class="text-gray-400">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">
+        Proceso de Desarrollo
+      </h2>
+      <div class="space-y-6">
+        {process.map((item) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all">
+            <div class="flex items-start gap-6">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                {item.step}
+              </div>
+              <div class="flex-grow">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-xl font-bold text-white">{item.title}</h3>
+                  <span class="text-purple-400 text-sm font-semibold">{item.duration}</span>
+                </div>
+                <p class="text-gray-400">{item.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cases -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">
+        Casos de Éxito
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {cases.map((case_) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+            <h3 class="text-lg font-bold text-white mb-3">{case_.title}</h3>
+            <p class="text-purple-400 text-sm">{case_.result}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">
+        ¿Listo para tu aplicación web?
+      </h2>
+      <p class="text-xl text-gray-400 mb-8">
+        Agenda una consultoría gratuita y recibe un plan personalizado
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contacto" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50">
+          Comenzar Proyecto
+        </a>
+        <a href="/servicios" class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all">
+          Ver Otros Servicios
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
