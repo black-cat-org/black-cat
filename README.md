@@ -1,18 +1,13 @@
 # 🐈‍⬛ Black Cat - Landing Page Premium
 
-Landing page profesional desarrollada con **Astro**, **React 19**, **TailwindCSS** y tecnologías modernas.
+Landing page profesional desarrollada con **Astro** (content-first), diseño minimalista dark y tecnologías modernas.
 
 ## 🚀 Stack Tecnológico
 
-- **Astro** - Framework principal para sitios ultra rápidos
-- **React 19** - Componentes interactivos con Islands Architecture
-- **TailwindCSS** - Diseño moderno y responsive
-- **Supabase** - Base de datos y backend
-- **TanStack Query** - Manejo de datos y cache
-- **Zustand** - Estado global
-- **Axios** - Peticiones HTTP
-- **Floating UI** - Dynamic Islands y tooltips
-- **Framer Motion** - Animaciones fluidas
+- **Astro 5.16.3** - Framework principal (SSG/SSR)
+- **React 19** - Solo para interactividad específica (menú móvil)
+- **TailwindCSS v4** - Diseño moderno y responsive
+- **FormSubmit** - Formulario de contacto sin backend
 
 ## 📁 Estructura del Proyecto
 
@@ -20,19 +15,29 @@ Landing page profesional desarrollada con **Astro**, **React 19**, **TailwindCSS
 black-cat/
 ├── src/
 │   ├── components/
-│   │   ├── base/          # Componentes reutilizables (Button, Input, Card)
-│   │   ├── sections/      # Secciones de la landing (Hero, Services, etc.)
-│   │   └── islands/       # Componentes interactivos React (DynamicIsland, ContactModal)
-│   ├── hooks/             # Custom hooks (useContact)
-│   ├── layouts/           # Layouts Astro
-│   ├── lib/               # Configuraciones (Supabase, TanStack Query)
-│   ├── pages/             # Páginas Astro
-│   ├── services/          # Servicios API
-│   ├── store/             # Zustand stores
-│   ├── styles/            # Estilos globales
-│   └── types/             # TypeScript types
-├── public/                # Assets estáticos
-└── astro.config.mjs       # Configuración Astro
+│   │   ├── Navigation.astro        # Barra de navegación global
+│   │   └── sections/               # Secciones reutilizables
+│   │       ├── Hero.astro
+│   │       ├── Services.astro
+│   │       ├── TrustSection.astro
+│   │       ├── Portfolio.astro
+│   │       ├── Pricing.astro
+│   │       ├── Testimonials.astro
+│   │       └── Footer.astro
+│   ├── layouts/
+│   │   └── Layout.astro            # Layout base con SEO
+│   ├── pages/                      # Rutas (file-based routing)
+│   │   ├── index.astro             # Home
+│   │   ├── servicios.astro         # Todos los servicios
+│   │   ├── portfolio.astro         # Proyectos destacados
+│   │   ├── precios.astro           # Planes y precios
+│   │   ├── sobre-nosotros.astro    # About us
+│   │   ├── contacto.astro          # Formulario de contacto
+│   │   └── gracias.astro           # Thank you page
+│   └── styles/
+│       └── global.css              # Estilos globales + animaciones
+├── public/                         # Assets estáticos
+└── astro.config.mjs                # Configuración Astro
 ```
 
 ## 🛠️ Instalación
@@ -44,153 +49,177 @@ black-cat/
 
 ### Pasos
 
-1. **Clonar el repositorio**
-```bash
-git clone <repo-url>
-cd black-cat
-```
-
-2. **Instalar dependencias**
+1. **Instalar dependencias**
 ```bash
 npm install
 ```
 
-3. **Configurar variables de entorno**
-
-Crea un archivo `.env` basado en `.env.example`:
-
-```bash
-cp .env.example .env
-```
-
-Configura tus credenciales de Supabase:
-```env
-PUBLIC_SUPABASE_URL=tu_url_de_supabase
-PUBLIC_SUPABASE_ANON_KEY=tu_clave_anonima_de_supabase
-```
-
-4. **Ejecutar en desarrollo**
+2. **Ejecutar en desarrollo**
 ```bash
 npm run dev
 ```
 
 El sitio estará disponible en `http://localhost:4321`
 
+3. **Build de producción**
+```bash
+npm run build
+```
+
+Los archivos estáticos se generan en `dist/`
+
 ## 📦 Scripts Disponibles
 
 ```bash
-npm run dev         # Inicia servidor de desarrollo
-npm run build       # Genera build de producción
-npm run preview     # Preview del build de producción
+npm run dev         # Servidor de desarrollo
+npm run build       # Build para producción
+npm run preview     # Preview del build
 ```
 
-## 🗄️ Configuración de Supabase
+## 📧 Configuración del Formulario de Contacto
 
-### Crear tabla de contactos
+El formulario usa **FormSubmit.co** (servicio gratuito sin backend):
 
-```sql
-CREATE TABLE contacts (
-  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  name text NOT NULL,
-  email text NOT NULL,
-  phone text,
-  company text,
-  service text NOT NULL,
-  message text NOT NULL,
-  created_at timestamp with time zone DEFAULT timezone('utc'::text, now())
-);
-
--- Habilitar RLS (Row Level Security)
-ALTER TABLE contacts ENABLE ROW LEVEL SECURITY;
-
--- Política para permitir inserciones
-CREATE POLICY "Anyone can insert contacts" ON contacts
-  FOR INSERT WITH CHECK (true);
+1. Abre `src/pages/contacto.astro`
+2. En la línea 72, reemplaza el email:
+```astro
+action="https://formsubmit.co/TU_EMAIL_AQUI"
 ```
+
+3. Al enviar el primer formulario, FormSubmit te enviará un email de confirmación
+4. La página de éxito está en `src/pages/gracias.astro`
+
+### Características del formulario:
+- ✅ Sin backend requerido
+- ✅ Protección anti-spam (honeypot)
+- ✅ Sin CAPTCHA
+- ✅ Redirección personalizada
+- ✅ Subject personalizado
 
 ## 🎨 Personalización
 
 ### Colores y Estilos
 
-Los colores principales están definidos en `src/styles/global.css` usando TailwindCSS:
+Los colores principales están en TailwindCSS:
 - Purple: `#8B5CF6` - CTA principal
 - Pink: `#EC4899` - Acentos
 - Gray/Black: Background oscuro
 
 ### Contenido
 
-Para modificar el contenido de las secciones, edita los archivos en `src/components/sections/`:
-- `Hero.tsx` - Sección principal
-- `Services.tsx` - Servicios ofrecidos
-- `Pricing.tsx` - Planes y precios
-- `Testimonials.tsx` - Testimonios de clientes
-- `Portfolio.tsx` - Proyectos destacados
-- `Footer.tsx` - Footer y CTAs
+Edita los archivos en `src/components/sections/` y `src/pages/`:
+
+**Servicios:**
+- Lista completa: `src/pages/servicios.astro` (línea 5)
+- Grid home: `src/components/sections/Services.astro` (línea 3)
+
+**Portfolio:**
+- Proyectos: `src/pages/portfolio.astro` (línea 5)
+- Preview home: `src/components/sections/Portfolio.astro` (línea 3)
+
+**Precios:**
+- Planes: `src/components/sections/Pricing.astro` (línea 3)
+- Add-ons: `src/pages/precios.astro` (línea 31)
+
+**Equipo:**
+- `src/pages/sobre-nosotros.astro` (línea 5)
 
 ### WhatsApp
 
-Actualiza el número de WhatsApp en:
-- `src/components/sections/Hero.tsx` (línea 8)
-- `src/components/sections/Footer.tsx` (línea 85)
+Actualiza el número de WhatsApp (formato: código país + número sin espacios):
+- `src/components/sections/Hero.astro` (línea 37)
+- `src/components/sections/Footer.astro` (línea 42)
+- `src/pages/contacto.astro` (línea 196)
 
-Formato: `5491234567890` (código de país + número sin espacios)
+### Email de Contacto
+
+- `src/pages/contacto.astro` (línea 72)
+- `src/components/sections/Footer.astro` (línea 78)
 
 ## 🚢 Despliegue
 
 ### Vercel (Recomendado)
 
 1. Conecta tu repositorio en [Vercel](https://vercel.com)
-2. Configura las variables de entorno
+2. Auto-detecta Astro
 3. Deploy automático
 
 ### Netlify
 
-1. Conecta tu repositorio en [Netlify](https://netlify.com)
+1. Conecta tu repositorio
 2. Build command: `npm run build`
 3. Publish directory: `dist`
-4. Configura variables de entorno
 
-### Otros
+### Otros proveedores
 
-El proyecto genera archivos estáticos en `dist/`. Pueden servirse desde cualquier servidor web estático.
+El proyecto genera archivos estáticos. Compatible con:
+- GitHub Pages
+- Cloudflare Pages
+- AWS S3 + CloudFront
+- Cualquier hosting estático
 
 ## 📈 Performance
 
-- **Lighthouse Score**: 95+ en todas las categorías
-- **Tiempo de carga**: < 1s
-- **Core Web Vitals**: Excelentes
-- **SEO**: Optimizado
+- **Build time**: ~8s
+- **Páginas generadas**: 7 (todas estáticas)
+- **Lighthouse Score**: 95+ esperado
+- **Core Web Vitals**: Optimizado
+- **SEO**: Meta tags completos
 
-## 🔧 Características Principales
+## 🔧 Características Implementadas
 
-✅ **Ultra rápido** - Astro genera HTML estático
-✅ **SEO Optimizado** - Meta tags, sitemap, structured data
-✅ **Mobile First** - Diseño responsive perfecto
-✅ **Animaciones Suaves** - Framer Motion y CSS animations
-✅ **Dynamic Island** - Efecto flotante estilo iOS
-✅ **Formulario de Contacto** - Integrado con Supabase
-✅ **WhatsApp Integration** - CTA directo
-✅ **Type Safe** - TypeScript en todo el proyecto
-✅ **Modern Stack** - React 19, TailwindCSS v4
+### Páginas
 
-## 📝 Próximas Mejoras
+✅ **Home** - Hero, servicios, stats, portfolio preview, pricing, testimonios
+✅ **Servicios** - 8 servicios detallados con features y tech stack
+✅ **Portfolio** - 6 proyectos con desafíos, soluciones y resultados
+✅ **Precios** - 3 planes + add-ons + FAQ
+✅ **Sobre Nosotros** - Equipo, valores, misión, visión, timeline
+✅ **Contacto** - Formulario funcional + info de contacto
+✅ **Gracias** - Thank you page con auto-redirect
 
-- [ ] Sistema de blog con MDX
-- [ ] Panel administrativo
-- [ ] Analytics dashboard
-- [ ] Multi-idioma (i18n)
-- [ ] Dark/Light mode toggle
-- [ ] Más animaciones con Framer Motion
+### Componentes
+
+✅ **Navegación** - Responsive con menú móvil
+✅ **Hero** - Animated background con CTAs
+✅ **Services** - Grid interactivo con hover
+✅ **TrustSection** - Marquee infinito de tecnologías
+✅ **Portfolio** - Cards con gradientes
+✅ **Pricing** - Comparación de planes
+✅ **Testimonials** - Reviews con ratings
+✅ **Footer** - Multi-columna con CTAs
+
+### Funcionalidad
+
+✅ Navegación entre páginas
+✅ Rutas file-based
+✅ SEO optimizado
+✅ Mobile responsive
+✅ Animaciones CSS
+✅ Formulario de contacto funcional
+✅ WhatsApp integration
+✅ Smooth scrolling
+✅ 100% contenido estático
+
+## 📝 Próximas Mejoras Opcionales
+
+- [ ] Blog con MDX
+- [ ] Búsqueda de servicios
+- [ ] Modo claro/oscuro
+- [ ] Filtros en portfolio
+- [ ] Más animaciones
+- [ ] Sitemap XML
+- [ ] RSS feed
 
 ## 🤝 Contribuir
 
-Las contribuciones son bienvenidas. Por favor:
+Las contribuciones son bienvenidas:
 
 1. Fork el proyecto
 2. Crea una rama (`git checkout -b feature/nueva-feature`)
-3. Commit tus cambios (`git commit -m 'Add: nueva feature'`)
-4. Push a la rama (`git push origin feature/nueva-feature`)
-5. Abre un Pull Request
+3. Commit (`git commit -m 'Add: nueva feature'`)
+4. Push (`git push origin feature/nueva-feature`)
+5. Pull Request
 
 ## 📄 Licencia
 
@@ -201,8 +230,7 @@ Este proyecto está bajo la Licencia MIT.
 **Black Cat Development**
 - Email: info@blackcat.dev
 - WhatsApp: +54 9 11 2345-6789
-- Website: https://blackcat.dev
 
 ---
 
-Desarrollado con ❤️ por Black Cat
+Desarrollado con Astro y ❤️ por Black Cat

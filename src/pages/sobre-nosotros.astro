@@ -1,0 +1,252 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/sections/Footer.astro';
+
+const team = [
+  {
+    name: 'Gonzalo Pinell',
+    role: 'Founder & Lead Developer',
+    image: '👨‍💻',
+    bio: 'Full-stack developer con 8+ años de experiencia en React, Node.js y arquitectura cloud.',
+    skills: ['React', 'NestJS', 'AWS', 'TypeScript'],
+  },
+  {
+    name: 'María García',
+    role: 'UI/UX Designer',
+    image: '👩‍🎨',
+    bio: 'Diseñadora especializada en experiencias digitales centradas en el usuario.',
+    skills: ['Figma', 'Adobe XD', 'Design Systems', 'Prototyping'],
+  },
+  {
+    name: 'Carlos Méndez',
+    role: 'Mobile Developer',
+    image: '👨‍💼',
+    bio: 'Experto en desarrollo móvil nativo y multiplataforma con Flutter y React Native.',
+    skills: ['Flutter', 'React Native', 'iOS', 'Android'],
+  },
+  {
+    name: 'Ana Rodríguez',
+    role: 'Backend Architect',
+    image: '👩‍💻',
+    bio: 'Arquitecta de software especializada en microservicios y sistemas escalables.',
+    skills: ['NestJS', 'PostgreSQL', 'Docker', 'Kubernetes'],
+  },
+];
+
+const values = [
+  {
+    icon: '🎯',
+    title: 'Enfoque en Resultados',
+    description: 'No solo escribimos código, resolvemos problemas de negocio con tecnología.',
+  },
+  {
+    icon: '⚡',
+    title: 'Agilidad',
+    description: 'Iteramos rápido, entregamos valor temprano y nos adaptamos al cambio.',
+  },
+  {
+    icon: '🔍',
+    title: 'Calidad',
+    description: 'Código limpio, testing exhaustivo y best practices en cada línea.',
+  },
+  {
+    icon: '🤝',
+    title: 'Transparencia',
+    description: 'Comunicación clara, precios fijos y sin sorpresas desagradables.',
+  },
+  {
+    icon: '🚀',
+    title: 'Innovación',
+    description: 'Usamos las tecnologías más modernas sin caer en el hype.',
+  },
+  {
+    icon: '💡',
+    title: 'Aprendizaje',
+    description: 'Mejoramos continuamente y compartimos conocimiento.',
+  },
+];
+
+const timeline = [
+  { year: '2019', event: 'Fundación de Black Cat', description: 'Iniciamos con proyectos freelance pequeños' },
+  { year: '2020', event: 'Primer gran cliente', description: 'E-commerce con +100k visitas mensuales' },
+  { year: '2021', event: 'Expansión del equipo', description: 'Sumamos diseñadores y developers' },
+  { year: '2022', event: '50+ proyectos', description: 'Alcanzamos 50 proyectos completados' },
+  { year: '2023', event: 'Certificación AWS', description: 'Equipo certificado en cloud infrastructure' },
+  { year: '2024', event: '100+ proyectos', description: 'Más de 100 proyectos exitosos entregados' },
+];
+---
+
+<Layout
+  title="Sobre Nosotros - Black Cat | Nuestro Equipo y Valores"
+  description="Conoce al equipo detrás de Black Cat. Desarrolladores, diseñadores y arquitectos apasionados por crear soluciones digitales de alto impacto."
+>
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black via-gray-900 to-black">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
+            Construimos <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">el futuro</span> digital
+          </h1>
+          <p class="text-xl text-gray-400 leading-relaxed mb-8">
+            Somos un equipo de desarrolladores, diseñadores y arquitectos de software apasionados por transformar ideas en productos digitales exitosos.
+          </p>
+          <div class="grid grid-cols-3 gap-6">
+            <div>
+              <div class="text-4xl font-bold text-purple-400">5+</div>
+              <div class="text-sm text-gray-400">Años</div>
+            </div>
+            <div>
+              <div class="text-4xl font-bold text-purple-400">100+</div>
+              <div class="text-sm text-gray-400">Proyectos</div>
+            </div>
+            <div>
+              <div class="text-4xl font-bold text-purple-400">50+</div>
+              <div class="text-sm text-gray-400">Clientes</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-12 text-center">
+          <div class="text-8xl mb-4">🐈‍⬛</div>
+          <div class="text-white text-2xl font-bold">Black Cat</div>
+          <div class="text-purple-100 mt-2">Premium Web Development</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <div class="text-4xl mb-4">🎯</div>
+          <h2 class="text-2xl font-bold text-white mb-4">Nuestra Misión</h2>
+          <p class="text-gray-400 leading-relaxed">
+            Empoderar a negocios y emprendedores con soluciones tecnológicas de clase mundial, accesibles y orientadas a resultados. Democratizar el acceso a tecnología premium sin comprometer calidad.
+          </p>
+        </div>
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+          <div class="text-4xl mb-4">🔮</div>
+          <h2 class="text-2xl font-bold text-white mb-4">Nuestra Visión</h2>
+          <p class="text-gray-400 leading-relaxed">
+            Ser el partner tecnológico de referencia en LATAM para startups y pymes que buscan escalar digitalmente. Construir un equipo diverso que lidere la innovación en desarrollo web.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-gray-900">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Nuestros Valores
+        </h2>
+        <p class="text-gray-400">
+          Los principios que guían nuestro trabajo
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {values.map((value) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all">
+            <div class="text-4xl mb-4">{value.icon}</div>
+            <h3 class="text-xl font-bold text-white mb-2">{value.title}</h3>
+            <p class="text-gray-400">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Nuestro Equipo
+        </h2>
+        <p class="text-gray-400">
+          Conoce a las personas detrás de los proyectos
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {team.map((member) => (
+          <div class="text-center">
+            <div class="bg-gradient-to-br from-purple-600 to-pink-600 rounded-full w-32 h-32 flex items-center justify-center mx-auto mb-4 text-6xl">
+              {member.image}
+            </div>
+            <h3 class="text-xl font-bold text-white mb-1">{member.name}</h3>
+            <p class="text-purple-400 text-sm mb-3">{member.role}</p>
+            <p class="text-gray-400 text-sm mb-4">{member.bio}</p>
+            <div class="flex flex-wrap gap-2 justify-center">
+              {member.skills.map((skill) => (
+                <span class="text-xs px-2 py-1 bg-gray-800 text-gray-300 rounded">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-gray-900">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Nuestra Historia
+        </h2>
+        <p class="text-gray-400">
+          El camino recorrido hasta hoy
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        {timeline.map((item, index) => (
+          <div class="flex gap-6">
+            <div class="flex-shrink-0 w-24">
+              <div class="text-2xl font-bold text-purple-400">{item.year}</div>
+            </div>
+            <div class="flex-grow pb-8 border-l-2 border-gray-800 pl-6 relative">
+              <div class="absolute w-4 h-4 bg-purple-600 rounded-full -left-[9px] top-0"></div>
+              <h3 class="text-xl font-bold text-white mb-2">{item.event}</h3>
+              <p class="text-gray-400">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-black">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">
+        ¿Quieres trabajar con nosotros?
+      </h2>
+      <p class="text-xl text-gray-400 mb-8">
+        Hablemos de tu proyecto y cómo podemos ayudarte
+      </p>
+      <a
+        href="/contacto"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50"
+      >
+        Contactar Ahora
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

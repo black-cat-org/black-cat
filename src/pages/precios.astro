@@ -1,0 +1,174 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/sections/Footer.astro';
+import Pricing from '../components/sections/Pricing.astro';
+
+const faqs = [
+  {
+    question: '¿Qué incluye el precio?',
+    answer: 'Cada plan incluye diseño, desarrollo, testing, despliegue y capacitación. Los planes Professional y Enterprise incluyen además mantenimiento y soporte prioritario.',
+  },
+  {
+    question: '¿Cuánto tiempo toma un proyecto?',
+    answer: 'Los tiempos varían según la complejidad: Starter (2-3 semanas), Professional (4-8 semanas), Enterprise (3-6 meses). Te entregaremos un timeline detallado en la consultoría inicial.',
+  },
+  {
+    question: '¿Ofrecen planes de pago?',
+    answer: 'Sí, ofrecemos planes de pago flexibles. Generalmente trabajamos con un 50% al inicio y 50% al finalizar, pero podemos adaptarnos a tus necesidades.',
+  },
+  {
+    question: '¿Qué pasa después del lanzamiento?',
+    answer: 'Ofrecemos planes de mantenimiento mensuales desde $200 USD que incluyen actualizaciones, soporte técnico, monitoreo y nuevas funcionalidades.',
+  },
+  {
+    question: '¿Puedo cambiar de plan?',
+    answer: 'Absolutamente. Podemos empezar con un plan y escalar según tus necesidades. El precio se ajusta proporcionalmente.',
+  },
+  {
+    question: '¿Hacen proyectos por hora?',
+    answer: 'Preferimos trabajar con precios fijos para mayor transparencia, pero para consultorías y proyectos específicos podemos trabajar por hora ($80-120 USD/hora según especialidad).',
+  },
+];
+
+const addons = [
+  {
+    name: 'Diseño UI/UX Premium',
+    price: '$500',
+    description: 'Investigación UX, prototipos interactivos y design system completo',
+  },
+  {
+    name: 'App Móvil Complementaria',
+    price: '$1,200',
+    description: 'Versión iOS y Android de tu aplicación web',
+  },
+  {
+    name: 'Panel Administrativo',
+    price: '$800',
+    description: 'Dashboard completo para gestión de contenido y usuarios',
+  },
+  {
+    name: 'Integración de Pagos',
+    price: '$400',
+    description: 'Configuración de Stripe, MercadoPago, PayPal u otras pasarelas',
+  },
+  {
+    name: 'SEO Avanzado',
+    price: '$600',
+    description: 'Optimización técnica SEO, schema markup y estrategia de keywords',
+  },
+  {
+    name: 'Email Marketing',
+    price: '$350',
+    description: 'Configuración de Mailchimp/SendGrid y templates responsivos',
+  },
+];
+---
+
+<Layout
+  title="Precios - Black Cat | Planes y Tarifas"
+  description="Planes transparentes desde $599 USD. Desarrollo web, apps móviles y soluciones empresariales con precios fijos y sin sorpresas."
+>
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black via-gray-900 to-black">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
+        Precios <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Transparentes</span>
+      </h1>
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+        Inversión clara y sin sorpresas. Paga por valor, no por horas.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing Section (reusing component) -->
+  <Pricing />
+
+  <!-- Add-ons -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Servicios Adicionales
+        </h2>
+        <p class="text-gray-400">
+          Expande tu proyecto con estos complementos
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {addons.map((addon) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all">
+            <div class="flex items-start justify-between mb-4">
+              <h3 class="text-lg font-semibold text-white">{addon.name}</h3>
+              <span class="text-purple-400 font-bold">{addon.price}</span>
+            </div>
+            <p class="text-gray-400 text-sm">{addon.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-gray-900">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Preguntas Frecuentes
+        </h2>
+        <p class="text-gray-400">
+          Todo lo que necesitas saber sobre nuestros precios
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+            <summary class="px-6 py-4 cursor-pointer list-none flex items-center justify-between text-white font-semibold hover:bg-gray-800 transition-colors">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-6 py-4 text-gray-400 border-t border-gray-800">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-black">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">
+        ¿Listo para comenzar?
+      </h2>
+      <p class="text-xl text-gray-400 mb-8">
+        Agenda una consultoría gratuita y recibe un presupuesto personalizado
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contacto"
+          class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50"
+        >
+          Solicitar Presupuesto
+        </a>
+        <a
+          href="https://wa.me/5491234567890?text=Hola,%20quiero%20consultar%20sobre%20precios"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all"
+        >
+          Chatear por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

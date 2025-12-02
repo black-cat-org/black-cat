@@ -1,30 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Hero } from '../components/sections/Hero';
-import { Services } from '../components/sections/Services';
-import { TrustSection } from '../components/sections/TrustSection';
-import { Portfolio } from '../components/sections/Portfolio';
-import { Pricing } from '../components/sections/Pricing';
-import { Testimonials } from '../components/sections/Testimonials';
-import { Footer } from '../components/sections/Footer';
-import { DynamicIsland } from '../components/islands/DynamicIsland';
-import { ContactModal } from '../components/islands/ContactModal';
-import { QueryProvider } from '../components/base/QueryProvider';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+import TrustSection from '../components/sections/TrustSection.astro';
+import Portfolio from '../components/sections/Portfolio.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import Footer from '../components/sections/Footer.astro';
 ---
 
 <Layout
   title="Black Cat - Desarrollo Web Premium | React, Astro, NestJS"
   description="Especialistas en desarrollo web de alto impacto. Creamos aplicaciones web, APIs, apps móviles y e-commerce con React, Astro, NestJS, Flutter y tecnologías modernas. Hosting, SSL y soporte 24/7."
 >
-  <QueryProvider client:only="react">
-    <DynamicIsland client:load />
-    <Hero client:load />
-    <Services client:visible />
-    <TrustSection client:visible />
-    <Portfolio client:visible />
-    <Pricing client:visible />
-    <Testimonials client:visible />
-    <Footer client:visible />
-    <ContactModal client:only="react" />
-  </QueryProvider>
+  <Navigation />
+  <Hero />
+  <Services />
+  <TrustSection />
+  <Portfolio />
+  <Pricing />
+  <Testimonials />
+  <Footer />
 </Layout>

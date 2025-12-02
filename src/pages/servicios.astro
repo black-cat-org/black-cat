@@ -1,0 +1,261 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/sections/Footer.astro';
+
+const services = [
+  {
+    icon: '⚛️',
+    title: 'Desarrollo Web',
+    slug: 'desarrollo-web',
+    description: 'Aplicaciones web modernas, rápidas y escalables',
+    fullDescription: 'Creamos aplicaciones web de alto rendimiento utilizando las tecnologías más modernas del mercado. Nos especializamos en React, Astro, Next.js y Vue.js para el frontend, garantizando interfaces rápidas, responsive y optimizadas para SEO.',
+    technologies: ['React', 'Astro', 'Next.js', 'TypeScript', 'Vue.js', 'Svelte'],
+    features: [
+      'Single Page Applications (SPA)',
+      'Server Side Rendering (SSR)',
+      'Static Site Generation (SSG)',
+      'Progressive Web Apps (PWA)',
+      'Optimización SEO avanzada',
+      'Animaciones y transiciones fluidas',
+      'Arquitectura escalable',
+      'Testing automatizado',
+    ],
+  },
+  {
+    icon: '🚀',
+    title: 'Backend & APIs',
+    slug: 'backend-apis',
+    description: 'Arquitecturas robustas y APIs escalables',
+    fullDescription: 'Desarrollamos backends sólidos y APIs RESTful o GraphQL con Node.js, NestJS y Express. Diseñamos arquitecturas escalables, seguras y optimizadas para manejar millones de peticiones.',
+    technologies: ['NestJS', 'Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'Redis'],
+    features: [
+      'APIs REST y GraphQL',
+      'Microservicios',
+      'Autenticación JWT/OAuth',
+      'Base de datos SQL y NoSQL',
+      'Cache con Redis',
+      'Documentación con Swagger',
+      'Testing unitario e integración',
+      'Despliegue en la nube',
+    ],
+  },
+  {
+    icon: '📱',
+    title: 'Apps Móviles',
+    slug: 'apps-moviles',
+    description: 'Aplicaciones nativas y multiplataforma',
+    fullDescription: 'Desarrollamos aplicaciones móviles nativas para iOS y Android, o multiplataforma con Flutter y React Native. Interfaces fluidas, rendimiento óptimo y experiencias de usuario excepcionales.',
+    technologies: ['Flutter', 'React Native', 'Swift', 'Kotlin', 'Firebase'],
+    features: [
+      'Desarrollo iOS y Android',
+      'Diseño Material y Cupertino',
+      'Integración con APIs',
+      'Push notifications',
+      'Pagos in-app',
+      'Geolocalización',
+      'Modo offline',
+      'Publicación en stores',
+    ],
+  },
+  {
+    icon: '🎨',
+    title: 'Diseño UI/UX',
+    slug: 'diseno-uiux',
+    description: 'Interfaces intuitivas y atractivas',
+    fullDescription: 'Diseñamos interfaces centradas en el usuario, priorizando la usabilidad y la estética. Desde wireframes hasta prototipos interactivos, creamos experiencias visuales que convierten.',
+    technologies: ['Figma', 'Adobe XD', 'Sketch', 'InVision', 'Framer'],
+    features: [
+      'Research y análisis de usuarios',
+      'Wireframes y mockups',
+      'Prototipos interactivos',
+      'Design systems',
+      'Testing de usabilidad',
+      'Responsive design',
+      'Accesibilidad (WCAG)',
+      'Branding y identidad visual',
+    ],
+  },
+  {
+    icon: '☁️',
+    title: 'Infraestructura',
+    slug: 'infraestructura',
+    description: 'Cloud, DevOps y despliegue continuo',
+    fullDescription: 'Gestionamos toda la infraestructura cloud de tu proyecto. Configuración de servidores, CI/CD, contenedores Docker, Kubernetes y monitoreo 24/7 para garantizar máxima disponibilidad.',
+    technologies: ['AWS', 'Vercel', 'Docker', 'Kubernetes', 'GitHub Actions', 'Terraform'],
+    features: [
+      'Configuración de servidores cloud',
+      'CI/CD automatizado',
+      'Containerización con Docker',
+      'Orquestación con Kubernetes',
+      'Monitoreo y alertas',
+      'Backups automáticos',
+      'Escalado automático',
+      'Optimización de costos',
+    ],
+  },
+  {
+    icon: '🛒',
+    title: 'E-commerce',
+    slug: 'ecommerce',
+    description: 'Tiendas online completas y rentables',
+    fullDescription: 'Desarrollamos tiendas virtuales completas con pasarelas de pago, gestión de inventario, paneles administrativos y herramientas de marketing. Desde Shopify hasta soluciones custom.',
+    technologies: ['Shopify', 'WooCommerce', 'Stripe', 'MercadoPago', 'PayPal'],
+    features: [
+      'Catálogo de productos',
+      'Carrito de compras',
+      'Pasarelas de pago múltiples',
+      'Panel de administración',
+      'Gestión de inventario',
+      'Sistema de cupones',
+      'Email marketing',
+      'Analytics y reportes',
+    ],
+  },
+  {
+    icon: '🔒',
+    title: 'Hosting & SSL',
+    slug: 'hosting-ssl',
+    description: 'Hosting rápido y seguro',
+    fullDescription: 'Ofrecemos hosting optimizado para aplicaciones web modernas. Servidores de alto rendimiento, certificados SSL gratuitos, CDN global y monitoreo 24/7.',
+    technologies: ['Vercel', 'Netlify', 'AWS', 'Cloudflare', 'Let\'s Encrypt'],
+    features: [
+      'Hosting optimizado',
+      'Certificados SSL gratuitos',
+      'CDN global',
+      'DDoS protection',
+      'Backups diarios',
+      'Uptime 99.9%',
+      'Soporte 24/7',
+      'Migraciones gratuitas',
+    ],
+  },
+  {
+    icon: '🛠️',
+    title: 'Soporte Técnico',
+    slug: 'soporte-tecnico',
+    description: 'Mantenimiento y soporte continuo',
+    fullDescription: 'Brindamos soporte técnico continuo para tu proyecto. Actualizaciones, corrección de bugs, optimizaciones y nuevas funcionalidades. Planes mensuales flexibles.',
+    technologies: ['Monitoring', 'Analytics', 'Hotjar', 'Sentry', 'LogRocket'],
+    features: [
+      'Soporte prioritario',
+      'Actualizaciones de seguridad',
+      'Corrección de bugs',
+      'Optimización de rendimiento',
+      'Nuevas funcionalidades',
+      'Monitoreo proactivo',
+      'Reportes mensuales',
+      'Consultoría técnica',
+    ],
+  },
+];
+---
+
+<Layout
+  title="Servicios - Black Cat | Desarrollo Web, Apps, Backend y más"
+  description="Ofrecemos servicios integrales de desarrollo: aplicaciones web, APIs, apps móviles, diseño UI/UX, e-commerce, hosting y soporte técnico."
+>
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black via-gray-900 to-black">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
+        Nuestros <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Servicios</span>
+      </h1>
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+        Soluciones tecnológicas completas para transformar tu negocio. Desde el concepto hasta el lanzamiento y más allá.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto space-y-24">
+      {services.map((service, index) => (
+        <div id={service.slug} class="scroll-mt-20">
+          <div class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+            {/* Content */}
+            <div class={index % 2 === 1 ? 'lg:order-2' : ''}>
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-600/20 rounded-full text-sm text-purple-400 mb-4">
+                <span class="text-2xl">{service.icon}</span>
+                <span>Servicio</span>
+              </div>
+              <h2 class="text-4xl font-bold text-white mb-4">{service.title}</h2>
+              <p class="text-lg text-gray-300 mb-6">{service.fullDescription}</p>
+
+              <!-- Technologies -->
+              <div class="mb-6">
+                <h3 class="text-sm font-semibold text-gray-400 mb-3">TECNOLOGÍAS</h3>
+                <div class="flex flex-wrap gap-2">
+                  {service.technologies.map((tech) => (
+                    <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded-md text-sm">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <a
+                href="/contacto"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50"
+              >
+                Solicitar presupuesto
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+
+            {/* Features */}
+            <div class={index % 2 === 1 ? 'lg:order-1' : ''}>
+              <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+                <h3 class="text-xl font-bold text-white mb-6">Características</h3>
+                <ul class="space-y-3">
+                  {service.features.map((feature) => (
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span class="text-gray-300">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-gray-900">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">
+        ¿Listo para comenzar tu proyecto?
+      </h2>
+      <p class="text-xl text-gray-400 mb-8">
+        Contáctanos y recibe una consultoría gratuita
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contacto"
+          class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50"
+        >
+          Solicitar Cotización
+        </a>
+        <a
+          href="https://wa.me/5491234567890"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all"
+        >
+          Chatear por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,134 @@
+---
+const services = [
+  { name: 'Desarrollo Web', href: '/servicios/desarrollo-web' },
+  { name: 'Backend & APIs', href: '/servicios/backend-apis' },
+  { name: 'Apps Móviles', href: '/servicios/apps-moviles' },
+  { name: 'Diseño UI/UX', href: '/servicios/diseno-uiux' },
+  { name: 'E-commerce', href: '/servicios/ecommerce' },
+  { name: 'Hosting & SSL', href: '/servicios/hosting-ssl' },
+];
+
+const social = [
+  { name: 'GitHub', icon: '⚡', url: 'https://github.com' },
+  { name: 'LinkedIn', icon: '💼', url: 'https://linkedin.com' },
+  { name: 'Twitter', icon: '🐦', url: 'https://twitter.com' },
+  { name: 'Instagram', icon: '📸', url: 'https://instagram.com' },
+];
+---
+
+<footer class="bg-gradient-to-b from-black to-gray-900 border-t border-gray-800">
+  <!-- CTA Section -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-12 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        ¿Listo para iniciar tu proyecto?
+      </h2>
+      <p class="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+        Hablemos de cómo podemos ayudarte a alcanzar tus objetivos digitales
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contacto"
+          class="px-8 py-4 bg-white text-purple-600 hover:bg-gray-100 rounded-lg font-medium transition-all shadow-lg"
+        >
+          Solicitar Cotización
+        </a>
+        <a
+          href="https://wa.me/5491234567890"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/30 text-white rounded-lg font-medium transition-all"
+        >
+          Contactar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Footer -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Brand -->
+      <div class="col-span-1 md:col-span-2">
+        <a href="/" class="flex items-center gap-2 mb-4">
+          <div class="text-3xl">🐈‍⬛</div>
+          <span class="text-2xl font-bold text-white">Black Cat</span>
+        </a>
+        <p class="text-gray-400 mb-6 max-w-md">
+          Desarrollo web premium con tecnologías de vanguardia. Transformamos ideas en experiencias digitales de alto impacto.
+        </p>
+        <div class="flex gap-4">
+          {social.map((item) => (
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-lg flex items-center justify-center transition-colors"
+              aria-label={item.name}
+            >
+              <span class="text-xl">{item.icon}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Servicios</h3>
+        <ul class="space-y-2">
+          {services.map((service) => (
+            <li>
+              <a
+                href={service.href}
+                class="text-gray-400 hover:text-purple-400 transition-colors text-sm"
+              >
+                {service.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Contacto</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li>
+            <a href="mailto:info@blackcat.dev" class="hover:text-purple-400 transition-colors">
+              📧 info@blackcat.dev
+            </a>
+          </li>
+          <li>
+            <a href="tel:+5491123456789" class="hover:text-purple-400 transition-colors">
+              📱 +54 9 11 2345-6789
+            </a>
+          </li>
+          <li>📍 Buenos Aires, Argentina</li>
+          <li>🕐 Lun - Vie: 9:00 - 18:00</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-gray-400 text-sm">
+          © {new Date().getFullYear()} Black Cat. Todos los derechos reservados.
+        </p>
+        <div class="flex gap-6 text-sm text-gray-400">
+          <a href="/privacidad" class="hover:text-purple-400 transition-colors">
+            Privacidad
+          </a>
+          <a href="/terminos" class="hover:text-purple-400 transition-colors">
+            Términos
+          </a>
+          <a href="/cookies" class="hover:text-purple-400 transition-colors">
+            Cookies
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

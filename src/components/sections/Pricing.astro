@@ -1,0 +1,154 @@
+---
+const plans = [
+  {
+    name: 'Starter',
+    price: '599',
+    description: 'Ideal para landing pages y sitios web básicos',
+    features: [
+      'Hasta 5 páginas',
+      'Diseño responsive',
+      'SEO básico',
+      'Formulario de contacto',
+      'Hosting incluido (1 año)',
+      'SSL gratuito',
+      'Soporte por email',
+    ],
+    highlighted: false,
+  },
+  {
+    name: 'Professional',
+    price: '1,499',
+    description: 'Para aplicaciones web completas y e-commerce',
+    features: [
+      'Páginas ilimitadas',
+      'Diseño personalizado',
+      'SEO avanzado',
+      'Panel administrativo',
+      'Integración de pagos',
+      'API REST personalizada',
+      'Hosting premium (1 año)',
+      'SSL + CDN',
+      'Soporte prioritario',
+    ],
+    highlighted: true,
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    description: 'Soluciones empresariales a medida',
+    features: [
+      'Todo de Professional',
+      'Aplicación móvil',
+      'Arquitectura escalable',
+      'CI/CD automatizado',
+      'Múltiples integraciones',
+      'Testing automatizado',
+      'Documentación completa',
+      'Soporte 24/7',
+      'Consultoría técnica',
+    ],
+    highlighted: false,
+  },
+];
+---
+
+<section id="precios" class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black via-gray-900 to-black">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <p class="text-purple-400 font-semibold mb-2">PRECIOS</p>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
+        Planes para cada necesidad
+      </h2>
+      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+        Inversión transparente con resultados garantizados
+      </p>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {plans.map((plan) => (
+        <div class="relative">
+          {plan.highlighted && (
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold rounded-full">
+              Más Popular
+            </div>
+          )}
+          <div
+            class={`bg-gray-900 border rounded-xl p-6 ${
+              plan.highlighted
+                ? 'border-purple-600 shadow-xl shadow-purple-900/20'
+                : 'border-gray-800'
+            }`}
+          >
+            <div class="space-y-6">
+              <!-- Plan Name -->
+              <div>
+                <h3 class="text-2xl font-bold text-white">{plan.name}</h3>
+                <p class="text-gray-400 text-sm mt-2">{plan.description}</p>
+              </div>
+
+              <!-- Price -->
+              <div class="flex items-baseline gap-2">
+                {plan.price !== 'Custom' && (
+                  <span class="text-gray-400 text-lg">$</span>
+                )}
+                <span class="text-5xl font-bold text-white">{plan.price}</span>
+                {plan.price !== 'Custom' && (
+                  <span class="text-gray-400">USD</span>
+                )}
+              </div>
+
+              <!-- Features -->
+              <ul class="space-y-3">
+                {plan.features.map((feature) => (
+                  <li class="flex items-start gap-3">
+                    <svg
+                      class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <span class="text-gray-300 text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <!-- CTA Button -->
+              <a
+                href="/contacto"
+                class={`block w-full text-center px-6 py-3 rounded-lg font-medium transition-all ${
+                  plan.highlighted
+                    ? 'bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-900/50'
+                    : 'border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white'
+                }`}
+              >
+                {plan.price === 'Custom' ? 'Contactar' : 'Comenzar'}
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Additional Info -->
+    <div class="mt-12 text-center">
+      <p class="text-gray-400">
+        ¿Necesitas algo específico?{' '}
+        <a
+          href="/contacto"
+          class="text-purple-400 hover:text-purple-300 font-semibold underline"
+        >
+          Hablemos de tu proyecto
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
