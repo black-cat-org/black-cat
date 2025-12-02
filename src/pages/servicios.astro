@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/sections/Footer.astro';
+import Layout from '../layouts/Layout.astro';
 
 const services = [
   {
@@ -158,10 +158,10 @@ const services = [
   <Navigation />
 
   <!-- Hero Section -->
-  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black via-gray-900 to-black">
+  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
     <div class="max-w-7xl mx-auto text-center">
       <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
-        Nuestros <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Servicios</span>
+        Nuestros <span class="bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Servicios</span>
       </h1>
       <p class="text-xl text-gray-400 max-w-3xl mx-auto">
         Soluciones tecnológicas completas para transformar tu negocio. Desde el concepto hasta el lanzamiento y más allá.
@@ -214,7 +214,7 @@ const services = [
                 <ul class="space-y-3">
                   {service.features.map((feature) => (
                     <li class="flex items-start gap-3">
-                      <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-5 h-5 text-purple-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                       </svg>
                       <span class="text-gray-300">{feature}</span>
@@ -230,7 +230,7 @@ const services = [
   </section>
 
   <!-- CTA Section -->
-  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-gray-900">
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-4xl font-bold text-white mb-4">
         ¿Listo para comenzar tu proyecto?
