@@ -1,7 +1,7 @@
 ---
-import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/sections/Footer.astro';
+import Layout from '../../layouts/Layout.astro';
 
 const plans = [
   {
@@ -63,7 +63,7 @@ const features = [
             <ul class="space-y-3">
               {plan.features.map((feature) => (
                 <li class="flex items-center gap-2 text-gray-300 text-sm">
-                  <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-5 h-5 text-purple-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>
                   {feature}

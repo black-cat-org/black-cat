@@ -15,7 +15,7 @@ const technologies = [
 ];
 ---
 
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black via-gray-900 to-black">
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
   <div class="max-w-7xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-12">
@@ -31,10 +31,10 @@ const technologies = [
         {[...technologies, ...technologies].map((tech, index) => (
           <div
             key={index}
-            class="flex-shrink-0 px-6 py-3 bg-gray-900 border border-gray-800 rounded-lg"
+            class="shrink-0 px-6 py-3 bg-gray-900 border border-gray-800 rounded-lg"
           >
             <span
-              class={`text-sm font-semibold bg-gradient-to-r ${tech.color} bg-clip-text text-transparent whitespace-nowrap`}
+              class={`text-sm font-semibold bg-linear-to-r ${tech.color} bg-clip-text text-transparent whitespace-nowrap`}
             >
               {tech.name}
             </span>
@@ -46,25 +46,25 @@ const technologies = [
     <!-- Stats Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
       <div class="text-center">
-        <div class="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+        <div class="text-4xl sm:text-5xl font-bold bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
           5+
         </div>
         <div class="text-gray-400">Años de experiencia</div>
       </div>
       <div class="text-center">
-        <div class="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">
+        <div class="text-4xl sm:text-5xl font-bold bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">
           100+
         </div>
         <div class="text-gray-400">Proyectos entregados</div>
       </div>
       <div class="text-center">
-        <div class="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2">
+        <div class="text-4xl sm:text-5xl font-bold bg-linear-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2">
           50+
         </div>
         <div class="text-gray-400">Clientes satisfechos</div>
       </div>
       <div class="text-center">
-        <div class="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">
+        <div class="text-4xl sm:text-5xl font-bold bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">
           99%
         </div>
         <div class="text-gray-400">Uptime garantizado</div>

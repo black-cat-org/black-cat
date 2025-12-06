@@ -6,6 +6,7 @@ const projects = [
     description: 'Plataforma de comercio electrónico con integración de múltiples pasarelas de pago y panel administrativo completo.',
     tech: ['Next.js', 'Stripe', 'PostgreSQL'],
     gradient: 'from-purple-500 to-pink-500',
+    slug: 'ecommerce-premium',
   },
   {
     title: 'App de Gestión',
@@ -13,6 +14,7 @@ const projects = [
     description: 'Aplicación móvil multiplataforma para gestión de equipos y proyectos con sincronización en tiempo real.',
     tech: ['Flutter', 'Firebase', 'REST API'],
     gradient: 'from-blue-500 to-cyan-500',
+    slug: 'app-gestion',
   },
   {
     title: 'Dashboard Analytics',
@@ -20,6 +22,7 @@ const projects = [
     description: 'Panel de control con visualización de datos en tiempo real y reportes personalizables para métricas de negocio.',
     tech: ['React', 'D3.js', 'NestJS'],
     gradient: 'from-green-500 to-emerald-500',
+    slug: 'dashboard-analytics',
   },
   {
     title: 'Landing SaaS',
@@ -27,6 +30,7 @@ const projects = [
     description: 'Landing page de alto rendimiento con animaciones fluidas y optimización SEO para producto SaaS B2B.',
     tech: ['Astro', 'TailwindCSS', 'Vercel'],
     gradient: 'from-orange-500 to-red-500',
+    slug: 'landing-saas',
   },
 ];
 ---
@@ -47,10 +51,10 @@ const projects = [
     <!-- Projects Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {projects.map((project) => (
-        <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all duration-300 cursor-pointer hover:shadow-xl hover:shadow-purple-900/20">
+        <a href={`/portfolio/${project.slug}`} class="block bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all duration-300 cursor-pointer hover:shadow-xl hover:shadow-purple-900/20 group">
           <div class="space-y-4">
             <!-- Gradient Header -->
-            <div class={`h-48 rounded-lg bg-gradient-to-br ${project.gradient} opacity-80 flex items-center justify-center`}>
+            <div class={`h-48 rounded-lg bg-linear-to-br ${project.gradient} opacity-80 flex items-center justify-center group-hover:opacity-100 transition-opacity`}>
               <div class="text-white text-6xl font-bold opacity-20">
                 {project.title.substring(0, 2).toUpperCase()}
               </div>
@@ -62,7 +66,7 @@ const projects = [
             </div>
 
             <!-- Title -->
-            <h3 class="text-2xl font-bold text-white">
+            <h3 class="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
               {project.title}
             </h3>
 
@@ -79,8 +83,16 @@ const projects = [
                 </span>
               ))}
             </div>
+
+            <!-- View More Link -->
+            <div class="flex items-center gap-2 text-purple-400 text-sm font-medium pt-2">
+              Ver caso completo
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </div>
           </div>
-        </div>
+        </a>
       ))}
     </div>
 

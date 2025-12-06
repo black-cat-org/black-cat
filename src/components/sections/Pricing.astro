@@ -52,7 +52,7 @@ const plans = [
 ];
 ---
 
-<section id="precios" class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black via-gray-900 to-black">
+<section id="precios" class="py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
   <div class="max-w-7xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-16">
@@ -70,7 +70,7 @@ const plans = [
       {plans.map((plan) => (
         <div class="relative">
           {plan.highlighted && (
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold rounded-full">
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold rounded-full">
               Más Popular
             </div>
           )}
@@ -104,7 +104,7 @@ const plans = [
                 {plan.features.map((feature) => (
                   <li class="flex items-start gap-3">
                     <svg
-                      class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
+                      class="w-5 h-5 text-purple-400 shrink-0 mt-0.5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
