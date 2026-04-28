@@ -1,4 +1,6 @@
 ---
+import { siteConfig } from '../config/site';
+
 const navLinks = [
   { name: 'Inicio', href: '/' },
   { name: 'Servicios', href: '/servicios' },
@@ -15,10 +17,10 @@ const currentPath = Astro.url.pathname;
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 group">
-        <span class="text-3xl">🐈‍⬛</span>
+      <a href="/" class="flex items-center gap-2 group" aria-label={`${siteConfig.name} — Inicio`}>
+        <span class="text-3xl" aria-hidden="true">🐈‍⬛</span>
         <span class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
-          Black Cat
+          {siteConfig.name}
         </span>
       </a>
 

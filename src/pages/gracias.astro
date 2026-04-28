@@ -1,10 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
+import { whatsappUrl } from '../config/site';
 ---
 
 <Layout
-  title="¡Gracias! - Black Cat"
+  title="¡Gracias!"
   description="Gracias por contactarnos. Te responderemos pronto."
 >
   <Navigation />
@@ -73,7 +74,7 @@ import Navigation from '../components/Navigation.astro';
       <div class="mt-12 text-gray-400">
         <p class="mb-4">¿Necesitas una respuesta más rápida?</p>
         <a
-          href="https://wa.me/5491234567890"
+          href={whatsappUrl()}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold"

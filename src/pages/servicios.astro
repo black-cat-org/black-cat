@@ -2,6 +2,7 @@
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/sections/Footer.astro';
 import Layout from '../layouts/Layout.astro';
+import { whatsappUrl } from '../config/site';
 
 const services = [
   {
@@ -152,7 +153,7 @@ const services = [
 ---
 
 <Layout
-  title="Servicios - Black Cat | Desarrollo Web, Apps, Backend y más"
+  title="Servicios"
   description="Ofrecemos servicios integrales de desarrollo: aplicaciones web, APIs, apps móviles, diseño UI/UX, e-commerce, hosting y soporte técnico."
 >
   <Navigation />
@@ -246,7 +247,7 @@ const services = [
           Solicitar Cotización
         </a>
         <a
-          href="https://wa.me/5491234567890"
+          href={whatsappUrl()}
           target="_blank"
           rel="noopener noreferrer"
           class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all"
