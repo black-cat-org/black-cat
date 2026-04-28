@@ -22,6 +22,7 @@ const lang = siteConfig.languages[0];
     <!-- SEO Meta Tags -->
     <title>{finalTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, siteConfig.domain).toString()} />
 
     <!-- Open Graph -->
     <meta property="og:title" content={finalTitle} />

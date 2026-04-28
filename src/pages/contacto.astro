@@ -84,7 +84,7 @@ const formAction = `https://formsubmit.co/${siteConfig.contact.email}`;
             class="space-y-6"
           >
             <!-- Honeypot anti-spam -->
-            <input type="text" name="_honey" style="display:none">
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
             <!-- FormSubmit config: el primer envío real requiere validar el email destino con un click en el correo de confirmación que envía FormSubmit. -->
             <input type="hidden" name="_captcha" value="false">
