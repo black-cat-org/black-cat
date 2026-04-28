@@ -1,275 +1,80 @@
-# 🐈‍⬛ Black Cat - Landing Page Premium
+# Black Cat — Landing Page
 
-Landing page profesional desarrollada con **Astro** (content-first), diseño minimalista dark y tecnologías modernas.
+Sitio corporativo de **Black Cat**, empresa de desarrollo de software. La landing presenta los servicios para terceros (desarrollo web, backend, apps móviles, e-commerce, infraestructura, hosting, soporte) y sirve como hub de los productos propios de la marca.
 
-## 🚀 Stack Tecnológico
+## Stack
 
-- **Astro 5.16.3** - Framework principal (SSG/SSR)
-- **React 19** - Solo para interactividad específica (menú móvil)
-- **TailwindCSS v4** - Diseño moderno y responsive
-- **FormSubmit** - Formulario de contacto sin backend
+- [Astro 6](https://astro.build/) — sitio estático con file-based routing
+- [React 19](https://react.dev/) vía `@astrojs/react` (disponible para componentes interactivos)
+- [Tailwind CSS v4](https://tailwindcss.com/) vía `@tailwindcss/postcss`
+- [`@floating-ui/react`](https://floating-ui.com/) para futuros popovers / tooltips
+- TypeScript en modo strict
+- Node ≥ 22.12
 
-## 📁 Estructura del Proyecto
+## Requisitos
 
-```text
-black-cat/
-├── src/
-│   ├── components/
-│   │   ├── Navigation.astro        # Barra de navegación global
-│   │   └── sections/               # Secciones reutilizables
-│   │       ├── Hero.astro
-│   │       ├── Services.astro
-│   │       ├── TrustSection.astro
-│   │       ├── Portfolio.astro
-│   │       ├── Pricing.astro
-│   │       ├── Testimonials.astro
-│   │       └── Footer.astro
-│   ├── layouts/
-│   │   └── Layout.astro            # Layout base con SEO
-│   ├── pages/                      # Rutas (file-based routing)
-│   │   ├── index.astro             # Home
-│   │   ├── servicios.astro         # Todos los servicios
-│   │   ├── servicios/              # Páginas individuales de servicios
-│   │   │   ├── desarrollo-web.astro
-│   │   │   ├── backend-apis.astro
-│   │   │   ├── apps-moviles.astro
-│   │   │   ├── diseno-uiux.astro
-│   │   │   ├── infraestructura.astro
-│   │   │   ├── ecommerce.astro
-│   │   │   ├── hosting-ssl.astro
-│   │   │   └── soporte-tecnico.astro
-│   │   ├── portfolio.astro         # Proyectos destacados
-│   │   ├── precios.astro           # Planes y precios
-│   │   ├── sobre-nosotros.astro    # About us
-│   │   ├── contacto.astro          # Formulario de contacto
-│   │   └── gracias.astro           # Thank you page
-│   └── styles/
-│       └── global.css              # Estilos globales + animaciones
-├── public/                         # Assets estáticos
-└── astro.config.mjs                # Configuración Astro
-```
+- Node ≥ 22.12 (revisar con `node -v`)
+- npm
 
-## 🛠️ Instalación
-
-### Prerrequisitos
-
-- Node.js 18+
-- npm o yarn
-
-### Pasos
-
-1. **Instalar dependencias**
+## Setup
 
 ```bash
 npm install
-```
-
-2. **Ejecutar en desarrollo**
-
-```bash
 npm run dev
 ```
 
-El sitio estará disponible en `http://localhost:4321`
+El sitio queda disponible en [http://localhost:4321](http://localhost:4321).
 
-3. **Build de producción**
+## Comandos
 
-```bash
-npm run build
+| Comando            | Acción                                       |
+| ------------------ | -------------------------------------------- |
+| `npm install`      | Instala dependencias                         |
+| `npm run dev`      | Servidor de desarrollo en `localhost:4321`   |
+| `npm run build`    | Build de producción a `./dist/`              |
+| `npm run preview`  | Preview local del build                      |
+| `npm run astro …`  | CLI de Astro (`astro check`, `astro add`, …) |
+
+## Estructura
+
+```
+src/
+├── components/
+│   ├── Navigation.astro          # Navbar global
+│   └── sections/                 # Secciones del home
+├── layouts/
+│   └── Layout.astro              # Layout base con SEO + fuente Inter
+├── pages/                        # Routing file-based
+│   ├── index.astro               # Home
+│   ├── servicios/                # Páginas por servicio
+│   ├── portfolio/                # Case studies
+│   ├── precios.astro
+│   ├── sobre-nosotros.astro
+│   ├── contacto.astro
+│   └── gracias.astro
+└── styles/
+    └── global.css                # Tailwind + animaciones custom
+public/                           # Assets estáticos
+postcss.config.mjs                # Plugin de Tailwind
+astro.config.mjs                  # Config de Astro
 ```
 
-Los archivos estáticos se generan en `dist/`
+Detalle de páginas y flujos de usuario en [`SITEMAP.md`](./SITEMAP.md).
+Branding, paleta, tipografía y tono de comunicación en [`SITE-CONTENT.md`](./SITE-CONTENT.md).
 
-## 📦 Scripts Disponibles
+## Convenciones rápidas
 
-```bash
-npm run dev         # Servidor de desarrollo
-npm run build       # Build para producción
-npm run preview     # Preview del build
-```
+- Páginas y rutas en español, **kebab-case**: `sobre-nosotros.astro`, `apps-moviles.astro`.
+- Componentes en **PascalCase**: `Hero.astro`, `Navigation.astro`.
+- Tema **dark fijo** (`<html class="dark">`), tipografía Inter.
+- Solo Tailwind utilities en clases; animaciones custom en `global.css`.
 
-## 📧 Configuración del Formulario de Contacto
+Para guías más extensas (decisiones técnicas, workflow de git, instrucciones para Claude Code) ver [`CLAUDE.md`](./CLAUDE.md).
 
-El formulario usa **FormSubmit.co** (servicio gratuito sin backend):
+## Despliegue
 
-1. Abre `src/pages/contacto.astro`
-2. En la línea 72, reemplaza el email:
+El build produce HTML estático en `dist/`. Se puede servir desde cualquier hosting estático (Vercel, Netlify, Cloudflare Pages, S3 + CloudFront, etc.).
 
-```astro
-action="https://formsubmit.co/TU_EMAIL_AQUI"
-```
+## Licencia
 
-3. Al enviar el primer formulario, FormSubmit te enviará un email de confirmación
-4. La página de éxito está en `src/pages/gracias.astro`
-
-### Características del formulario
-
-- ✅ Sin backend requerido
-- ✅ Protección anti-spam (honeypot)
-- ✅ Sin CAPTCHA
-- ✅ Redirección personalizada
-- ✅ Subject personalizado
-
-## 🎨 Personalización
-
-### Colores y Estilos
-
-Los colores principales están en TailwindCSS:
-
-- Purple: `#8B5CF6` - CTA principal
-- Pink: `#EC4899` - Acentos
-- Gray/Black: Background oscuro
-
-### Contenido
-
-Edita los archivos en `src/components/sections/` y `src/pages/`:
-
-**Servicios:**
-
-- Lista completa: `src/pages/servicios.astro` (línea 5)
-- Grid home: `src/components/sections/Services.astro` (línea 3)
-
-**Portfolio:**
-
-- Proyectos: `src/pages/portfolio.astro` (línea 5)
-- Preview home: `src/components/sections/Portfolio.astro` (línea 3)
-
-**Precios:**
-
-- Planes: `src/components/sections/Pricing.astro` (línea 3)
-- Add-ons: `src/pages/precios.astro` (línea 31)
-
-**Equipo:**
-
-- `src/pages/sobre-nosotros.astro` (línea 5)
-
-### WhatsApp
-
-Actualiza el número de WhatsApp (formato: código país + número sin espacios):
-
-- `src/components/sections/Hero.astro` (línea 37)
-- `src/components/sections/Footer.astro` (línea 42)
-- `src/pages/contacto.astro` (línea 196)
-
-### Email de Contacto
-
-- `src/pages/contacto.astro` (línea 72)
-- `src/components/sections/Footer.astro` (línea 78)
-
-## 🚢 Despliegue
-
-### Vercel (Recomendado)
-
-1. Conecta tu repositorio en [Vercel](https://vercel.com)
-2. Auto-detecta Astro
-3. Deploy automático
-
-### Netlify
-
-1. Conecta tu repositorio
-2. Build command: `npm run build`
-3. Publish directory: `dist`
-
-### Otros proveedores
-
-El proyecto genera archivos estáticos. Compatible con:
-
-- GitHub Pages
-- Cloudflare Pages
-- AWS S3 + CloudFront
-- Cualquier hosting estático
-
-## 📈 Performance
-
-- **Build time**: ~10s
-- **Páginas generadas**: 15 (todas estáticas)
-  - 1 Home
-  - 1 Servicios overview + 8 servicios individuales
-  - 1 Portfolio
-  - 1 Precios
-  - 1 Sobre Nosotros
-  - 1 Contacto
-  - 1 Gracias
-- **Lighthouse Score**: 95+ esperado
-- **Core Web Vitals**: Optimizado
-- **SEO**: Meta tags completos en todas las páginas
-
-## 🔧 Características Implementadas
-
-### Páginas
-
-✅ **Home** (`/`) - Hero, servicios, stats, portfolio preview, pricing, testimonios
-✅ **Servicios** (`/servicios`) - Overview de 8 servicios con links a páginas individuales
-✅ **Servicios Individuales** (8 páginas):
-
-- `/servicios/desarrollo-web` - React, Astro, Next.js
-- `/servicios/backend-apis` - NestJS, Node.js, APIs REST/GraphQL
-- `/servicios/apps-moviles` - Flutter, React Native
-- `/servicios/diseno-uiux` - Figma, Adobe XD
-- `/servicios/infraestructura` - AWS, Docker, Kubernetes
-- `/servicios/ecommerce` - Shopify, WooCommerce
-- `/servicios/hosting-ssl` - Hosting + SSL + CDN
-- `/servicios/soporte-tecnico` - Mantenimiento continuo
-  ✅ **Portfolio** (`/portfolio`) - 6 proyectos con desafíos, soluciones y resultados
-  ✅ **Precios** (`/precios`) - 3 planes + add-ons + FAQ
-  ✅ **Sobre Nosotros** (`/sobre-nosotros`) - Equipo, valores, misión, visión, timeline
-  ✅ **Contacto** (`/contacto`) - Formulario funcional + info de contacto
-  ✅ **Gracias** (`/gracias`) - Thank you page con auto-redirect
-
-### Componentes
-
-✅ **Navegación** - Responsive con menú móvil
-✅ **Hero** - Animated background con CTAs
-✅ **Services** - Grid interactivo con hover
-✅ **TrustSection** - Marquee infinito de tecnologías
-✅ **Portfolio** - Cards con gradientes
-✅ **Pricing** - Comparación de planes
-✅ **Testimonials** - Reviews con ratings
-✅ **Footer** - Multi-columna con CTAs
-
-### Funcionalidad
-
-✅ Navegación entre páginas
-✅ Rutas file-based
-✅ SEO optimizado
-✅ Mobile responsive
-✅ Animaciones CSS
-✅ Formulario de contacto funcional
-✅ WhatsApp integration
-✅ Smooth scrolling
-✅ 100% contenido estático
-
-## 📝 Próximas Mejoras Opcionales
-
-- [ ] Blog con MDX
-- [ ] Búsqueda de servicios
-- [ ] Modo claro/oscuro
-- [ ] Filtros en portfolio
-- [ ] Más animaciones
-- [ ] Sitemap XML
-- [ ] RSS feed
-
-## 🤝 Contribuir
-
-Las contribuciones son bienvenidas:
-
-1. Fork el proyecto
-2. Crea una rama (`git checkout -b feature/nueva-feature`)
-3. Commit (`git commit -m 'Add: nueva feature'`)
-4. Push (`git push origin feature/nueva-feature`)
-5. Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT.
-
-## 📧 Contacto
-
-**Black Cat Development**
-
-- Email: <info@blackcat.dev>
-- WhatsApp: +54 9 11 2345-6789
-
----
-
-Desarrollado con Astro y ❤️ por Black Cat
+Propietario — Black Cat.

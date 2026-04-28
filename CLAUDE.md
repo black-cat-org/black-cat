@@ -1,178 +1,145 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Contexto e instrucciones para trabajar en este repositorio con Claude Code.
 
-## Project Overview
+## El proyecto
 
-Black Cat is a premium landing page for a web development agency built with Astro 5.16.3 as a static site generator. The site showcases services, portfolio projects, pricing plans, and team information in a dark-themed, modern design.
+Landing page corporativa de **Black Cat**, empresa de desarrollo de software con dos líneas de negocio:
 
-**Tech Stack:**
-- Astro 5.16.3 (SSG with Islands Architecture)
-- React 19 (minimal usage, only for specific interactive components)
-- TailwindCSS v4 (utility-first styling)
-- FormSubmit.co (contact form handling, no backend required)
+1. **Servicios a terceros**: desarrollo web, backend/APIs, apps móviles, diseño UI/UX, e-commerce, infraestructura, hosting & SSL, soporte técnico.
+2. **Productos propios** (líneas "Black"): Black Estate, Black POS, Black CRM, etc. Aún sin definir en detalle dentro del sitio.
 
-## Development Commands
+El sitio es 100% estático (SSG), en español, con tema dark y enfocado a captar clientes para los servicios.
+
+Branding, paleta, tipografía, tono de voz e identidad visual están en [`SITE-CONTENT.md`](./SITE-CONTENT.md).
+La estructura de páginas y los flujos de usuario están en [`SITEMAP.md`](./SITEMAP.md).
+
+## Stack
+
+- **Astro 6** (SSG, file-based routing) — `astro@^6`
+- **React 19** vía `@astrojs/react` — disponible para componentes interactivos. Actualmente **no hay componentes React** en `src/`; toda la interactividad menor (ej. menú móvil) se hace con vanilla JS en `<script>` dentro del `.astro`. Mantener React es intencional para tener la opción futura.
+- **Tailwind CSS v4** vía **`@tailwindcss/postcss`** (no `@tailwindcss/vite` — ver [Decisiones técnicas](#decisiones-técnicas)).
+- **`@floating-ui/react`** instalado para futuros componentes (popovers, tooltips, dropdowns).
+- **TypeScript strict** (`astro/tsconfigs/strict`).
+- **Node ≥ 22.12** (declarado en `engines`).
+
+## Comandos
 
 ```bash
-npm install          # Install dependencies
-npm run dev          # Start dev server (http://localhost:4321)
-npm run build        # Build for production (outputs to dist/)
-npm run preview      # Preview production build locally
+npm install        # instalar deps
+npm run dev        # dev server en localhost:4321
+npm run build      # build estático a dist/
+npm run preview    # servir el build localmente
 ```
 
-## Architecture & Key Concepts
+## Estructura
 
-### Content-First Approach
-This project follows Astro's content-first philosophy. Almost all content is defined as JavaScript/TypeScript data structures directly in `.astro` files rather than in separate CMS or markdown files.
-
-**Example:** Services, portfolio projects, pricing plans, and team members are defined as arrays of objects at the top of their respective page files:
-- Services: `src/pages/servicios.astro` (line 6)
-- Portfolio projects: `src/pages/portfolio.astro` (line 6)
-- Pricing plans: `src/components/sections/Pricing.astro` (line 3)
-
-### Page Structure Pattern
-All pages follow this consistent structure:
-```astro
----
-import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/sections/Footer.astro';
-// Import section components as needed
----
-
-<Layout title="..." description="...">
-  <Navigation />
-  <!-- Page content sections -->
-  <Footer />
-</Layout>
+```
+src/
+├── components/
+│   ├── Navigation.astro          # Navbar global + menú móvil
+│   └── sections/                 # Secciones reutilizables del home
+│       ├── Hero.astro
+│       ├── Services.astro
+│       ├── TrustSection.astro
+│       ├── Portfolio.astro
+│       ├── Pricing.astro
+│       ├── Testimonials.astro
+│       └── Footer.astro
+├── layouts/
+│   └── Layout.astro              # HTML root + SEO + Inter font + bg negro
+├── pages/                        # Routing file-based
+│   ├── index.astro               # Home (compone secciones)
+│   ├── servicios.astro           # Overview
+│   ├── servicios/                # Sub-páginas: una por servicio
+│   ├── portfolio.astro           # Overview
+│   ├── portfolio/                # Sub-páginas: case studies
+│   ├── precios.astro
+│   ├── sobre-nosotros.astro
+│   ├── contacto.astro            # Formulario (FormSubmit en el legacy)
+│   └── gracias.astro             # Post-submit
+└── styles/
+    └── global.css                # `@import "tailwindcss"` + animaciones custom
+public/                           # Favicon y estáticos
+postcss.config.mjs                # Plugin de Tailwind
+astro.config.mjs                  # Integraciones (React) y config Astro
+SITEMAP.md                        # Mapa de páginas y flujos
+SITE-CONTENT.md                   # Branding, paleta, copy, tono
 ```
 
-### File-Based Routing
-Astro uses file-based routing. Each `.astro` file in `src/pages/` becomes a route:
-- `src/pages/index.astro` → `/`
-- `src/pages/servicios.astro` → `/servicios`
-- `src/pages/servicios/desarrollo-web.astro` → `/servicios/desarrollo-web`
-- `src/pages/portfolio/ecommerce-premium.astro` → `/portfolio/ecommerce-premium`
+## Convenciones
 
-### Layout System
-- **Base Layout:** `src/layouts/Layout.astro` handles SEO meta tags, fonts (Inter from Google Fonts), and global structure
-- All pages use this layout with customizable `title` and `description` props
-- The layout enforces dark mode with `class="dark"` on the `<html>` element
+### Naming
+- Páginas y rutas en **español, kebab-case**: `sobre-nosotros.astro`, `apps-moviles.astro`, `hosting-ssl.astro`.
+- Componentes en **PascalCase**: `Hero.astro`, `Navigation.astro`.
+- Secciones del home van en `src/components/sections/`. Componentes reutilizables transversales irían directo en `src/components/`.
 
-### Component Organization
-- **Global components:** `src/components/Navigation.astro` (fixed navbar with mobile menu)
-- **Section components:** `src/components/sections/` (Hero, Services, Portfolio, Pricing, Testimonials, Footer, TrustSection)
-- Sections are composable and reusable across different pages
-- Navigation links are defined in `src/components/Navigation.astro` (line 2)
+### Estilos
+- **Solo Tailwind utilities** en clases. Las animaciones custom (`blob`, `marquee`) viven en `src/styles/global.css` dentro de `@layer utilities`.
+- **Tema dark fijo** (`<html class="dark">`). El sitio no tiene toggle light/dark.
+- **Fuente:** Inter (300–900) cargada desde Google Fonts en `Layout.astro`.
+- **Paleta operativa actual** (las clases más usadas): `bg-black`, `text-white`, `text-gray-300/400`, púrpura `purple-400/600/700`, gradientes `from-purple-400 via-pink-400 to-blue-400`.
+- La identidad de marca completa (paleta amarillo neón / púrpura eléctrico, tipografía Bebas Neue/Montserrat, etc.) está descrita en `SITE-CONTENT.md` pero **no toda está implementada en el código**. Antes de "ajustar a la identidad", consultar con el usuario qué propuesta de paleta se adopta.
 
-### Styling System
-- **TailwindCSS v4** via Vite plugin (configured in `astro.config.mjs`)
-- Global styles and custom animations in `src/styles/global.css`
-- Custom animations: `animate-blob` (floating gradient effect), `animate-marquee` (infinite scroll)
-- Color scheme: Purple (#8B5CF6) and Pink (#EC4899) accents on black/gray dark backgrounds
-- Font: Inter (loaded from Google Fonts)
+### Layout y SEO
+- Toda página usa `<Layout title=... description=...>`. El `Layout.astro` ya incluye Open Graph, viewport, charset, favicon SVG y meta description.
+- Idioma del HTML: `lang="es"`.
 
-### Data Structure Patterns
+### Interactividad
+- Preferir Astro + vanilla JS en `<script>` para interacciones simples (ya hay precedente con el menú móvil).
+- Para algo que justifique React (estado complejo, librerías React-only como floating-ui), crear `.tsx` en `src/components/` y usar directivas `client:load`/`client:idle`/`client:visible` según convenga.
 
-**Portfolio Projects** have this shape:
-```typescript
-{
-  title: string,
-  category: string,
-  description: string,
-  challenge: string,
-  solution: string,
-  results: string[],
-  tech: string[],
-  gradient: string,  // TailwindCSS gradient classes
-  year: string,
-  slug: string       // Used for individual project pages
-}
+## Decisiones técnicas
+
+### Tailwind: PostCSS, no plugin de Vite
+Usamos `@tailwindcss/postcss` en lugar de `@tailwindcss/vite` porque al combinarlo con el rolldown-vite que ships con Astro 6 (`vite@8` + `rolldown@1.0.0-rc`), el plugin de Vite falla con:
+
+```
+[@tailwindcss/vite:generate:build] Missing field `tsconfigPaths` on BindingViteResolvePluginConfig.resolveOptions
 ```
 
-**Services** have this shape:
-```typescript
-{
-  icon: string,      // Emoji
-  title: string,
-  slug: string,      // Used for individual service pages
-  description: string,
-  fullDescription: string,
-  technologies: string[],
-  features: string[]
-}
-```
+El setup actual:
+- `postcss.config.mjs` registra `@tailwindcss/postcss` como plugin.
+- `src/styles/global.css` hace `@import "tailwindcss"`.
+- `astro.config.mjs` **no** carga ningún plugin de Tailwind.
 
-## Key Features & Implementation Notes
+Si en el futuro se actualiza `@tailwindcss/vite` o `rolldown-vite` y se confirma que funcionan juntos, se puede migrar de vuelta al plugin de Vite (más performante para HMR).
 
-### Contact Form
-- Uses FormSubmit.co (external service, no backend needed)
-- Action URL in `src/pages/contacto.astro` (line 72) must be updated with actual email
-- Honeypot field `_gotcha` for spam protection
-- Redirects to `/gracias` on success
-- FormSubmit sends confirmation email on first submission
+### React presente pero sin uso
+Está instalado y configurado (`@astrojs/react` + `tsconfig.compilerOptions.jsx="react-jsx"`). Cero componentes React hoy. Si se trae una feature que lo requiera, usar `astro add react` solo para regenerar config no — ya está hecho; basta crear el `.tsx`.
 
-### WhatsApp Integration
-WhatsApp contact links appear in multiple locations. To update the phone number, modify:
-- `src/components/sections/Hero.astro` (line 37)
-- `src/components/sections/Footer.astro` (line 42)
-- `src/pages/contacto.astro` (line 196)
+## Workflow con el usuario
 
-Format: `https://wa.me/[country_code][number]` (no spaces, hyphens, or parentheses)
+El usuario sigue el patrón **Diagnose → Propose → Wait → Implement**:
 
-### Navigation
-- Desktop: Horizontal menu with active state highlighting
-- Mobile: Hamburger menu with slide-down panel (JavaScript toggle in `Navigation.astro` script tag)
-- Current page detection via `Astro.url.pathname`
-- CTA button ("Comenzar Proyecto") links to `/contacto`
+1. **Diagnose**: identificar la causa raíz y explicarla.
+2. **Propose**: presentar la solución (o opciones) con razonamiento corto.
+3. **Wait**: **no** implementar hasta que el usuario apruebe explícitamente.
+4. **Implement**: solo después del OK.
 
-### SEO Strategy
-- Every page has custom `title` and `description` passed to `Layout.astro`
-- Open Graph tags for social sharing in base layout
-- Spanish language (`lang="es"`)
-- Keywords meta tag in base layout
-- Smooth scrolling enabled globally in `global.css`
+Reglas concretas:
+- Si hay varias formas válidas, **preguntar** cuál usar.
+- No tomar decisiones de arquitectura, no cambiar APIs de componentes, no crear archivos nuevos ni reestructurar sin permiso.
+- Un fix simple se queda simple — no agregar refactors "de paso".
 
-### Static Site Generation
-- All pages are pre-rendered at build time
-- No client-side routing or hydration except for mobile menu toggle
-- React integration exists but is barely used (keep it minimal per Astro best practices)
+## Workflow de Git
 
-## Content Editing Guidelines
+- **Remote**: `origin = https://github.com/black-cat-org/black-cat.git`
+- **Rama por tarea** desde `main`. Prefijos:
+  - `feat/` — nueva funcionalidad
+  - `fix/` — bug
+  - `chore/` — mantenimiento, deps, config
+  - `docs/` — documentación
+  - `refactor/` — sin cambios de comportamiento
+- **Commits convencionales en español**: `feat: ...`, `fix: ...`, `chore: ...`. Cuerpo opcional con bullets cuando el "qué" merece detalle.
+- **Staging selectivo**: usar `git add <files>` por nombre. **Nunca `git add -A` o `git add .`** para evitar sumar archivos sensibles.
+- **No push automático**. Claude crea commits locales y avisa al usuario para que él haga `git push` (o lo autorice explícitamente).
+- **No abrir PRs** sin confirmación previa del usuario.
+- **Nunca**: `--force`, `--no-verify`, `reset --hard` sobre trabajo no respaldado, ni sobreescribir cambios sin commit.
 
-### Adding a New Service
-1. Add service object to array in `src/pages/servicios.astro` (line 6)
-2. Create new page: `src/pages/servicios/[slug].astro`
-3. Use existing service pages as templates (e.g., `desarrollo-web.astro`)
-4. Update navigation if service should appear in main nav
+## Cosas a tener en mente
 
-### Adding a New Portfolio Project
-1. Add project object to array in `src/pages/portfolio.astro` (line 6)
-2. Create detail page: `src/pages/portfolio/[slug].astro`
-3. Include sections: challenge, solution, results, tech stack, testimonial, image gallery
-4. Use existing portfolio pages as templates (e.g., `ecommerce-premium.astro`)
-
-### Modifying Pricing Plans
-- Edit the `plans` array in `src/components/sections/Pricing.astro` (line 3)
-- For add-ons/extras, edit `src/pages/precios.astro` (line 31)
-
-### Updating Team Members
-- Edit `src/pages/sobre-nosotros.astro` (line 6) in the `team` array
-
-## Important Constraints
-
-- **Minimal JavaScript:** Astro emphasizes zero JS by default. Only use client-side JS when absolutely necessary
-- **No React Islands:** Currently React is integrated but not actively used. Prefer vanilla Astro components
-- **Spanish Content:** All user-facing text is in Spanish
-- **Dark Mode Only:** No light mode toggle exists. Design assumes dark backgrounds
-- **Static Output:** This is a static site. No server-side rendering or API routes
-
-## Deployment
-
-The project builds to static HTML/CSS/JS files in `dist/`. Deploy to:
-- Vercel (recommended, auto-detects Astro)
-- Netlify (build: `npm run build`, publish: `dist`)
-- Cloudflare Pages, GitHub Pages, or any static host
-
-Build output: All pages pre-rendered at build time.
+- El `.gitignore` incluye `.env`, `.env.production`, `.env.local`, `dist/`, `.astro/`, `node_modules/`. No commitear nada de eso.
+- Los favicons viven en `public/` (`favicon.svg` referenciado por `Layout.astro`, `favicon.ico` como fallback).
+- El formulario de contacto en el código legacy usaba **FormSubmit.co** (sin backend). Si se reactivó, revisar `src/pages/contacto.astro` por la `action` del form.
+- Antes de instalar paquetes nuevos, verificar peer-dep compatibility con Astro 6 + Vite 8 + rolldown — varios plugins del ecosistema todavía no la soportan en la última versión.
