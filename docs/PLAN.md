@@ -34,9 +34,25 @@ Decidir y aplicar la identidad real (paleta, tipografía, logo). Hoy el sitio us
 
 ### 0.2. Configuración real (datos del negocio)
 
-Reemplazar todos los placeholders del código legacy.
+Centralizar datos del negocio en `src/config/site.ts` (CMS-ready). Reemplazar placeholders hardcoded del template. Detalle: [`./datos-negocio.md`](./datos-negocio.md).
 
-- [ ] (pendiente desglose)
+#### Configuración central
+- [ ] Crear `src/config/site.ts` con `siteConfig` tipado (`as const` + types exportados)
+
+#### Consumidores de `siteConfig`
+- [ ] `src/layouts/Layout.astro`: meta tags y title pattern usan `siteConfig.name` / `.description` / `.titlePattern`
+- [ ] `src/components/Navigation.astro`: logo-text usa `siteConfig.name`
+- [ ] `src/components/sections/Hero.astro`: WhatsApp link consume `siteConfig.contact.whatsapp.number` + `.message`
+- [ ] `src/components/sections/Footer.astro`: email, WhatsApp, ubicación, horario, redes (loop sobre `siteConfig.social` filtrando `null`)
+- [ ] `src/pages/contacto.astro`: bloque info + `<form action>` consumen `siteConfig` y FormSubmit (`_subject`, `_next=/gracias`, `_template=table`, `_captcha=false`)
+- [ ] `src/pages/sobre-nosotros.astro`: `foundedYear`, `location`, audiencias
+
+#### Iconografía relacionada (just-in-time de §0.1 firme)
+- [ ] Hero: reemplazar SVG hardcoded de WhatsApp por icono Lucide outline
+- [ ] Footer: SVGs outline Lucide para Instagram, LinkedIn, GitHub, X, YouTube, TikTok
+
+#### Auditoría final
+- [ ] Grep cross-codebase de strings legacy (`info@blackcat.dev`, `+54 9 11`, "Buenos Aires") y reemplazar/eliminar todo lo restante
 
 ### 0.3. Deploy + dominio
 
