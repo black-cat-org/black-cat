@@ -18,7 +18,7 @@ La estructura de páginas y los flujos de usuario están en [`SITEMAP.md`](./SIT
 
 - **Astro 6** (SSG, file-based routing) — `astro@^6`
 - **React 19** vía `@astrojs/react` — disponible para componentes interactivos. Actualmente **no hay componentes React** en `src/`; toda la interactividad menor (ej. menú móvil) se hace con vanilla JS en `<script>` dentro del `.astro`. Mantener React es intencional para tener la opción futura.
-- **Tailwind CSS v4** vía **`@tailwindcss/postcss`** (no `@tailwindcss/vite` — ver [Decisiones técnicas](#decisiones-técnicas)).
+- **Tailwind CSS v4** vía **`@tailwindcss/vite`** (ruta oficial recomendada por Astro). Ver [Decisiones técnicas](#decisiones-técnicas) por un gotcha conocido.
 - **`@floating-ui/react`** instalado para futuros componentes (popovers, tooltips, dropdowns).
 - **TypeScript strict** (`astro/tsconfigs/strict`).
 - **Node ≥ 22.12** (declarado en `engines`).
@@ -61,8 +61,7 @@ src/
 └── styles/
     └── global.css                # `@import "tailwindcss"` + animaciones custom
 public/                           # Favicon y estáticos
-postcss.config.mjs                # Plugin de Tailwind
-astro.config.mjs                  # Integraciones (React) y config Astro
+astro.config.mjs                  # Integraciones (React) + plugin de Vite (Tailwind)
 SITEMAP.md                        # Mapa de páginas y flujos
 SITE-CONTENT.md                   # Branding, paleta, copy, tono
 ```
@@ -91,22 +90,35 @@ SITE-CONTENT.md                   # Branding, paleta, copy, tono
 
 ## Decisiones técnicas
 
-### Tailwind: PostCSS, no plugin de Vite
-Usamos `@tailwindcss/postcss` en lugar de `@tailwindcss/vite` porque al combinarlo con el rolldown-vite que ships con Astro 6 (`vite@8` + `rolldown@1.0.0-rc`), el plugin de Vite falla con:
+### Instalación de integraciones: usar `npx astro add ...`
+Para `@astrojs/react` y `@tailwindcss/vite` el setup se hizo con la CLI oficial de Astro:
+
+```bash
+npx astro add react --yes
+npx astro add tailwind --yes
+```
+
+**No instalar manualmente** con `npm install` los paquetes oficiales que tienen comando `astro add`. La CLI hace dos cosas extra que importan:
+- Ajusta `astro.config.mjs` y `tsconfig.json` con la sintaxis recomendada de la versión actual.
+- Resuelve las versiones de dependencias transitivas (notoriamente `vite`) de forma consistente con la versión de Astro instalada.
+
+En este proyecto, intentar el camino manual hizo que npm dedupeara `vite` a la última (`8.x`) en vez de `^7.3.2` que es lo que `astro@6` declara como dep directa, y eso rompe `@tailwindcss/vite` con:
 
 ```
 [@tailwindcss/vite:generate:build] Missing field `tsconfigPaths` on BindingViteResolvePluginConfig.resolveOptions
 ```
 
-El setup actual:
-- `postcss.config.mjs` registra `@tailwindcss/postcss` como plugin.
-- `src/styles/global.css` hace `@import "tailwindcss"`.
-- `astro.config.mjs` **no** carga ningún plugin de Tailwind.
-
-Si en el futuro se actualiza `@tailwindcss/vite` o `rolldown-vite` y se confirma que funcionan juntos, se puede migrar de vuelta al plugin de Vite (más performante para HMR).
+**Si vuelve a aparecer ese error** (por ejemplo tras actualizar otra dep que tire vite 8):
+1. Verificar con `npm ls vite` que todos los nodos resuelvan a `vite@7.x`.
+2. Si alguno está en `8.x`, agregar a `package.json`:
+   ```json
+   "overrides": { "vite": "^7" }
+   ```
+   y `rm -rf node_modules package-lock.json && npm install`.
+3. Cuando Astro suba su dep directa a Vite 8 / rolldown-vite, este override se elimina.
 
 ### React presente pero sin uso
-Está instalado y configurado (`@astrojs/react` + `tsconfig.compilerOptions.jsx="react-jsx"`). Cero componentes React hoy. Si se trae una feature que lo requiera, usar `astro add react` solo para regenerar config no — ya está hecho; basta crear el `.tsx`.
+Está instalado y configurado (`@astrojs/react` + `tsconfig.compilerOptions.jsx="react-jsx"`). Cero componentes React hoy. Si se trae una feature que lo requiera, basta crear un `.tsx` en `src/components/` y montarlo con `client:load`/`client:idle`/`client:visible`.
 
 ## Workflow con el usuario
 
@@ -140,6 +152,6 @@ Reglas concretas:
 ## Cosas a tener en mente
 
 - El `.gitignore` incluye `.env`, `.env.production`, `.env.local`, `dist/`, `.astro/`, `node_modules/`. No commitear nada de eso.
-- Los favicons viven en `public/` (`favicon.svg` referenciado por `Layout.astro`, `favicon.ico` como fallback).
+- El favicon vive en `public/favicon.svg` y lo referencia `Layout.astro`.
 - El formulario de contacto en el código legacy usaba **FormSubmit.co** (sin backend). Si se reactivó, revisar `src/pages/contacto.astro` por la `action` del form.
-- Antes de instalar paquetes nuevos, verificar peer-dep compatibility con Astro 6 + Vite 8 + rolldown — varios plugins del ecosistema todavía no la soportan en la última versión.
+- Antes de instalar paquetes nuevos del ecosistema Astro, preferir `npx astro add ...` cuando exista — evita problemas de resolución de deps transitivas (ver [Decisiones técnicas](#decisiones-técnicas)).
