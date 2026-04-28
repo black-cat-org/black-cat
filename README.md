@@ -55,12 +55,12 @@ src/
 └── styles/
     └── global.css                # Tailwind + animaciones custom
 public/                           # Assets estáticos
-postcss.config.mjs                # Plugin de Tailwind
-astro.config.mjs                  # Config de Astro
+astro.config.mjs                  # Config de Astro (React + plugin de Vite de Tailwind)
+docs/
+└── PLAN.md                       # Backlog de pulido sección por sección
 ```
 
-Detalle de páginas y flujos de usuario en [`SITEMAP.md`](./SITEMAP.md).
-Branding, paleta, tipografía y tono de comunicación en [`SITE-CONTENT.md`](./SITE-CONTENT.md).
+El backlog vivo de qué falta pulir (UI, contenido, responsive, accesibilidad por página) está en [`docs/PLAN.md`](./docs/PLAN.md).
 
 ## Convenciones rápidas
 

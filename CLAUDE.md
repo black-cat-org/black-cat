@@ -11,8 +11,7 @@ Landing page corporativa de **Black Cat**, empresa de desarrollo de software con
 
 El sitio es 100% estático (SSG), en español, con tema dark y enfocado a captar clientes para los servicios.
 
-Branding, paleta, tipografía, tono de voz e identidad visual están en [`SITE-CONTENT.md`](./SITE-CONTENT.md).
-La estructura de páginas y los flujos de usuario están en [`SITEMAP.md`](./SITEMAP.md).
+El backlog de pulido (UI, contenido, responsive, accesibilidad, etc.) sección por sección vive en [`docs/PLAN.md`](./docs/PLAN.md). Es la fuente de la verdad de lo que falta hacer.
 
 ## Stack
 
@@ -62,8 +61,8 @@ src/
     └── global.css                # `@import "tailwindcss"` + animaciones custom
 public/                           # Favicon y estáticos
 astro.config.mjs                  # Integraciones (React) + plugin de Vite (Tailwind)
-SITEMAP.md                        # Mapa de páginas y flujos
-SITE-CONTENT.md                   # Branding, paleta, copy, tono
+docs/
+└── PLAN.md                       # Backlog de pulido sección por sección
 ```
 
 ## Convenciones
@@ -77,8 +76,7 @@ SITE-CONTENT.md                   # Branding, paleta, copy, tono
 - **Solo Tailwind utilities** en clases. Las animaciones custom (`blob`, `marquee`) viven en `src/styles/global.css` dentro de `@layer utilities`.
 - **Tema dark fijo** (`<html class="dark">`). El sitio no tiene toggle light/dark.
 - **Fuente:** Inter (300–900) cargada desde Google Fonts en `Layout.astro`.
-- **Paleta operativa actual** (las clases más usadas): `bg-black`, `text-white`, `text-gray-300/400`, púrpura `purple-400/600/700`, gradientes `from-purple-400 via-pink-400 to-blue-400`.
-- La identidad de marca completa (paleta amarillo neón / púrpura eléctrico, tipografía Bebas Neue/Montserrat, etc.) está descrita en `SITE-CONTENT.md` pero **no toda está implementada en el código**. Antes de "ajustar a la identidad", consultar con el usuario qué propuesta de paleta se adopta.
+- **Paleta operativa actual** (las clases más usadas): `bg-black`, `text-white`, `text-gray-300/400`, púrpura `purple-400/600/700`, gradientes `from-purple-400 via-pink-400 to-blue-400`. Es la paleta heredada del template; la identidad real (logo, paleta, tipografía corporativa) todavía está por definir — ver `docs/PLAN.md` sección 0.1.
 
 ### Layout y SEO
 - Toda página usa `<Layout title=... description=...>`. El `Layout.astro` ya incluye Open Graph, viewport, charset, favicon SVG y meta description.
