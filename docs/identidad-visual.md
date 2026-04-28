@@ -2,9 +2,11 @@
 
 Decisiones de identidad acordadas durante la planeación de la sección 0.1 del [`PLAN.md`](./PLAN.md).
 
-> **Estado**: en planeación.
-> ✅ Posicionamiento, vibra, paleta base, logo concept, iconografía, animaciones, layout density.
-> ⏳ Pendientes: tagline final, tipografía (revisión al final), light mode (iteración final).
+> **Estado**: planeación parcial — paleta y tipografía **diferidas al final** del pulido visual.
+> ✅ Posicionamiento, tono, vibra, motion language, logo concept, iconografía, layout density, animaciones.
+> ⏸️ Diferidas (decisión post-pulido de UI/contenido): paleta de colores, tipografía, light mode + switch.
+>
+> **Razón de diferir paleta + fuentes**: con todo el contenido y el layout funcionando, será más fácil evaluar qué paleta/fuentes le quedan mejor al sitio que decidirlo en abstracto. Mientras tanto, se mantienen los colores actuales del template (`purple-400`/`600`/`700`, `pink-400`, `blue-400`, gradiente `from-purple-400 via-pink-400 to-blue-400`) y la fuente Inter como **placeholders intencionales**.
 
 ---
 
@@ -45,64 +47,36 @@ Modo:
 
 ## 3. Paleta
 
-Negro como fondo principal · multicolor neón de acento (rosa + turquesa + violeta de bridge).
+⏸️ **Diferida al final del pulido visual.**
 
-**Tres variantes propuestas** para evaluar visualmente. Maquetadas en [`paleta-preview.html`](./paleta-preview.html) (abrir con `open docs/paleta-preview.html`).
+Mientras tanto, se mantienen los **colores actuales del template** como placeholder:
 
-### Variante A — Neon Balanced (propuesta inicial)
+- Fondo: `bg-black` · superficies oscuras heredadas del template.
+- Acentos: `purple-400` / `purple-600` / `purple-700` · `pink-400` · `blue-400`.
+- Gradiente principal: `bg-linear-to-r from-purple-400 via-pink-400 to-blue-400`.
+- Texto primario: `text-white` · secundario: `text-gray-300` / `text-gray-400`.
 
-| Token | Hex | Uso |
-|---|---|---|
-| `--bg` | `#000000` | Fondo principal |
-| `--surface` | `#0A0A0B` | Cards / superficies elevadas |
-| `--border` | `#27272A` | Bordes sutiles |
-| `--text` | `#FAFAFA` | Texto primario |
-| `--text-muted` | `#A1A1AA` | Texto secundario |
-| `--accent-pink` | `#FF2D95` | CTAs primarios, énfasis |
-| `--accent-cyan` | `#00E5C5` | CTAs secundarios, badges |
-| `--accent-violet` | `#B026FF` | Bridge en gradientes |
+Estos colores **no representan la identidad final** — son placeholders intencionales. La decisión se toma cuando todo el contenido y layout estén listos, evaluando con páginas reales en lugar de mockups abstractos.
 
-### Variante B — Hyper Neon (más brillante, cyberpunk)
+Las tres variantes exploradas (Neon Balanced, Hyper Neon, Premium Muted) quedan documentadas en [`paleta-preview.html`](./paleta-preview.html) como punto de partida para la decisión final.
 
-| Token | Hex |
-|---|---|
-| `--accent-pink` | `#FF1493` |
-| `--accent-cyan` | `#00FFE0` |
-| `--accent-violet` | `#C026FF` |
-| `--text-muted` | `#B4B4BB` |
+### Sistema de theming a futuro (cuando se decida la paleta)
 
-(resto igual a A: `#000000` / `#0F0F12` / `#2D2D34`)
-
-### Variante C — Premium Muted (más apagado, sofisticado)
-
-| Token | Hex |
-|---|---|
-| `--bg` | `#0A0A0C` |
-| `--surface` | `#14141A` |
-| `--border` | `#2A2A33` |
-| `--text` | `#F4F4F5` |
-| `--text-muted` | `#94949C` |
-| `--accent-pink` | `#EC4899` |
-| `--accent-cyan` | `#2DD4BF` |
-| `--accent-violet` | `#A78BFA` |
-
-### Sistema de theming
-
-Implementación independiente de la variante elegida:
+Independiente de la variante elegida, el sistema será:
 
 - **CSS custom properties** en `:root` dentro de `src/styles/global.css`.
-- **Tailwind v4 `@theme`** para exponer los tokens como utilities (`bg-bg`, `text-muted`, `accent-pink`, etc.).
-- **Light mode**: mismo set de tokens con valores invertidos en `:root[data-theme="light"]` (o `prefers-color-scheme: light`). Switch manual + auto al final.
-- **Gradiente hero** parametrizado: `linear-gradient(135deg, var(--accent-pink), var(--accent-violet), var(--accent-cyan))`.
-- **Glow effects** (hover, neon shadow): en variables `--accent-pink-glow` con alpha — la variante B usa alpha más alto.
+- **Tailwind v4 `@theme`** para exponer los tokens como utilities.
+- **Light mode**: tokens equivalentes en `:root[data-theme="light"]` + switch manual + `prefers-color-scheme: light` automático.
+- **Gradiente principal** parametrizado en variables.
+- **Glow effects** en variables con alpha.
 
 ---
 
 ## 4. Tipografía
 
-**Pendiente** — revisión final al cerrar el pulido visual con todas las páginas en pie.
+⏸️ **Diferida al final del pulido visual** (junto con la paleta).
 
-Por ahora se mantiene Inter (lo actual). Candidatas a explorar al final:
+Por ahora se mantiene **Inter** (lo actual) como placeholder. Candidatas a explorar al final:
 
 | Fuente | Carácter | Costo |
 |---|---|---|
@@ -187,20 +161,13 @@ Lista inicial de íconos a reemplazar (los emojis del template):
 
 ---
 
-## 9. Pendientes a cerrar antes de implementar
+## 9. Pendientes — diferidos al final
 
-### 9.1. Tagline ✅
+| Decisión | Estado |
+|---|---|
+| 9.1. Tagline | ✅ Resuelto — copy actual del Hero. Se podrá pulir al trabajar sección 2.1 del PLAN. |
+| 9.2. Paleta de colores | ⏸️ Diferida al final del pulido visual. Mientras tanto, colores actuales del template como placeholder. |
+| 9.3. Tipografía | ⏸️ Diferida al final. Mientras tanto, Inter como placeholder. |
+| 9.4. Light mode + switch | ⏸️ Diferido al final. |
 
-Resuelto: se mantiene el copy actual del Hero (heading "Desarrollo Web de Alto Impacto" + descripción con stack). Se podrá pulir al trabajar la sección 2.1 del PLAN.
-
-### 9.2. Variante de paleta (A / B / C)
-
-Pendiente — evaluar visualmente abriendo [`paleta-preview.html`](./paleta-preview.html) en el browser. Decidir A, B o C, o pedir hex specifics ajustados.
-
-### 9.3. Tipografía
-
-Diferida a iteración final. No bloquea.
-
-### 9.4. Light mode
-
-Diferida a iteración final. No bloquea.
+**Lo que sí queda firme** (para implementar cuando avancemos): tono de voz, vibra editorial (Stripe + Tellet base), motion language (impacto Lusion ajustado), logo concept, iconografía (Lucide outline, cero emojis), layout density (aireado, `max-w-7xl`, `py-20 lg:py-28`, `rounded-lg`).
