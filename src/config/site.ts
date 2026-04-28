@@ -2,8 +2,12 @@
 //
 // Convenciones:
 // - Placeholders marcados con TODO al lado.
-// - `null` = "todavía no tenemos" → componentes renderizan condicional.
-// - No inventar datos: si no hay valor real, queda placeholder o null.
+// - URLs/handles placeholder son **ejemplos visibles** — todas las redes
+//   activas se renderizan en el sitio para evaluar el layout. Reemplazar
+//   por handles reales cuando estén disponibles.
+// - `null` = "no aplica / no se usa" → componentes renderizan condicional.
+//   (Hoy ninguna red usa `null`; si se decide quitar una red, ponerla a `null`.)
+// - No inventar datos sensibles (email/teléfono/dominio): mantener placeholder.
 
 export const siteConfig = {
   name: 'Black Cat',
@@ -38,12 +42,12 @@ export const siteConfig = {
   languages: ['es'],
 
   social: {
-    instagram: null, // TODO: 'https://instagram.com/...'
-    linkedin: null, // TODO: 'https://linkedin.com/company/...'
-    github: null, // TODO: 'https://github.com/...'
-    twitter: null, // TODO: 'https://x.com/...'
-    youtube: null, // TODO: 'https://youtube.com/@...'
-    tiktok: null, // TODO: 'https://tiktok.com/@...'
+    instagram: 'https://instagram.com/blackcat.bo', // TODO: handle real
+    linkedin: 'https://linkedin.com/company/blackcat-bo', // TODO: URL real
+    github: 'https://github.com/blackcat-org', // TODO: org real
+    twitter: 'https://x.com/blackcat_bo', // TODO: handle real
+    youtube: 'https://youtube.com/@blackcat-bo', // TODO: canal real
+    tiktok: 'https://tiktok.com/@blackcat.bo', // TODO: handle real
   },
 
   form: {

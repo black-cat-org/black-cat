@@ -17,7 +17,7 @@ Decisiones de la sección 0.2 del [`PLAN.md`](./PLAN.md). Define la fuente de ve
 | Razón social | no aplica | confirmado |
 | NIT / Tax ID | no se muestra | confirmado |
 | Año de fundación | 2026 | confirmado |
-| Redes activas | Instagram, LinkedIn, GitHub, X, YouTube, TikTok | confirmadas (handles **placeholder**) |
+| Redes activas | Instagram, LinkedIn, GitHub, X, YouTube, TikTok | confirmadas (URLs **placeholder visibles** — todas se muestran en el footer aunque sean de ejemplo, ver §2) |
 | Backend del form | **FormSubmit** ahora → **Resend** después | confirmado |
 | Email destino del form | mismo email principal | **placeholder** |
 | Title pattern | `Black Cat \| Desarrollo de Software` | confirmado |
@@ -103,14 +103,15 @@ export type SiteConfig = typeof siteConfig;
 ### Convenciones
 
 - **Placeholders se marcan con `// TODO:`** al lado del valor que sea ficticio.
-- **`null` = "todavía no tenemos"**: el componente consumidor renderiza condicionalmente.
+- **Redes sociales: placeholders visibles**. Todas las redes activas se renderizan en el sitio aunque sus URLs sean de ejemplo. Esto permite evaluar el layout del footer en lugar de mostrarlo con menos íconos de los que tendrá. Cuando lleguen los handles reales, se sobreescriben los strings en este archivo.
+- **`null` = "no aplica / no se usa"**: el componente consumidor renderiza condicionalmente. Reservado para casos donde decidimos no usar la red. Si en el futuro decidimos no tener TikTok, se cambia `tiktok: 'https://tiktok.com/...'` por `tiktok: null` y el icono desaparece automáticamente.
   ```astro
   {siteConfig.social.instagram && (
     <a href={siteConfig.social.instagram}>Instagram</a>
   )}
   ```
 - **`as const` + types exportados** para inmutabilidad y autocompletado.
-- **No inventar datos reales**: si no hay valor, queda placeholder o `null`.
+- **No inventar datos sensibles**: email, teléfono, dominio quedan como placeholders TODO. Las URLs sociales sí se pueden inventar para evaluar el layout, dado que son strings públicos no contractuales.
 
 ### Footprint en código
 
