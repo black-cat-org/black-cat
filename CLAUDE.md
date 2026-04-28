@@ -147,6 +147,35 @@ Reglas concretas:
 - **No abrir PRs** sin confirmación previa del usuario.
 - **Nunca**: `--force`, `--no-verify`, `reset --hard` sobre trabajo no respaldado, ni sobreescribir cambios sin commit.
 
+## Setup de Claude Code
+
+### Project-local (committed en `.claude/`)
+Ya viene en el repo, se carga automáticamente al abrir el proyecto:
+
+- **Hooks** (`.claude/settings.json` + `.claude/hooks/`):
+  - `astro-check.sh` — corre `astro check` tras editar `.astro` / `.ts` / `.tsx` y reporta errores de tipo.
+  - `block-package-lock.sh` — bloquea edits a `package-lock.json` (debe regenerarse con `npm install`).
+- **Subagents** (`.claude/agents/`):
+  - `page-polisher` — auditoría página por página contra los ejes de `docs/PLAN.md`.
+  - `service-page-consistency` — cruza las sub-páginas de `/servicios/*` y reporta drift.
+- **Skills** (`.claude/skills/`):
+  - `new-service-page` — genera una nueva página de servicio siguiendo el patrón existente.
+  - `plan-progress` — reporta progreso del backlog `docs/PLAN.md`.
+
+### Skills globales recomendadas (instalación opcional)
+Estas son skills genéricas del marketplace [skills.sh](https://skills.sh/) que **no viven en el repo** pero son altamente útiles para trabajar sobre Black Cat (a11y, performance, SEO, Astro patterns, Tailwind design system). Se instalan en `~/.claude/skills/` y aplican a todos tus proyectos:
+
+```bash
+npx skills add addyosmani/web-quality-skills@accessibility -g -y
+npx skills add addyosmani/web-quality-skills@seo -g -y
+npx skills add addyosmani/web-quality-skills@performance -g -y
+npx skills add addyosmani/web-quality-skills@core-web-vitals -g -y
+npx skills add astrolicious/agent-skills@astro -g -y
+npx skills add wshobson/agents@tailwind-design-system -g -y
+```
+
+Mantenerlas globales (no committeadas) porque son **agent capabilities genéricas**, no artefactos del proyecto. Para gestión: `npx skills check` (ver updates), `npx skills update` (actualizar), `npx skills remove <nombre>` (desinstalar).
+
 ## Cosas a tener en mente
 
 - El `.gitignore` incluye `.env`, `.env.production`, `.env.local`, `dist/`, `.astro/`, `node_modules/`. No commitear nada de eso.
