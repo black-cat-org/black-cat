@@ -101,28 +101,15 @@ const descWords = HERO_COPY.description.split(' ');
     to { opacity: 1; }
   }
 
-  /* CTA primario: gradiente diagonal violet → purple. */
+  /* CTA primario: gradiente diagonal violet → purple, hover ilumina el mismo gradiente. */
   .hero-mix-cta-primary {
     background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 55%, #6d28d9 100%);
     box-shadow: 0 4px 24px rgba(139, 92, 246, 0.4);
-    transition: box-shadow 0.4s ease;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
   }
   .hero-mix-cta-primary:hover {
-    box-shadow: 0 6px 32px rgba(139, 92, 246, 0.55);
-  }
-  /* Sweep del hover: gradient del copy (purple → pink → blue). */
-  .hero-mix-cta-primary::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, #c084fc, #f472b6, #60a5fa);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    z-index: 0;
-  }
-  .hero-mix-cta-primary:hover::after {
-    transform: scaleX(1);
+    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 55%, #7c3aed 100%);
+    box-shadow: 0 6px 32px rgba(139, 92, 246, 0.6);
   }
 
   /* CTA secundario: borde y texto purple coherentes. */
@@ -157,7 +144,6 @@ const descWords = HERO_COPY.description.split(' ');
       animation: none;
       transition: none;
     }
-    .hero-mix-cta-primary::after { display: none; }
   }
 </style>
 
