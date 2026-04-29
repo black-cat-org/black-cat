@@ -15,6 +15,6 @@ export const HERO_COPY = {
   stats: [
     { value: '100+', label: 'Proyectos' }, // TODO: métrica real
     { value: '98%', label: 'Satisfacción' }, // TODO: métrica real
-    { value: '24/7', label: 'Soporte' }, // TODO: métrica real
+    { value: '8', label: 'Servicios' }, // real (8 servicios listados en /servicios)
   ],
 } as const;
