@@ -42,6 +42,13 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob,
+  .animate-marquee {
+    animation: none;
+  }
+}
+
 * {
   scroll-behavior: smooth;
 }

@@ -134,6 +134,11 @@ const descWords = HERO_COPY.description.split(' ');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reduce) {
+    // AbortController + astro:before-swap para limpieza ante view transitions futuras.
+    const controller = new AbortController();
+    const { signal } = controller;
+    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
+
     // 1) Parallax suave en blobs (RAF + scroll).
     const parallaxEls = document.querySelectorAll<HTMLElement>('[data-parallax]');
     let ticking = false;
@@ -152,7 +157,7 @@ const descWords = HERO_COPY.description.split(' ');
         requestAnimationFrame(updateParallax);
         ticking = true;
       }
-    }, { passive: true });
+    }, { passive: true, signal });
 
     // 2) Magnetic hover en CTAs (mousemove con max-distance).
     const magneticEls = document.querySelectorAll<HTMLElement>('[data-magnetic]');
@@ -166,10 +171,10 @@ const descWords = HERO_COPY.description.split(' ');
         const dx = Math.max(-MAX_DISTANCE, Math.min(MAX_DISTANCE, x * 0.25));
         const dy = Math.max(-MAX_DISTANCE, Math.min(MAX_DISTANCE, y * 0.25));
         el.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
-      });
+      }, { signal });
       el.addEventListener('mouseleave', () => {
         el.style.transform = 'translate3d(0, 0, 0)';
-      });
+      }, { signal });
     });
 
     // 3) Stats fade-up al entrar al viewport.
@@ -184,6 +189,7 @@ const descWords = HERO_COPY.description.split(' ');
     }, { threshold: 0.5 });
 
     stats.forEach((s) => io.observe(s));
+    signal.addEventListener('abort', () => io.disconnect(), { once: true });
   } else {
     // Sin animación: dejar todo visible.
     document.querySelectorAll('.hero-c-stat').forEach((s) => s.classList.add('is-visible'));

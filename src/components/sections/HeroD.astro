@@ -7,90 +7,90 @@ const line2Words = HERO_COPY.title.line2Gradient.split(' ');
 const descWords = HERO_COPY.description.split(' ');
 ---
 
-<!-- Hero D — Full Lusion. C + GSAP ScrollTrigger (pin + scrub + scale/opacity controlados por scroll). ~38 KB JS. -->
-<!-- Wrapper externo da el espacio scrollable necesario para el ScrollTrigger pin. -->
-<div class="hero-d-wrapper relative" style="height: 200dvh;">
-  <section class="hero-d-section sticky top-0 min-h-dvh flex items-center justify-center overflow-hidden pt-16">
-    <div class="absolute inset-0 bg-linear-to-br from-purple-900/20 via-black to-blue-900/20" aria-hidden="true"></div>
+<!-- Hero D — Full Lusion. GSAP ScrollTrigger maneja el pin (sin position:sticky, evita conflictos con iOS Safari). ~38 KB JS. -->
+<section class="hero-d-section relative min-h-dvh flex items-center justify-center overflow-hidden pt-16">
+  <div class="absolute inset-0 bg-linear-to-br from-purple-900/20 via-black to-blue-900/20" aria-hidden="true"></div>
 
-    <div data-d-blob data-speed="0.4" class="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob will-change-transform" aria-hidden="true"></div>
-    <div data-d-blob data-speed="0.6" class="absolute top-40 right-10 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 will-change-transform" aria-hidden="true"></div>
-    <div data-d-blob data-speed="0.3" class="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 will-change-transform" aria-hidden="true"></div>
+  <div data-d-blob data-speed="0.4" class="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob will-change-transform" aria-hidden="true"></div>
+  <div data-d-blob data-speed="0.6" class="absolute top-40 right-10 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 will-change-transform" aria-hidden="true"></div>
+  <div data-d-blob data-speed="0.3" class="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 will-change-transform" aria-hidden="true"></div>
 
-    <div class="hero-d-content relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-      <div class="space-y-8">
-        <div class="hero-d-badge inline-flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-600/30 rounded-full text-sm text-purple-400">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-          </span>
-          {HERO_COPY.badge}
-        </div>
+  <div class="hero-d-content relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+    <div class="space-y-8">
+      <div class="hero-d-badge inline-flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-600/30 rounded-full text-sm text-purple-400">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+        </span>
+        {HERO_COPY.badge}
+      </div>
 
-        <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold">
-          <span class="block text-white">
-            {line1Words.map((word) => (
-              <span class="hero-d-word inline-block">{word}&nbsp;</span>
-            ))}
-          </span>
-          <span class="block bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-            {line2Words.map((word) => (
-              <span class="hero-d-word inline-block">{word}&nbsp;</span>
-            ))}
-          </span>
-        </h1>
-
-        <p class="hero-d-desc max-w-2xl mx-auto text-lg sm:text-xl text-gray-400 leading-relaxed">
-          {descWords.map((word) => (
+      <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold">
+        <span class="block text-white">
+          {line1Words.map((word) => (
             <span class="hero-d-word inline-block">{word}&nbsp;</span>
           ))}
-        </p>
-
-        <div class="hero-d-ctas flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-          <a
-            data-d-magnetic
-            href={HERO_COPY.ctaPrimary.href}
-            class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium shadow-lg shadow-purple-900/50 text-lg will-change-transform"
-          >
-            {HERO_COPY.ctaPrimary.label}
-          </a>
-          <a
-            data-d-magnetic
-            href={whatsappUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium text-lg inline-flex items-center gap-2 will-change-transform"
-          >
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-            </svg>
-            {HERO_COPY.ctaSecondary.label}
-          </a>
-        </div>
-
-        <div class="hero-d-stats grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12">
-          {HERO_COPY.stats.map((s) => (
-            <div class="hero-d-stat">
-              <div class="text-3xl sm:text-4xl font-bold text-white">{s.value}</div>
-              <div class="text-sm text-gray-400 mt-1">{s.label}</div>
-            </div>
+        </span>
+        <span class="block bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+          {line2Words.map((word) => (
+            <span class="hero-d-word inline-block">{word}&nbsp;</span>
           ))}
-        </div>
+        </span>
+      </h1>
+
+      <p class="hero-d-desc max-w-2xl mx-auto text-lg sm:text-xl text-gray-400 leading-relaxed">
+        {descWords.map((word) => (
+          <span class="hero-d-word inline-block">{word}&nbsp;</span>
+        ))}
+      </p>
+
+      <div class="hero-d-ctas flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+        <a
+          data-d-magnetic
+          href={HERO_COPY.ctaPrimary.href}
+          class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium shadow-lg shadow-purple-900/50 text-lg will-change-transform"
+        >
+          {HERO_COPY.ctaPrimary.label}
+        </a>
+        <a
+          data-d-magnetic
+          href={whatsappUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium text-lg inline-flex items-center gap-2 will-change-transform"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+          </svg>
+          {HERO_COPY.ctaSecondary.label}
+        </a>
+      </div>
+
+      <div class="hero-d-stats grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12">
+        {HERO_COPY.stats.map((s) => (
+          <div class="hero-d-stat">
+            <div class="text-3xl sm:text-4xl font-bold text-white">{s.value}</div>
+            <div class="text-sm text-gray-400 mt-1">{s.label}</div>
+          </div>
+        ))}
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
 <style>
   /* Estado inicial — GSAP los anima al entrar (visible by default si no hay JS / reduced-motion). */
   @media (prefers-reduced-motion: no-preference) {
     .hero-d-word { opacity: 0; transform: translateY(0.4em); display: inline-block; }
-    .hero-d-ctas, .hero-d-stats, .hero-d-badge { opacity: 0; }
+    .hero-d-ctas, .hero-d-stats { opacity: 0; transform: translateY(16px); }
+    .hero-d-badge { opacity: 0; }
+
+    /* Glow del badge se inicia tras el reveal coordinado (~1.2s timeline). */
+    .hero-d-badge {
+      animation: hero-d-glow 2.4s ease-in-out 1.4s infinite;
+    }
   }
 
-  .hero-d-badge {
-    animation: hero-d-glow 2.4s ease-in-out infinite;
-  }
   @keyframes hero-d-glow {
     0%, 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
     50% { box-shadow: 0 0 24px 4px rgba(168, 85, 247, 0.35); }
@@ -106,38 +106,44 @@ const descWords = HERO_COPY.description.split(' ');
   if (!reduce) {
     gsap.registerPlugin(ScrollTrigger);
 
+    const controller = new AbortController();
+    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
+    controller.signal.addEventListener('abort', () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    }, { once: true });
+
     // 1) Entrada coordinada al cargar.
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     tl.to('.hero-d-badge', { opacity: 1, duration: 0.6 })
       .to(
         '.hero-d-word',
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.04,
-        },
+        { opacity: 1, y: 0, duration: 0.7, stagger: 0.04 },
         '-=0.3',
       )
-      .to(['.hero-d-ctas', '.hero-d-stats'], { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, '-=0.4');
+      .to(
+        ['.hero-d-ctas', '.hero-d-stats'],
+        { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 },
+        '-=0.4',
+      );
 
-    // 2) ScrollTrigger pin + scrub: el contenido se desvanece al hacer scroll dentro del wrapper.
-    const wrapper = document.querySelector('.hero-d-wrapper');
-    if (wrapper) {
+    // 2) ScrollTrigger pin + scrub: GSAP gestiona el pin (no CSS sticky).
+    const section = document.querySelector('.hero-d-section');
+    if (section) {
       gsap.to('.hero-d-content', {
         opacity: 0,
         y: -120,
         scale: 0.92,
         ease: 'none',
         scrollTrigger: {
-          trigger: wrapper,
+          trigger: section,
           start: 'top top',
-          end: 'bottom top',
+          end: '+=100%',
+          pin: true,
           scrub: 0.6,
         },
       });
 
-      // 3) Blobs con scrub (scale + opacidad).
+      // 3) Blobs con scrub (scale + opacidad sincronizado al pin).
       gsap.utils.toArray<HTMLElement>('[data-d-blob]').forEach((el) => {
         const speed = parseFloat(el.dataset.speed || '0.4');
         gsap.to(el, {
@@ -146,9 +152,9 @@ const descWords = HERO_COPY.description.split(' ');
           opacity: 0.05,
           ease: 'none',
           scrollTrigger: {
-            trigger: wrapper,
+            trigger: section,
             start: 'top top',
-            end: 'bottom top',
+            end: '+=100%',
             scrub: true,
           },
         });
@@ -166,10 +172,10 @@ const descWords = HERO_COPY.description.split(' ');
         const dx = Math.max(-MAX_DISTANCE, Math.min(MAX_DISTANCE, x * 0.25));
         const dy = Math.max(-MAX_DISTANCE, Math.min(MAX_DISTANCE, y * 0.25));
         gsap.to(el, { x: dx, y: dy, duration: 0.3, ease: 'power2.out' });
-      });
+      }, { signal: controller.signal });
       el.addEventListener('mouseleave', () => {
         gsap.to(el, { x: 0, y: 0, duration: 0.4, ease: 'power3.out' });
-      });
+      }, { signal: controller.signal });
     });
   }
 </script>
