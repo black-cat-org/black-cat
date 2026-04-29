@@ -131,19 +131,21 @@ Componentes y estructura que aparecen en todas las páginas.
 
 ### 2.1. Hero (`src/components/sections/Hero.astro`)
 
-#### UI / Diseño
-- [ ] (pendiente desglose)
+Carta de presentación del sitio. Detalle: [`./home-hero.md`](./home-hero.md).
 
-#### Contenido / Copy
-- [ ] (pendiente desglose)
+#### Evaluación de variantes (en curso)
+- [x] Crear las 4 variantes (`HeroA`, `HeroB`, `HeroC`, `HeroD`) con copy nuevo, `min-h-dvh`, sin scroll indicator
+- [x] `src/components/sections/hero-shared.ts` con copy y stats compartidos
+- [x] `src/components/HeroSwitcher.astro` (picker fixed top entre las 4)
+- [x] Pages `/hero-a`, `/hero-b`, `/hero-c`, `/hero-d` para evaluar
+- [x] `npm install gsap` (solo se carga en HeroD)
+- [ ] Decisión: usuario elige una variante
+- [ ] Cleanup: promover variante elegida a `Hero.astro`, borrar las 3 restantes + 4 pages + `HeroSwitcher` + `hero-shared.ts`. Si no es D: `npm uninstall gsap`.
 
-#### Responsive
-- [ ] mobile (375px)
-- [ ] tablet (768px)
-- [ ] desktop (1280px+)
-
-#### Accesibilidad
-- [ ] (pendiente desglose)
+#### Pendientes post-elección
+- [ ] Reevaluar Lenis smooth scroll global (decisión depende de la variante elegida)
+- [ ] Audit a11y final (focus visible en CTAs, heading order, prefers-reduced-motion testeado)
+- [ ] Responsive final mobile (375px) / tablet (768px) / desktop (1280px+)
 
 ### 2.2. Services (preview) (`src/components/sections/Services.astro`)
 

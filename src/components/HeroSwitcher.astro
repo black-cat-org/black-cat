@@ -1,0 +1,31 @@
+---
+interface Props {
+  current: 'A' | 'B' | 'C' | 'D';
+}
+
+const { current } = Astro.props;
+
+const variants = [
+  { id: 'A', label: 'A · Mínimo', href: '/hero-a' },
+  { id: 'B', label: 'B · Medio', href: '/hero-b' },
+  { id: 'C', label: 'C · Alto', href: '/hero-c' },
+  { id: 'D', label: 'D · Full Lusion', href: '/hero-d' },
+] as const;
+---
+
+<div class="fixed top-20 left-1/2 -translate-x-1/2 z-[60] flex gap-2 px-3 py-2 bg-black/80 backdrop-blur-md border border-gray-700 rounded-full shadow-lg">
+  {variants.map((v) => (
+    <a
+      href={v.href}
+      class:list={[
+        'px-3 py-1.5 text-xs font-medium rounded-full transition-colors',
+        v.id === current
+          ? 'bg-purple-600 text-white'
+          : 'text-gray-400 hover:text-white hover:bg-gray-800',
+      ]}
+      aria-current={v.id === current ? 'page' : undefined}
+    >
+      {v.label}
+    </a>
+  ))}
+</div>
