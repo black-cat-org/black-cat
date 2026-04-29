@@ -69,7 +69,7 @@ const stats = HERO_COPY.stats.map((s) => {
                 {String(s.target).split('').map((digit, di) => (
                   <span class="hero-mix-roller">
                     <span class="hero-mix-roller-track" style={`--digit: ${digit}; --d-i: ${di};`}>
-                      {Array.from({ length: 10 }, (_, n) => <span>{n}</span>)}
+                      {Array.from({ length: 30 }, (_, n) => <span>{n % 10}</span>)}
                     </span>
                   </span>
                 ))}
@@ -155,7 +155,9 @@ const stats = HERO_COPY.stats.map((s) => {
     transform: translateY(0);
   }
 
-  /* Rolling digit counter (slot-machine style). */
+  /* Rolling digit counter (slot-machine). Cada track contiene 30 dígitos
+     (3 ciclos de 0-9). El target hace 2 vueltas completas + aterriza en
+     el dígito final, así incluso los dígitos cuyo target es 0 se ven girar. */
   .hero-mix-roller {
     display: inline-block;
     height: 1em;
@@ -167,12 +169,13 @@ const stats = HERO_COPY.stats.map((s) => {
     display: flex;
     flex-direction: column;
     transform: translateY(0);
-    transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-    /* Stagger: cada dígito posterior arranca un poco después → efecto cascada. */
-    transition-delay: calc(var(--d-i) * 0.12s);
+    transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Stagger: cada dígito posterior arranca un poco después → cascada. */
+    transition-delay: calc(var(--d-i) * 0.15s);
+    --turns: 2;
   }
   .hero-mix-roller-track.is-rolling {
-    transform: translateY(calc(var(--digit) * -1em));
+    transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
   }
   .hero-mix-roller-track > span {
     display: block;
@@ -192,7 +195,7 @@ const stats = HERO_COPY.stats.map((s) => {
     }
     .hero-mix-roller-track {
       transition: none;
-      transform: translateY(calc(var(--digit) * -1em));
+      transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
     }
   }
 </style>
