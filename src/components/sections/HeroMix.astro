@@ -36,7 +36,7 @@ const descWords = HERO_COPY.description.split(' ');
       <div class="hero-mix-ctas flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
         <a
           href={HERO_COPY.ctaPrimary.href}
-          class="hero-mix-cta-primary inline-flex items-center justify-center min-w-[16rem] px-8 py-4 bg-rose-500 text-white rounded-lg font-medium shadow-lg shadow-rose-500/40 text-lg relative overflow-hidden"
+          class="hero-mix-cta-primary inline-flex items-center justify-center min-w-[16rem] px-8 py-4 text-white rounded-lg font-medium text-lg relative overflow-hidden"
         >
           <span class="relative z-10">{HERO_COPY.ctaPrimary.label}</span>
         </a>
@@ -44,7 +44,7 @@ const descWords = HERO_COPY.description.split(' ');
           href={whatsappUrl()}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-2 min-w-[16rem] px-8 py-4 border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black rounded-lg font-medium transition-all text-lg"
+          class="hero-mix-cta-secondary inline-flex items-center justify-center gap-2 min-w-[16rem] px-8 py-4 border-2 rounded-lg font-medium text-lg"
         >
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
@@ -101,12 +101,21 @@ const descWords = HERO_COPY.description.split(' ');
     to { opacity: 1; }
   }
 
-  /* Hover del CTA primario: gradient cubre todo el botón (sweep desde la izquierda). */
+  /* CTA primario neón: hot pink magenta (red curazao) con glow. */
+  .hero-mix-cta-primary {
+    background-color: #ff2d9c;
+    box-shadow: 0 0 24px rgba(255, 45, 156, 0.45), 0 4px 16px rgba(255, 45, 156, 0.3);
+    transition: box-shadow 0.4s ease;
+  }
+  .hero-mix-cta-primary:hover {
+    box-shadow: 0 0 36px rgba(255, 45, 156, 0.6), 0 0 64px rgba(34, 211, 238, 0.35);
+  }
+  /* Sweep del hover: pink → purple → cyan, replica el gradient del copy. */
   .hero-mix-cta-primary::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, #f43f5e, #22d3ee);
+    background: linear-gradient(90deg, #ff2d9c, #c084fc, #22d3ee);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -114,6 +123,19 @@ const descWords = HERO_COPY.description.split(' ');
   }
   .hero-mix-cta-primary:hover::after {
     transform: scaleX(1);
+  }
+
+  /* CTA secundario neón: cyan eléctrico (blue curazao) con glow. */
+  .hero-mix-cta-secondary {
+    border-color: #22d3ee;
+    color: #22d3ee;
+    box-shadow: 0 0 16px rgba(34, 211, 238, 0.22);
+    transition: box-shadow 0.4s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+  .hero-mix-cta-secondary:hover {
+    background-color: #22d3ee;
+    color: #000;
+    box-shadow: 0 0 32px rgba(34, 211, 238, 0.55), 0 0 64px rgba(255, 45, 156, 0.25);
   }
 
   .hero-mix-stat {
