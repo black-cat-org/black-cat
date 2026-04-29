@@ -16,11 +16,31 @@ const stats = HERO_COPY.stats.map((s) => {
 
 <!-- Hero Mix — base C + underline B en CTA primario + GSAP scrub sutil sin pin. -->
 <section class="hero-mix-section relative min-h-dvh flex items-center justify-center overflow-hidden pt-16">
-  <div class="absolute inset-0 bg-linear-to-br from-purple-900/20 via-zinc-950 to-blue-900/20" aria-hidden="true"></div>
+  <!-- Video background (solo desktop + sin reduced-motion). Mobile y reduced-motion ven los blobs CSS. -->
+  <video
+    class="hero-mix-video absolute inset-0 w-full h-full object-cover"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    aria-hidden="true"
+  >
+    <source src="/videos/hero-bg.mp4" type="video/mp4" />
+  </video>
 
-  <div data-mix-blob data-speed="0.3" class="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob will-change-transform" aria-hidden="true"></div>
-  <div data-mix-blob data-speed="0.5" class="absolute top-40 right-10 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 will-change-transform" aria-hidden="true"></div>
-  <div data-mix-blob data-speed="0.2" class="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 will-change-transform" aria-hidden="true"></div>
+  <!-- Dark overlay para legibilidad del texto sobre el video. -->
+  <div class="absolute inset-0 bg-zinc-950/45" aria-hidden="true"></div>
+
+  <!-- Color tint del template original (queda muy sutil sobre el video). -->
+  <div class="absolute inset-0 bg-linear-to-br from-purple-900/15 via-zinc-950/40 to-blue-900/15" aria-hidden="true"></div>
+
+  <!-- Blobs CSS — visibles como fallback en mobile/reduced-motion. -->
+  <div class="hero-mix-blobs absolute inset-0" aria-hidden="true">
+    <div data-mix-blob data-speed="0.3" class="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob will-change-transform"></div>
+    <div data-mix-blob data-speed="0.5" class="absolute top-40 right-10 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 will-change-transform"></div>
+    <div data-mix-blob data-speed="0.2" class="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 will-change-transform"></div>
+  </div>
 
   <div class="hero-mix-content relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
     <div class="space-y-8">
@@ -153,6 +173,20 @@ const stats = HERO_COPY.stats.map((s) => {
   .hero-mix-stat.is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Video background visible solo en desktop con motion permitido.
+     Mobile y reduced-motion → fallback a los blobs CSS. */
+  .hero-mix-video {
+    display: none;
+  }
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .hero-mix-video {
+      display: block;
+    }
+    .hero-mix-blobs {
+      display: none;
+    }
   }
 
   /* Rolling digit counter (slot-machine). Cada track contiene 30 dígitos
