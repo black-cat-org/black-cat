@@ -32,27 +32,29 @@ Decidir y aplicar la identidad real (paleta, tipografía, logo). Hoy el sitio us
 
 - [ ] (pendiente desglose)
 
-### 0.2. Configuración real (datos del negocio)
+### 0.2. Configuración real (datos del negocio) ✅
 
 Centralizar datos del negocio en `src/config/site.ts` (CMS-ready). Reemplazar placeholders hardcoded del template. Detalle: [`./datos-negocio.md`](./datos-negocio.md).
 
 #### Configuración central
-- [ ] Crear `src/config/site.ts` con `siteConfig` tipado (`as const` + types exportados)
+- [x] Crear `src/config/site.ts` con `siteConfig` tipado (`as const` + types exportados)
 
 #### Consumidores de `siteConfig`
-- [ ] `src/layouts/Layout.astro`: meta tags y title pattern usan `siteConfig.name` / `.description` / `.titlePattern`
-- [ ] `src/components/Navigation.astro`: logo-text usa `siteConfig.name`
-- [ ] `src/components/sections/Hero.astro`: WhatsApp link consume `siteConfig.contact.whatsapp.number` + `.message`
-- [ ] `src/components/sections/Footer.astro`: email, WhatsApp, ubicación, horario, redes (loop sobre `siteConfig.social` filtrando `null`)
-- [ ] `src/pages/contacto.astro`: bloque info + `<form action>` consumen `siteConfig` y FormSubmit (`_subject`, `_next=/gracias`, `_template=table`, `_captcha=false`)
-- [ ] `src/pages/sobre-nosotros.astro`: `foundedYear`, `location`, audiencias
+- [x] `src/layouts/Layout.astro`: meta tags, title pattern, canonical y OG usan `siteConfig`
+- [x] `src/components/Navigation.astro`: logo-text usa `siteConfig.name` + a11y del mobile menu (aria-expanded/aria-controls)
+- [x] `src/components/sections/Hero.astro`: WhatsApp link consume `whatsappUrl()`
+- [x] `src/components/sections/Footer.astro`: email, WhatsApp, ubicación, horario, redes (6 sociales con placeholders visibles)
+- [x] `src/pages/contacto.astro`: bloque info + `<form action>` consumen `siteConfig` y FormSubmit (`_subject`, `_next` absoluto, `_template=table`, `_captcha=false`, honeypot reforzado)
+- [x] `src/pages/index.astro`, `gracias`, `precios`, `servicios`, `portfolio`, `sobre-nosotros`, `servicios/*` (8): titles cortos para que `pageTitle` aplique el pattern uniforme; `wa.me` legacy reemplazado por `whatsappUrl()`
+- [ ] `src/pages/sobre-nosotros.astro` (timeline/equipo/stats): **diferido a §6** — requiere reescritura de contenido completa, no es parte de "datos del negocio"
 
 #### Iconografía relacionada (just-in-time de §0.1 firme)
-- [ ] Hero: reemplazar SVG hardcoded de WhatsApp por icono Lucide outline
-- [ ] Footer: SVGs outline Lucide para Instagram, LinkedIn, GitHub, X, YouTube, TikTok
+- [x] Hero, contacto, gracias: SVG hardcoded de WhatsApp → Lucide outline `message-circle`
+- [x] Footer: SVGs outline Lucide para Instagram, LinkedIn, GitHub, X, YouTube, TikTok
+- [x] Contacto info cards: emojis 📧📱📍🕐 → Lucide outline (mail, smartphone, map-pin, clock)
 
 #### Auditoría final
-- [ ] Grep cross-codebase de strings legacy (`info@blackcat.dev`, `+54 9 11`, "Buenos Aires") y reemplazar/eliminar todo lo restante
+- [x] Grep cross-codebase de strings legacy (`info@blackcat.dev`, `+54 9 11`, `5491234567890`, "Buenos Aires") — sin residuos
 
 ### 0.3. Deploy + dominio
 
