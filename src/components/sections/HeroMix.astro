@@ -101,21 +101,21 @@ const descWords = HERO_COPY.description.split(' ');
     to { opacity: 1; }
   }
 
-  /* CTA primario neón: hot pink magenta (red curazao) con glow. */
+  /* CTA primario: gradiente diagonal violet → purple. */
   .hero-mix-cta-primary {
-    background-color: #ff2d9c;
-    box-shadow: 0 0 24px rgba(255, 45, 156, 0.45), 0 4px 16px rgba(255, 45, 156, 0.3);
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 55%, #6d28d9 100%);
+    box-shadow: 0 4px 24px rgba(139, 92, 246, 0.4);
     transition: box-shadow 0.4s ease;
   }
   .hero-mix-cta-primary:hover {
-    box-shadow: 0 0 36px rgba(255, 45, 156, 0.6), 0 0 64px rgba(34, 211, 238, 0.35);
+    box-shadow: 0 6px 32px rgba(139, 92, 246, 0.55);
   }
-  /* Sweep del hover: pink → purple → cyan, replica el gradient del copy. */
+  /* Sweep del hover: gradient del copy (purple → pink → blue). */
   .hero-mix-cta-primary::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, #ff2d9c, #c084fc, #22d3ee);
+    background: linear-gradient(90deg, #c084fc, #f472b6, #60a5fa);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -125,17 +125,15 @@ const descWords = HERO_COPY.description.split(' ');
     transform: scaleX(1);
   }
 
-  /* CTA secundario neón: cyan eléctrico (blue curazao) con glow. */
+  /* CTA secundario: borde y texto purple coherentes. */
   .hero-mix-cta-secondary {
-    border-color: #22d3ee;
-    color: #22d3ee;
-    box-shadow: 0 0 16px rgba(34, 211, 238, 0.22);
-    transition: box-shadow 0.4s ease, background-color 0.3s ease, color 0.3s ease;
+    border-color: #a855f7;
+    color: #c084fc;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   .hero-mix-cta-secondary:hover {
-    background-color: #22d3ee;
-    color: #000;
-    box-shadow: 0 0 32px rgba(34, 211, 238, 0.55), 0 0 64px rgba(255, 45, 156, 0.25);
+    background-color: #7c3aed;
+    color: #fff;
   }
 
   .hero-mix-stat {
