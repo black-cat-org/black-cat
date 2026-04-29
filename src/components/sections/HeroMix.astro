@@ -16,14 +16,6 @@ const descWords = HERO_COPY.description.split(' ');
 
   <div class="hero-mix-content relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
     <div class="space-y-8">
-      <div class="hero-mix-badge inline-flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-600/30 rounded-full text-sm text-purple-400">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-        </span>
-        {HERO_COPY.badge}
-      </div>
-
       <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold">
         <span class="block text-white">
           {line1Words.map((word, i) => (
@@ -98,23 +90,15 @@ const descWords = HERO_COPY.description.split(' ');
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .hero-mix-badge {
-    animation: hero-mix-glow 2.4s ease-in-out infinite;
-  }
-
-  @keyframes hero-mix-glow {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
-    50% { box-shadow: 0 0 24px 4px rgba(168, 85, 247, 0.35); }
-  }
-
+  /* CTAs: solo fade, sin slide. */
   .hero-mix-ctas {
     opacity: 0;
-    animation: hero-mix-fade-up 0.8s 0.7s ease-out both;
+    animation: hero-mix-fade 0.8s 0.7s ease-out both;
   }
 
-  @keyframes hero-mix-fade-up {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes hero-mix-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   /* Underline animado (efecto B) sobre el CTA primario. */
@@ -153,7 +137,6 @@ const descWords = HERO_COPY.description.split(' ');
       animation: none;
       transition: none;
     }
-    .hero-mix-badge { animation: none; }
     .hero-mix-cta-primary::after { display: none; }
   }
 </style>
