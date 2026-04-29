@@ -216,19 +216,18 @@ const stats = HERO_COPY.stats.map((s) => {
       });
     }
 
-    // 3) Stats fade-up + animación de conteo al entrar al viewport.
+    // 3) Stats fade-up + animación de conteo al entrar al viewport (GSAP, smooth).
     const animateCount = (el: HTMLElement, target: number, suffix: string) => {
-      const duration = 1500;
-      const start = performance.now();
-      const tick = (now: number) => {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-        const current = Math.floor(eased * target);
-        el.textContent = current + suffix;
-        if (progress < 1) requestAnimationFrame(tick);
-        else el.textContent = target + suffix;
-      };
-      requestAnimationFrame(tick);
+      const obj = { val: 0 };
+      gsap.to(obj, {
+        val: target,
+        duration: 2,
+        ease: 'expo.out',
+        snap: { val: 1 },
+        onUpdate: () => {
+          el.textContent = obj.val + suffix;
+        },
+      });
     };
 
     const statEls = document.querySelectorAll<HTMLElement>('.hero-mix-stat');
