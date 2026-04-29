@@ -1,6 +1,6 @@
 ---
 interface Props {
-  current: 'A' | 'B' | 'C' | 'D';
+  current: 'A' | 'B' | 'C' | 'D' | 'Mix';
 }
 
 const { current } = Astro.props;
@@ -10,6 +10,7 @@ const variants = [
   { id: 'B', label: 'B · Medio', href: '/hero-b' },
   { id: 'C', label: 'C · Alto', href: '/hero-c' },
   { id: 'D', label: 'D · Full Lusion', href: '/hero-d' },
+  { id: 'Mix', label: 'Mix · Pulido', href: '/hero-mix' },
 ] as const;
 ---
 
