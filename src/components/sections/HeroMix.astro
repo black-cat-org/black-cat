@@ -36,7 +36,7 @@ const descWords = HERO_COPY.description.split(' ');
       <div class="hero-mix-ctas flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
         <a
           href={HERO_COPY.ctaPrimary.href}
-          class="hero-mix-cta-primary px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium shadow-lg shadow-purple-900/50 text-lg relative overflow-hidden"
+          class="hero-mix-cta-primary inline-flex items-center justify-center min-w-[16rem] px-8 py-4 bg-purple-600 text-white rounded-lg font-medium shadow-lg shadow-purple-900/50 text-lg relative overflow-hidden"
         >
           <span class="relative z-10">{HERO_COPY.ctaPrimary.label}</span>
         </a>
@@ -44,7 +44,7 @@ const descWords = HERO_COPY.description.split(' ');
           href={whatsappUrl()}
           target="_blank"
           rel="noopener noreferrer"
-          class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all text-lg inline-flex items-center gap-2"
+          class="inline-flex items-center justify-center gap-2 min-w-[16rem] px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all text-lg"
         >
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
@@ -101,16 +101,16 @@ const descWords = HERO_COPY.description.split(' ');
     to { opacity: 1; }
   }
 
-  /* Underline animado (efecto B) sobre el CTA primario. */
+  /* Hover del CTA primario: gradient cubre todo el botón (sweep desde la izquierda). */
   .hero-mix-cta-primary::after {
     content: '';
     position: absolute;
-    inset: auto 0 0 0;
-    height: 2px;
+    inset: 0;
     background: linear-gradient(90deg, #f472b6, #c084fc, #60a5fa);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 0;
   }
   .hero-mix-cta-primary:hover::after {
     transform: scaleX(1);
