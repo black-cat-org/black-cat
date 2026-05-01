@@ -93,18 +93,21 @@ Componentes y estructura que aparecen en todas las páginas.
 #### SEO / Meta
 - [ ] (pendiente desglose)
 
-### 1.2. Navigation (`src/components/Navigation.astro`)
+### 1.2. Navigation (`src/components/Navigation.tsx`) ✅
 
-#### UI / Diseño
-- [ ] (pendiente desglose)
+Pill flotante con liquid-glass real. Detalle: [`./navigation.md`](./navigation.md).
 
-#### Contenido / Copy
-- [ ] (pendiente desglose)
+- [x] Migrar de `Navigation.astro` a `Navigation.tsx` (React island con `client:load`)
+- [x] Pill liquid-glass usando `@creativoma/liquid-glass` (SVG filters reales)
+- [x] Layout asimétrico: logo+toggle a la izquierda, nav+CTA a la derecha
+- [x] Mobile: pill izq con logo, hamburger pill der, sheet desplegable ajustado al contenido
+- [x] CTA "Comenzar" desktop en `rounded-full` (stadium, coherente con el pill); CTA mobile en `rounded-btn`
+- [x] Logo lineart Lucide (cat outline) — emoji legacy reemplazado
+- [x] Theme toggle (sun icon) — visual placeholder, falta funcionalidad cuando se implemente light mode
+- [x] Reemplaza el `Navigation.astro` original en las 21 páginas del sitio
 
-#### Responsive
-- [ ] mobile (375px)
-- [ ] tablet (768px)
-- [ ] desktop (1280px+)
+#### Pendiente post-elección
+- [ ] Theme toggle funcional (depende de §0.1 light mode, diferido)
 
 #### Accesibilidad
 - [ ] (pendiente desglose)
@@ -129,23 +132,25 @@ Componentes y estructura que aparecen en todas las páginas.
 
 ## 2. Home (`/`)
 
-### 2.1. Hero (`src/components/sections/Hero.astro`)
+### 2.1. Hero (`src/components/sections/Hero.astro`) ✅
 
 Carta de presentación del sitio. Detalle: [`./home-hero.md`](./home-hero.md).
 
-#### Evaluación de variantes (en curso)
-- [x] Crear las 4 variantes (`HeroA`, `HeroB`, `HeroC`, `HeroD`) con copy nuevo, `min-h-dvh`, sin scroll indicator
-- [x] `src/components/sections/hero-shared.ts` con copy y stats compartidos
-- [x] `src/components/HeroSwitcher.astro` (picker fixed top entre las 4)
-- [x] Pages `/hero-a`, `/hero-b`, `/hero-c`, `/hero-d` para evaluar
-- [x] `npm install gsap` (solo se carga en HeroD)
-- [ ] Decisión: usuario elige una variante
-- [ ] Cleanup: promover variante elegida a `Hero.astro`, borrar las 3 restantes + 4 pages + `HeroSwitcher` + `hero-shared.ts`. Si no es D: `npm uninstall gsap`.
-
-#### Pendientes post-elección
-- [ ] Reevaluar Lenis smooth scroll global (decisión depende de la variante elegida)
-- [ ] Audit a11y final (focus visible en CTAs, heading order, prefers-reduced-motion testeado)
-- [ ] Responsive final mobile (375px) / tablet (768px) / desktop (1280px+)
+- [x] Evaluar 4 variantes (A/B/C/D) + Mix con switcher en pages dedicadas
+- [x] Decisión: variante Mix
+- [x] Promover Mix a `Hero.astro` con clases renombradas a `hero-*` para autocontención
+- [x] Borrar las 4 variantes + Mix + switcher + `hero-shared.ts` + 5 pages de evaluación
+- [x] Copy nuevo: "Software / de Alto Impacto" + sub-copy enfocado en línea Black + servicios a medida
+- [x] Video background (Kling) + fallback blobs en `prefers-reduced-motion: reduce`
+- [x] Video visible en mobile + desktop
+- [x] Compresión video: 26 MB → 3.3 MB (ffmpeg CRF 28)
+- [x] Layout `min-h-dvh`, sin scroll indicator
+- [x] Stats con rolling digit counter (slot-machine, CSS-driven, 2 vueltas)
+- [x] CTAs `rounded-btn` (token de theming), gradient diagonal violet → purple, hover sutil con brightness
+- [x] Lenis smooth scroll global integrado con GSAP ticker
+- [x] GSAP scrub effect: contenido se aleja con scroll (sin pin)
+- [x] Blobs con parallax + scale (mismo scrub)
+- [x] Snap Hero ↔ Services: descartado (anti-natural)
 
 ### 2.2. Services (preview) (`src/components/sections/Services.astro`)
 
