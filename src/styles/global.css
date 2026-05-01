@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Tokens del design system. Tailwind v4 expone --radius-* como utility `rounded-<key>`. */
+@theme {
+  /* Radius unificado para todos los botones/CTAs del sitio (12px = rounded-xl).
+     Usar `rounded-btn` en lugar de `rounded-xl` cuando se construya un CTA. */
+  --radius-btn: 0.75rem;
+}
+
 @layer utilities {
   @keyframes blob {
     0% {
