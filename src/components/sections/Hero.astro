@@ -1,87 +1,334 @@
 ---
 import { whatsappUrl } from '../../config/site';
+
+const HERO = {
+  title: { line1: 'Software', line2Gradient: 'de Alto Impacto' },
+  description:
+    'La empresa detrás de la línea Black — productos digitales propios y soluciones a medida hechas para potenciar industrias enteras.',
+  ctaPrimary: { label: 'Comenzar Proyecto', href: '/contacto' },
+  ctaSecondary: { label: 'WhatsApp' },
+  // Stats placeholder visibles para evaluar layout. Reemplazar con métricas reales cuando estén disponibles.
+  stats: [
+    { value: '100+', label: 'Proyectos' }, // TODO: métrica real
+    { value: '98%', label: 'Satisfacción' }, // TODO: métrica real
+    { value: '8', label: 'Servicios' }, // real (8 servicios listados en /servicios)
+  ],
+} as const;
+
+const line1Words = HERO.title.line1.split(' ');
+const descWords = HERO.description.split(' ');
+
+// Parsea cada stat para detectar si es contable (número + sufijo simple) o texto fijo.
+const stats = HERO.stats.map((s) => {
+  const match = s.value.match(/^(\d+)([+%]?)$/);
+  return match
+    ? { label: s.label, target: parseInt(match[1], 10), suffix: match[2], animated: true as const }
+    : { label: s.label, value: s.value, animated: false as const };
+});
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-  <!-- Animated Background -->
-  <div class="absolute inset-0 bg-linear-to-br from-purple-900/20 via-black to-blue-900/20">
-    <div class="absolute inset-0 opacity-10"></div>
+<section class="hero-section relative min-h-dvh flex items-center justify-center overflow-hidden pt-16">
+  <!-- Video background (solo desktop + sin reduced-motion). Mobile y reduced-motion ven los blobs CSS. -->
+  <video
+    class="hero-video absolute inset-0 w-full h-full object-cover"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    aria-hidden="true"
+  >
+    <source src="/videos/hero-bg.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Dark overlay para legibilidad del texto sobre el video. -->
+  <div class="absolute inset-0 bg-zinc-950/45" aria-hidden="true"></div>
+
+  <!-- Color tint del template original (queda muy sutil sobre el video). -->
+  <div class="absolute inset-0 bg-linear-to-br from-purple-900/15 via-zinc-950/40 to-blue-900/15" aria-hidden="true"></div>
+
+  <!-- Blobs CSS — visibles como fallback en mobile/reduced-motion. -->
+  <div class="hero-blobs absolute inset-0" aria-hidden="true">
+    <div data-hero-blob data-speed="0.3" class="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob will-change-transform"></div>
+    <div data-hero-blob data-speed="0.5" class="absolute top-40 right-10 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 will-change-transform"></div>
+    <div data-hero-blob data-speed="0.2" class="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 will-change-transform"></div>
   </div>
 
-  <!-- Floating Elements -->
-  <div class="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-  <div class="absolute top-40 right-10 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-  <div class="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-
-  <!-- Content -->
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+  <div class="hero-content relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
     <div class="space-y-8">
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-600/20 rounded-full text-sm text-purple-400">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-        </span>
-        Disponible para proyectos
-      </div>
-
-      <!-- Main Heading -->
       <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold">
-        <span class="block text-white">Desarrollo Web</span>
-        <span class="block bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-          de Alto Impacto
+        <span class="block text-white">
+          {line1Words.map((word, i) => (
+            <span class="hero-word inline-block mr-[0.25em] last:mr-0" style={`--word-i: ${i}`}>{word}</span>
+          ))}
+        </span>
+        <span class="hero-line2 block bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent" style={`--line1-count: ${line1Words.length}`}>
+          {HERO.title.line2Gradient}
         </span>
       </h1>
 
-      <!-- Description -->
       <p class="max-w-2xl mx-auto text-lg sm:text-xl text-gray-400 leading-relaxed">
-        Transformamos ideas en experiencias digitales rápidas, escalables y optimizadas.
-        Especialistas en React, Astro, NestJS y tecnologías de vanguardia.
+        {descWords.map((word, i) => (
+          <span class="hero-word inline-block mr-[0.3em] last:mr-0" style={`--word-i: ${line1Words.length + 1 + i}`}>{word}</span>
+        ))}
       </p>
 
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+      <div class="hero-ctas flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
         <a
-          href="/contacto"
-          class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50 text-lg"
+          href={HERO.ctaPrimary.href}
+          class="hero-cta-primary inline-flex items-center justify-center min-w-[16rem] px-8 py-4 text-white rounded-btn font-medium text-lg relative overflow-hidden"
         >
-          Comenzar Proyecto
+          <span class="relative z-10">{HERO.ctaPrimary.label}</span>
         </a>
         <a
           href={whatsappUrl()}
           target="_blank"
           rel="noopener noreferrer"
-          class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-lg font-medium transition-all text-lg inline-flex items-center gap-2"
+          class="hero-cta-secondary inline-flex items-center justify-center gap-2 min-w-[16rem] px-8 py-4 border-2 rounded-btn font-medium text-lg"
         >
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
           </svg>
-          WhatsApp
+          {HERO.ctaSecondary.label}
         </a>
       </div>
 
-      <!-- Stats -->
       <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12">
-        <div>
-          <div class="text-3xl sm:text-4xl font-bold text-white">100+</div>
-          <div class="text-sm text-gray-400 mt-1">Proyectos</div>
-        </div>
-        <div>
-          <div class="text-3xl sm:text-4xl font-bold text-white">98%</div>
-          <div class="text-sm text-gray-400 mt-1">Satisfacción</div>
-        </div>
-        <div>
-          <div class="text-3xl sm:text-4xl font-bold text-white">24/7</div>
-          <div class="text-sm text-gray-400 mt-1">Soporte</div>
-        </div>
+        {stats.map((s, i) => (
+          <div class="hero-stat" style={`--stat-i: ${i}`}>
+            {s.animated ? (
+              <div class="hero-counter text-3xl sm:text-4xl font-bold text-white tabular-nums inline-flex items-baseline justify-center">
+                {String(s.target).split('').map((digit, di) => (
+                  <span class="hero-roller">
+                    <span class="hero-roller-track" style={`--digit: ${digit}; --d-i: ${di};`}>
+                      {Array.from({ length: 30 }, (_, n) => <span>{n % 10}</span>)}
+                    </span>
+                  </span>
+                ))}
+                {s.suffix && <span>{s.suffix}</span>}
+              </div>
+            ) : (
+              <div class="text-3xl sm:text-4xl font-bold text-white">{s.value}</div>
+            )}
+            <div class="text-sm text-gray-400 mt-1">{s.label}</div>
+          </div>
+        ))}
       </div>
     </div>
   </div>
-
-  <!-- Scroll Indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-    </svg>
-  </div>
 </section>
+
+<style>
+  /* Reveal por palabra (línea 1 + subcopy). */
+  .hero-word {
+    opacity: 0;
+    transform: translateY(0.4em);
+    animation: hero-word-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--word-i) * 0.06s);
+  }
+
+  @keyframes hero-word-reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Línea 2 (gradient) entera — no se splitea para preservar bg-clip-text. */
+  .hero-line2 {
+    opacity: 0;
+    transform: translateY(0.4em);
+    animation: hero-line2-reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--line1-count) * 0.06s + 0.1s);
+  }
+
+  @keyframes hero-line2-reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* CTAs: solo fade, sin slide. */
+  .hero-ctas {
+    opacity: 0;
+    animation: hero-fade 0.8s 0.7s ease-out both;
+  }
+
+  @keyframes hero-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* CTA primario: gradiente diagonal violet → purple. Hover sutil con brightness y glow. */
+  .hero-cta-primary {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 55%, #6d28d9 100%);
+    box-shadow: 0 4px 24px rgba(139, 92, 246, 0.4);
+    transition: filter 0.6s ease, box-shadow 0.6s ease;
+  }
+  .hero-cta-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 6px 36px rgba(139, 92, 246, 0.55);
+  }
+
+  /* CTA secundario: mismos tonos del primario. Hover replica el del primario sin fill. */
+  .hero-cta-secondary {
+    border-color: #8b5cf6;
+    color: #a78bfa;
+    transition: filter 0.6s ease, box-shadow 0.6s ease;
+  }
+  .hero-cta-secondary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 6px 36px rgba(139, 92, 246, 0.45);
+  }
+
+  .hero-stat {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--stat-i) * 0.12s);
+  }
+  .hero-stat.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Video background visible siempre (mobile + desktop). Blobs solo se muestran
+     cuando el user pidió reduced-motion (fallback estático). */
+  .hero-video {
+    display: block;
+  }
+  .hero-blobs {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      display: none;
+    }
+    .hero-blobs {
+      display: block;
+    }
+  }
+
+  /* Rolling digit counter (slot-machine). Cada track contiene 30 dígitos
+     (3 ciclos de 0-9). El target hace 2 vueltas completas + aterriza en
+     el dígito final, así incluso los dígitos cuyo target es 0 se ven girar. */
+  .hero-roller {
+    display: inline-block;
+    height: 1em;
+    overflow: hidden;
+    line-height: 1;
+    vertical-align: baseline;
+  }
+  .hero-roller-track {
+    display: flex;
+    flex-direction: column;
+    transform: translateY(0);
+    transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--d-i) * 0.15s);
+    --turns: 2;
+  }
+  .hero-roller-track.is-rolling {
+    transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
+  }
+  .hero-roller-track > span {
+    display: block;
+    height: 1em;
+    line-height: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-word,
+    .hero-line2,
+    .hero-ctas,
+    .hero-stat {
+      opacity: 1;
+      transform: none;
+      animation: none;
+      transition: none;
+    }
+    .hero-roller-track {
+      transition: none;
+      transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import Lenis from 'lenis';
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduce) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const controller = new AbortController();
+    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
+
+    // Smooth scroll global con Lenis. Sincronizado con GSAP ticker.
+    const lenis = new Lenis({
+      duration: 1.2,
+      smoothWheel: true,
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+    const tickerCb = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(tickerCb);
+    gsap.ticker.lagSmoothing(0);
+
+    controller.signal.addEventListener('abort', () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+      gsap.ticker.remove(tickerCb);
+      lenis.destroy();
+    }, { once: true });
+
+    const section = document.querySelector<HTMLElement>('.hero-section');
+
+    if (section) {
+      // 1) Contenido del Hero se aleja con scrub al hacer scroll.
+      gsap.to('.hero-content', {
+        opacity: 0.15,
+        y: -120,
+        scale: 0.94,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom 50%',
+          scrub: 0.5,
+        },
+      });
+
+      // 2) Blobs con parallax + scale.
+      gsap.utils.toArray<HTMLElement>('[data-hero-blob]').forEach((el) => {
+        const speed = parseFloat(el.dataset.speed || '0.3');
+        gsap.to(el, {
+          y: () => window.innerHeight * speed * 1.4,
+          scale: 1.4,
+          opacity: 0.05,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.6,
+          },
+        });
+      });
+    }
+
+
+    // 3) Stats fade-up + rolling digit al entrar al viewport.
+    const statEls = document.querySelectorAll<HTMLElement>('.hero-stat');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          entry.target.querySelectorAll('.hero-roller-track').forEach((track) => {
+            track.classList.add('is-rolling');
+          });
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    statEls.forEach((s) => io.observe(s));
+    controller.signal.addEventListener('abort', () => io.disconnect(), { once: true });
+  } else {
+    document.querySelectorAll<HTMLElement>('.hero-stat').forEach((s) => s.classList.add('is-visible'));
+  }
+</script>
