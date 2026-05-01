@@ -1,5 +1,5 @@
 ---
-import Navigation from '../components/Navigation.astro';
+import Navigation from '../components/Navigation.tsx';
 import Footer from '../components/sections/Footer.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -81,7 +81,7 @@ const timeline = [
   title="Sobre Nosotros"
   description="Conoce al equipo detrás de Black Cat. Desarrolladores, diseñadores y arquitectos apasionados por crear soluciones digitales de alto impacto."
 >
-  <Navigation />
+  <Navigation client:load currentPath={Astro.url.pathname} />
 
   <!-- Hero Section -->
   <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
@@ -238,7 +238,7 @@ const timeline = [
       </p>
       <a
         href="/contacto"
-        class="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-btn font-medium transition-all shadow-lg shadow-purple-900/50"
       >
         Contactar Ahora
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

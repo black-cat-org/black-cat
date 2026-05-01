@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.astro';
+import Navigation from '../components/Navigation.tsx';
 import Footer from '../components/sections/Footer.astro';
 import { siteConfig, whatsappUrl } from '../config/site';
 
@@ -57,7 +57,7 @@ const formAction = `https://formsubmit.co/${siteConfig.contact.email}`;
   title="Contacto"
   description="¿Tienes un proyecto en mente? Contáctanos para una consultoría gratuita. Email, WhatsApp o formulario de contacto."
 >
-  <Navigation />
+  <Navigation client:load currentPath={Astro.url.pathname} />
 
   <!-- Hero Section -->
   <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black via-gray-900 to-black">
@@ -202,7 +202,7 @@ const formAction = `https://formsubmit.co/${siteConfig.contact.email}`;
 
             <button
               type="submit"
-              class="w-full px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50 flex items-center justify-center gap-2"
+              class="w-full px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-btn font-medium transition-all shadow-lg shadow-purple-900/50 flex items-center justify-center gap-2"
             >
               Enviar Consulta
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

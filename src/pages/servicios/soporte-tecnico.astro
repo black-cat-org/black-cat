@@ -1,5 +1,5 @@
 ---
-import Navigation from '../../components/Navigation.astro';
+import Navigation from '../../components/Navigation.tsx';
 import Footer from '../../components/sections/Footer.astro';
 import Layout from '../../layouts/Layout.astro';
 
@@ -32,7 +32,7 @@ const services = [
 ---
 
 <Layout title="Soporte Técnico" description="Mantenimiento y soporte continuo para tu aplicación web. Planes desde $200/mes.">
-  <Navigation />
+  <Navigation client:load currentPath={Astro.url.pathname} />
 
   <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
     <div class="max-w-7xl mx-auto text-center">
@@ -46,7 +46,7 @@ const services = [
       <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
         Mantenimiento continuo, actualizaciones y nuevas features. Tu proyecto siempre actualizado y funcionando.
       </p>
-      <a href="/contacto" class="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50">
+      <a href="/contacto" class="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-btn font-medium transition-all shadow-lg shadow-purple-900/50">
         Ver Planes
       </a>
     </div>
@@ -102,7 +102,7 @@ const services = [
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-4xl font-bold text-white mb-4">¿Necesitas soporte continuo?</h2>
       <p class="text-xl text-gray-400 mb-8">Mantén tu proyecto siempre actualizado</p>
-      <a href="/contacto" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-purple-900/50 inline-block">
+      <a href="/contacto" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-btn font-medium transition-all shadow-lg shadow-purple-900/50 inline-block">
         Contratar Soporte
       </a>
     </div>

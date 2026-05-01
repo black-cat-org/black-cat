@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.astro';
+import Navigation from '../components/Navigation.tsx';
 import Hero from '../components/sections/Hero.astro';
 import Services from '../components/sections/Services.astro';
 import TrustSection from '../components/sections/TrustSection.astro';
@@ -13,7 +13,7 @@ import Footer from '../components/sections/Footer.astro';
 <Layout
   description="Especialistas en desarrollo web de alto impacto. Creamos aplicaciones web, APIs, apps móviles y e-commerce con React, Astro, NestJS, Flutter y tecnologías modernas. Hosting, SSL y soporte 24/7."
 >
-  <Navigation />
+  <Navigation client:load currentPath={Astro.url.pathname} />
   <Hero />
   <Services />
   <TrustSection />
