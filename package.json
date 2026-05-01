@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",
+    "@creativoma/liquid-glass": "^1.2.0",
     "@floating-ui/react": "^0.27.19",
     "@tailwindcss/vite": "^4.2.4",
     "@types/react": "^19.2.14",
