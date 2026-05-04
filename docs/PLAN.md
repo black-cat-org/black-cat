@@ -152,21 +152,25 @@ Carta de presentación del sitio. Detalle: [`./home-hero.md`](./home-hero.md).
 - [x] Blobs con parallax + scale (mismo scrub)
 - [x] Snap Hero ↔ Services: descartado (anti-natural)
 
-### 2.2. Services (preview) (`src/components/sections/Services.astro`)
+### 2.2. Services (preview) (`src/components/sections/Services.astro`) ✅
 
-#### UI / Diseño
-- [ ] (pendiente desglose)
+Showcase de oferta a medida en el home. Detalle: [`./home-services.md`](./home-services.md).
 
-#### Contenido / Copy
-- [ ] (pendiente desglose)
+- [x] Reemplazar 8 servicios placeholder por los 8 finales (Frontend, Backend & Data, Mobile, IA & Automatización, E-commerce, Infra & DevOps, Analytics & Data, Soporte & Consultoría)
+- [x] Reemplazar emojis por iconos Lucide outline SVG inline (regla firme de §0.1)
+- [x] Cards con glass minimal (bg-white/4 + backdrop-blur 12px) coherente con navbar
+- [x] Hover: lift `-translate-y-1` + border violet + shadow + cursor-tracking inner glow radial
+- [x] Stagger fade-up al scroll (IntersectionObserver, delay 80ms por índice)
+- [x] Header reformulado: "Software a medida" + sub-copy contextual
+- [x] Iconos en gradient violet→pink rounded-xl con glow
+- [x] Títulos planos (white) — el gradient text se evaluó y se descartó por sobrecarga visual
+- [x] Chips pill blancos translúcidos (rgba(255,255,255,0.06) + border-white/10)
+- [x] CTA "Ver más" descartado — la card entera es link, los affordances (hover lift + cursor glow) son suficientes
+- [x] `prefers-reduced-motion`: cards visibles sin animación, sin glow, sin lift
 
-#### Responsive
-- [ ] mobile (375px)
-- [ ] tablet (768px)
-- [ ] desktop (1280px+)
-
-#### Accesibilidad
-- [ ] (pendiente desglose)
+#### Out of scope (van en §3)
+- [ ] Sub-pages /servicios/ia y /servicios/analytics (crear en §3.2)
+- [ ] Borrar sub-pages obsoletas (/diseno-uiux, /hosting-ssl) en §3.2
 
 ### 2.3. TrustSection (`src/components/sections/TrustSection.astro`)
 
