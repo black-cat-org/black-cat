@@ -1,102 +1,258 @@
 ---
+// Iconos Lucide outline (lucide.dev). Stroke 1.5, currentColor.
+const ICONS: Record<string, string> = {
+  'code-2':
+    '<path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/>',
+  database:
+    '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>',
+  smartphone:
+    '<rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/>',
+  sparkles:
+    '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>',
+  'shopping-bag':
+    '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+  cloud: '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>',
+  'bar-chart-3':
+    '<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
+  'life-buoy':
+    '<circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/><circle cx="12" cy="12" r="4"/>',
+};
+
 const services = [
   {
-    icon: '⚛️',
-    title: 'Desarrollo Web',
-    description: 'Aplicaciones web modernas con React, Astro y Next.js. Rápidas, escalables y optimizadas para SEO.',
-    technologies: ['React', 'Astro', 'Next.js', 'TypeScript'],
+    icon: 'code-2',
+    title: 'Frontend',
+    description: 'Sitios y aplicaciones rápidas, modernas y optimizadas para SEO.',
+    chips: ['React', 'Next.js', 'Astro', 'TypeScript', 'Tailwind'],
     href: '/servicios/desarrollo-web',
   },
   {
-    icon: '🚀',
-    title: 'Backend & APIs',
-    description: 'Arquitecturas robustas con NestJS, Node.js y bases de datos SQL/NoSQL. APIs REST y GraphQL.',
-    technologies: ['NestJS', 'Node.js', 'PostgreSQL', 'MongoDB'],
+    icon: 'database',
+    title: 'Backend & Data',
+    description: 'Sistemas robustos que escalan con tu producto. APIs, tiempo real, datos.',
+    chips: ['NestJS', 'GraphQL', 'PostgreSQL', 'REST', 'Supabase', 'Firebase', 'MongoDB'],
     href: '/servicios/backend-apis',
   },
   {
-    icon: '📱',
-    title: 'Apps Móviles',
-    description: 'Desarrollo nativo y multiplataforma con Flutter y React Native. Experiencias fluidas en iOS y Android.',
-    technologies: ['Flutter', 'React Native', 'iOS', 'Android'],
+    icon: 'smartphone',
+    title: 'Mobile',
+    description: 'Apps nativas y multiplataforma para iOS y Android.',
+    chips: ['Swift', 'Kotlin', 'React Native', 'Flutter', 'Expo'],
     href: '/servicios/apps-moviles',
   },
   {
-    icon: '🎨',
-    title: 'Diseño UI/UX',
-    description: 'Interfaces intuitivas y atractivas. Diseño centrado en el usuario con Figma y herramientas modernas.',
-    technologies: ['Figma', 'Adobe XD', 'Prototyping', 'Design Systems'],
-    href: '/servicios/diseno-uiux',
+    icon: 'sparkles',
+    title: 'IA & Automatización',
+    description: 'Productos y procesos potenciados con IA. Agentes, chatbots, automatización.',
+    chips: ['OpenAI', 'Claude', 'Gemini', 'RAG', 'Agentes'],
+    href: '/servicios/ia',
   },
   {
-    icon: '☁️',
-    title: 'Infraestructura',
-    description: 'Despliegue y gestión en AWS, Vercel, Railway. CI/CD, Docker, Kubernetes y arquitectura cloud.',
-    technologies: ['AWS', 'Vercel', 'Docker', 'CI/CD'],
-    href: '/servicios/infraestructura',
-  },
-  {
-    icon: '🛒',
+    icon: 'shopping-bag',
     title: 'E-commerce',
-    description: 'Tiendas virtuales completas con pasarelas de pago, gestión de inventario y paneles administrativos.',
-    technologies: ['Shopify', 'WooCommerce', 'Stripe', 'MercadoPago'],
+    description: 'Tiendas online listas para vender. Pasarelas, suscripciones, catálogos.',
+    chips: ['Shopify', 'WooCommerce', 'Stripe', 'Custom'],
     href: '/servicios/ecommerce',
   },
   {
-    icon: '🔒',
-    title: 'Hosting & SSL',
-    description: 'Hosting optimizado, certificados SSL, CDN global y monitoreo 24/7 para máxima disponibilidad.',
-    technologies: ['SSL', 'CDN', 'Monitoring', 'Security'],
-    href: '/servicios/hosting-ssl',
+    icon: 'cloud',
+    title: 'Infraestructura & DevOps',
+    description: 'Despliegue, escalado y observabilidad. Cloud que no se cae.',
+    chips: ['AWS', 'Cloudflare', 'Vercel', 'Docker', 'Kubernetes'],
+    href: '/servicios/infraestructura',
   },
   {
-    icon: '🛠️',
-    title: 'Soporte Técnico',
-    description: 'Mantenimiento continuo, actualizaciones, optimización y soporte personalizado para tu proyecto.',
-    technologies: ['Maintenance', 'Updates', 'Optimization', 'Support'],
+    icon: 'bar-chart-3',
+    title: 'Analytics & Data',
+    description: 'Dashboards y métricas que muestran lo que importa.',
+    chips: ['PostHog', 'BigQuery', 'GA4', 'Dashboards'],
+    href: '/servicios/analytics',
+  },
+  {
+    icon: 'life-buoy',
+    title: 'Soporte & Consultoría',
+    description: 'Soporte continuo después del lanzamiento. Mantenimiento, cobros, ajustes.',
+    chips: ['Suscripciones', 'Cobros & reembolsos', 'Mantenimiento', 'Soporte continuo'],
     href: '/servicios/soporte-tecnico',
   },
 ];
 ---
 
-<section id="servicios" class="py-24 px-4 sm:px-6 lg:px-8 bg-black">
+<section id="servicios" class="services-section py-24 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <!-- Header -->
     <div class="text-center mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
-        Nuestros Servicios
+      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4 tracking-tight">
+        Software a medida
       </h2>
       <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-        Soluciones tecnológicas integrales para hacer crecer tu negocio
+        Cuando necesitás algo único, lo construimos. Estos son nuestros pilares técnicos.
       </p>
     </div>
 
-    <!-- Services Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {services.map((service) => (
-        <a
-          href={service.href}
-          class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all duration-300 cursor-pointer hover:shadow-xl hover:shadow-purple-900/20 block"
-        >
-          <div class="space-y-4">
-            <div class="text-4xl">{service.icon}</div>
-            <h3 class="text-xl font-semibold text-white">{service.title}</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">
-              {service.description}
-            </p>
-            <div class="flex flex-wrap gap-2">
-              {service.technologies.map((tech) => (
-                <span class="text-xs px-2 py-1 bg-purple-600/10 text-purple-400 rounded-md">
-                  {tech}
-                </span>
-              ))}
+    <ul class="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 list-none p-0">
+      {services.map((service, i) => (
+        <li class="service-card-wrapper" style={`--card-i: ${i}`}>
+          <a
+            href={service.href}
+            class="service-card group relative block h-full p-6 rounded-2xl transition-all duration-300 overflow-hidden"
+          >
+            <div class="flex flex-col gap-4 h-full relative z-[5]">
+              <div class="card-icon inline-flex items-center justify-center w-11 h-11 rounded-xl">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  set:html={ICONS[service.icon]}
+                />
+              </div>
+              <h3 class="card-title text-xl font-semibold tracking-tight">{service.title}</h3>
+              <p class="text-gray-400 text-sm leading-relaxed">{service.description}</p>
+              <ul class="flex flex-wrap gap-1.5 list-none p-0 mt-auto">
+                {service.chips.map((chip) => (
+                  <li class="card-chip text-[11px] px-2 py-1">{chip}</li>
+                ))}
+              </ul>
             </div>
-            <div class="text-purple-400 text-sm font-medium pt-2">
-              Consultar →
-            </div>
-          </div>
-        </a>
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
   </div>
 </section>
+
+<style>
+  /* Stagger fade-up al scroll. JS suma is-visible al entrar al viewport. */
+  .service-card-wrapper {
+    will-change: transform;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--card-i) * 80ms);
+  }
+  .service-card-wrapper.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Glass minimal + cursor-tracking inner glow.
+     `contain: layout style` evita reflow en hermanos durante scroll/hover. */
+  .service-card {
+    contain: layout style;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at var(--mx, 50%) var(--my, 0%),
+      rgba(168, 85, 247, 0.22),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(168, 85, 247, 0.35);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 12px 32px rgba(0, 0, 0, 0.35);
+  }
+  .service-card:hover::after {
+    opacity: 1;
+  }
+
+  /* Icon: gradient violet→pink sólido con glow. */
+  .card-icon {
+    background: linear-gradient(135deg, rgb(168 85 247), rgb(236 72 153));
+    color: white;
+    box-shadow: 0 0 24px rgba(168, 85, 247, 0.3);
+  }
+
+  /* Title: blanco sólido. */
+  .card-title {
+    color: white;
+  }
+
+  /* Chips: pill blanco translúcido. */
+  .card-chip {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card-wrapper {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .service-card,
+    .service-card:hover {
+      transform: none;
+      transition: none;
+    }
+    .service-card::after {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduce) {
+    const controller = new AbortController();
+    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
+
+    // Stagger fade-up al scroll.
+    const cards = document.querySelectorAll<HTMLElement>('.service-card-wrapper');
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+    cards.forEach((c) => io.observe(c));
+    controller.signal.addEventListener('abort', () => io.disconnect(), { once: true });
+
+    // Cursor tracking para el inner glow radial.
+    const cursorCards = document.querySelectorAll<HTMLElement>('.service-card');
+    cursorCards.forEach((card) => {
+      card.addEventListener(
+        'mousemove',
+        (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          card.style.setProperty('--mx', `${x}%`);
+          card.style.setProperty('--my', `${y}%`);
+        },
+        { signal: controller.signal },
+      );
+    });
+  } else {
+    document.querySelectorAll<HTMLElement>('.service-card-wrapper').forEach((c) => c.classList.add('is-visible'));
+  }
+</script>
