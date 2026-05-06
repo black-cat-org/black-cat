@@ -7,24 +7,10 @@ const HERO = {
     'La empresa detrás de la línea Black — productos digitales propios y soluciones a medida hechas para potenciar industrias enteras.',
   ctaPrimary: { label: 'Comenzar Proyecto', href: '/contacto' },
   ctaSecondary: { label: 'WhatsApp' },
-  // Stats placeholder visibles para evaluar layout. Reemplazar con métricas reales cuando estén disponibles.
-  stats: [
-    { value: '100+', label: 'Proyectos' }, // TODO: métrica real
-    { value: '98%', label: 'Satisfacción' }, // TODO: métrica real
-    { value: '8', label: 'Servicios' }, // real (8 servicios listados en /servicios)
-  ],
 } as const;
 
 const line1Words = HERO.title.line1.split(' ');
 const descWords = HERO.description.split(' ');
-
-// Parsea cada stat para detectar si es contable (número + sufijo simple) o texto fijo.
-const stats = HERO.stats.map((s) => {
-  const match = s.value.match(/^(\d+)([+%]?)$/);
-  return match
-    ? { label: s.label, target: parseInt(match[1], 10), suffix: match[2], animated: true as const }
-    : { label: s.label, value: s.value, animated: false as const };
-});
 ---
 
 <section class="hero-section relative min-h-dvh flex items-center justify-center overflow-hidden pt-16">
@@ -93,27 +79,6 @@ const stats = HERO.stats.map((s) => {
         </a>
       </div>
 
-      <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12">
-        {stats.map((s, i) => (
-          <div class="hero-stat" style={`--stat-i: ${i}`}>
-            {s.animated ? (
-              <div class="hero-counter text-3xl sm:text-4xl font-bold text-white tabular-nums inline-flex items-baseline justify-center">
-                {String(s.target).split('').map((digit, di) => (
-                  <span class="hero-roller">
-                    <span class="hero-roller-track" style={`--digit: ${digit}; --d-i: ${di};`}>
-                      {Array.from({ length: 30 }, (_, n) => <span>{n % 10}</span>)}
-                    </span>
-                  </span>
-                ))}
-                {s.suffix && <span>{s.suffix}</span>}
-              </div>
-            ) : (
-              <div class="text-3xl sm:text-4xl font-bold text-white">{s.value}</div>
-            )}
-            <div class="text-sm text-gray-400 mt-1">{s.label}</div>
-          </div>
-        ))}
-      </div>
     </div>
   </div>
 </section>
@@ -176,17 +141,6 @@ const stats = HERO.stats.map((s) => {
     box-shadow: 0 6px 36px rgba(139, 92, 246, 0.45);
   }
 
-  .hero-stat {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: calc(var(--stat-i) * 0.12s);
-  }
-  .hero-stat.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   /* Video background visible siempre (mobile + desktop). Blobs solo se muestran
      cuando el user pidió reduced-motion (fallback estático). */
   .hero-video {
@@ -204,46 +158,14 @@ const stats = HERO.stats.map((s) => {
     }
   }
 
-  /* Rolling digit counter (slot-machine). Cada track contiene 30 dígitos
-     (3 ciclos de 0-9). El target hace 2 vueltas completas + aterriza en
-     el dígito final, así incluso los dígitos cuyo target es 0 se ven girar. */
-  .hero-roller {
-    display: inline-block;
-    height: 1em;
-    overflow: hidden;
-    line-height: 1;
-    vertical-align: baseline;
-  }
-  .hero-roller-track {
-    display: flex;
-    flex-direction: column;
-    transform: translateY(0);
-    transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: calc(var(--d-i) * 0.15s);
-    --turns: 2;
-  }
-  .hero-roller-track.is-rolling {
-    transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
-  }
-  .hero-roller-track > span {
-    display: block;
-    height: 1em;
-    line-height: 1;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .hero-word,
     .hero-line2,
-    .hero-ctas,
-    .hero-stat {
+    .hero-ctas {
       opacity: 1;
       transform: none;
       animation: none;
       transition: none;
-    }
-    .hero-roller-track {
-      transition: none;
-      transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
     }
   }
 </style>
@@ -311,24 +233,5 @@ const stats = HERO.stats.map((s) => {
         });
       });
     }
-
-
-    // 3) Stats fade-up + rolling digit al entrar al viewport.
-    const statEls = document.querySelectorAll<HTMLElement>('.hero-stat');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          entry.target.querySelectorAll('.hero-roller-track').forEach((track) => {
-            track.classList.add('is-rolling');
-          });
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    statEls.forEach((s) => io.observe(s));
-    controller.signal.addEventListener('abort', () => io.disconnect(), { once: true });
-  } else {
-    document.querySelectorAll<HTMLElement>('.hero-stat').forEach((s) => s.classList.add('is-visible'));
   }
 </script>
