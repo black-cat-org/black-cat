@@ -1,17 +1,55 @@
 ---
-const technologies = [
-  { name: 'React', color: 'from-cyan-400 to-blue-500' },
-  { name: 'Astro', color: 'from-orange-400 to-pink-500' },
-  { name: 'NestJS', color: 'from-red-500 to-pink-600' },
-  { name: 'Flutter', color: 'from-blue-400 to-cyan-500' },
-  { name: 'Next.js', color: 'from-gray-400 to-gray-600' },
-  { name: 'TypeScript', color: 'from-blue-500 to-blue-700' },
-  { name: 'TailwindCSS', color: 'from-cyan-400 to-teal-500' },
-  { name: 'PostgreSQL', color: 'from-blue-600 to-indigo-700' },
-  { name: 'MongoDB', color: 'from-green-500 to-emerald-600' },
-  { name: 'AWS', color: 'from-orange-500 to-amber-600' },
-  { name: 'Docker', color: 'from-blue-500 to-blue-600' },
-  { name: 'Vercel', color: 'from-gray-900 to-black' },
+import { Icon } from 'astro-icon/components';
+
+// Stack completo del sitio. Iconos:
+// - simple-icons:* → monochrome, controlables vía CSS color (la mayoría).
+// - aws → SVG local en src/icons/aws.svg (colores hardcoded en el SVG).
+// `iconColor` override a blanco para brands con icon-color black (Vercel, Expo, OpenAI, Next.js).
+type Tech = {
+  name: string;
+  color: string; // gradient text
+  icon: string;
+  iconColor?: string;
+};
+
+const technologies: Tech[] = [
+  // Frontend
+  { name: 'React', color: 'from-cyan-400 to-blue-500', icon: 'simple-icons:react', iconColor: '#61DAFB' },
+  { name: 'Next.js', color: 'from-white to-gray-200', icon: 'simple-icons:nextdotjs', iconColor: '#FFFFFF' },
+  { name: 'Astro', color: 'from-fuchsia-400 to-purple-600', icon: 'simple-icons:astro', iconColor: '#BC52EE' },
+  { name: 'TypeScript', color: 'from-blue-500 to-blue-700', icon: 'simple-icons:typescript', iconColor: '#3178C6' },
+  { name: 'Tailwind', color: 'from-cyan-400 to-teal-500', icon: 'simple-icons:tailwindcss', iconColor: '#06B6D4' },
+  // Backend & Data
+  { name: 'GraphQL', color: 'from-pink-500 to-fuchsia-600', icon: 'simple-icons:graphql', iconColor: '#E10098' },
+  { name: 'NestJS', color: 'from-red-500 to-pink-600', icon: 'simple-icons:nestjs', iconColor: '#E0234E' },
+  { name: 'PostgreSQL', color: 'from-blue-600 to-indigo-700', icon: 'simple-icons:postgresql', iconColor: '#4169E1' },
+  { name: 'MongoDB', color: 'from-green-500 to-emerald-600', icon: 'simple-icons:mongodb', iconColor: '#47A248' },
+  { name: 'Supabase', color: 'from-emerald-400 to-green-500', icon: 'simple-icons:supabase', iconColor: '#3FCF8E' },
+  { name: 'Firebase', color: 'from-yellow-400 to-orange-500', icon: 'simple-icons:firebase', iconColor: '#FFCA28' },
+  // Mobile
+  { name: 'Swift', color: 'from-orange-500 to-red-500', icon: 'simple-icons:swift', iconColor: '#F05138' },
+  { name: 'Kotlin', color: 'from-purple-500 to-violet-600', icon: 'simple-icons:kotlin', iconColor: '#7F52FF' },
+  { name: 'React Native', color: 'from-cyan-400 to-blue-500', icon: 'simple-icons:react', iconColor: '#61DAFB' },
+  { name: 'Flutter', color: 'from-blue-400 to-cyan-500', icon: 'simple-icons:flutter', iconColor: '#5DADE2' },
+  { name: 'Expo', color: 'from-white to-gray-200', icon: 'simple-icons:expo', iconColor: '#FFFFFF' },
+  // IA
+  { name: 'OpenAI', color: 'from-gray-100 to-gray-400', icon: 'simple-icons:openai', iconColor: '#FFFFFF' },
+  { name: 'Claude', color: 'from-orange-400 to-amber-600', icon: 'simple-icons:claude', iconColor: '#D97757' },
+  { name: 'Gemini', color: 'from-indigo-400 to-purple-500', icon: 'simple-icons:googlegemini', iconColor: '#8E75B2' },
+  // E-commerce
+  { name: 'Shopify', color: 'from-green-500 to-emerald-600', icon: 'simple-icons:shopify', iconColor: '#7AB55C' },
+  { name: 'WooCommerce', color: 'from-purple-500 to-fuchsia-600', icon: 'simple-icons:woocommerce', iconColor: '#96588A' },
+  { name: 'Stripe', color: 'from-indigo-500 to-blue-600', icon: 'simple-icons:stripe', iconColor: '#635BFF' },
+  // Infra & DevOps
+  { name: 'AWS', color: 'from-orange-500 to-amber-600', icon: 'aws' },
+  { name: 'Cloudflare', color: 'from-orange-500 to-yellow-500', icon: 'simple-icons:cloudflare', iconColor: '#F38020' },
+  { name: 'Vercel', color: 'from-gray-100 to-gray-400', icon: 'simple-icons:vercel', iconColor: '#FFFFFF' },
+  { name: 'Docker', color: 'from-blue-500 to-blue-600', icon: 'simple-icons:docker', iconColor: '#2496ED' },
+  { name: 'Kubernetes', color: 'from-blue-500 to-indigo-600', icon: 'simple-icons:kubernetes', iconColor: '#326CE5' },
+  // Analytics
+  { name: 'PostHog', color: 'from-orange-400 to-red-500', icon: 'simple-icons:posthog', iconColor: '#F54E00' },
+  { name: 'BigQuery', color: 'from-blue-400 to-cyan-500', icon: 'simple-icons:googlebigquery', iconColor: '#669DF6' },
+  { name: 'GA4', color: 'from-orange-500 to-yellow-500', icon: 'simple-icons:googleanalytics', iconColor: '#E37400' },
 ];
 ---
 
@@ -25,50 +63,128 @@ const technologies = [
       </h2>
     </div>
 
-    <!-- Tech Stack Marquee -->
-    <div class="relative overflow-hidden mb-16">
-      <div class="flex gap-8 animate-marquee">
-        {[...technologies, ...technologies].map((tech, index) => (
-          <div
-            key={index}
-            class="shrink-0 px-6 py-3 bg-gray-900 border border-gray-800 rounded-lg"
-          >
-            <span
-              class={`text-sm font-semibold bg-linear-to-r ${tech.color} bg-clip-text text-transparent whitespace-nowrap`}
-            >
-              {tech.name}
-            </span>
+    <!-- Tech Stack Marquee — dos copias anidadas para loop seamless. Pause on hover, scroll manual habilitado. -->
+    <div class="marquee-wrapper relative mb-16">
+      <div class="flex w-max animate-marquee">
+        {[0, 1].map(() => (
+          <div class="flex gap-8 pr-8 shrink-0">
+            {technologies.map((tech) => (
+              <div class="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-gray-900 border border-gray-800 rounded-lg">
+                <Icon
+                  name={tech.icon}
+                  class="w-4 h-4"
+                  style={tech.iconColor ? `color: ${tech.iconColor}` : undefined}
+                  aria-hidden="true"
+                />
+                <span
+                  class={`text-sm font-semibold bg-linear-to-r ${tech.color} bg-clip-text text-transparent whitespace-nowrap`}
+                >
+                  {tech.name}
+                </span>
+              </div>
+            ))}
           </div>
         ))}
       </div>
     </div>
 
-    <!-- Stats Grid -->
+    <!-- Stats Grid — rolling-digit counter al entrar al viewport. -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-      <div class="text-center">
-        <div class="text-4xl sm:text-5xl font-bold bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-          5+
+      {[
+        { value: 5, suffix: '+', label: 'Años de experiencia', color: 'text-purple-400' },
+        { value: 100, suffix: '+', label: 'Proyectos entregados', color: 'text-blue-400' },
+        { value: 50, suffix: '+', label: 'Clientes satisfechos', color: 'text-pink-400' },
+        { value: 99, suffix: '%', label: 'Uptime garantizado', color: 'text-cyan-400' },
+      ].map((stat) => (
+        <div class="trust-stat text-center">
+          <div class={`trust-counter text-4xl sm:text-5xl font-bold ${stat.color} mb-2 tabular-nums inline-flex items-baseline justify-center`}>
+            {String(stat.value).split('').map((digit, di) => (
+              <span class="trust-roller">
+                <span class="trust-roller-track" style={`--digit: ${digit}; --d-i: ${di};`}>
+                  {Array.from({ length: 30 }, (_, n) => <span>{n % 10}</span>)}
+                </span>
+              </span>
+            ))}
+            <span>{stat.suffix}</span>
+          </div>
+          <div class="text-gray-400">{stat.label}</div>
         </div>
-        <div class="text-gray-400">Años de experiencia</div>
-      </div>
-      <div class="text-center">
-        <div class="text-4xl sm:text-5xl font-bold bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">
-          100+
-        </div>
-        <div class="text-gray-400">Proyectos entregados</div>
-      </div>
-      <div class="text-center">
-        <div class="text-4xl sm:text-5xl font-bold bg-linear-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2">
-          50+
-        </div>
-        <div class="text-gray-400">Clientes satisfechos</div>
-      </div>
-      <div class="text-center">
-        <div class="text-4xl sm:text-5xl font-bold bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">
-          99%
-        </div>
-        <div class="text-gray-400">Uptime garantizado</div>
-      </div>
+      ))}
     </div>
   </div>
 </section>
+
+<style>
+  /* Marquee loop seamless: dos copias de la lista en flex anidado.
+     overflow: hidden → el loop se ve continuo sin interferencia de scroll manual.
+     Pause on hover para permitir lectura. */
+  .marquee-wrapper {
+    overflow: hidden;
+  }
+  .marquee-wrapper:hover .animate-marquee {
+    animation-play-state: paused;
+  }
+
+  /* Rolling digit counter (slot-machine). Cada track contiene 30 dígitos
+     (3 ciclos de 0-9). El target hace 2 vueltas + aterriza en el dígito
+     final, así incluso targets con 0 se ven girar. Trigger via IntersectionObserver
+     al entrar al viewport. */
+  .trust-roller {
+    display: inline-block;
+    height: 1em;
+    overflow: hidden;
+    line-height: 1;
+    vertical-align: baseline;
+  }
+  .trust-roller-track {
+    display: flex;
+    flex-direction: column;
+    transform: translateY(0);
+    transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--d-i) * 0.15s);
+    --turns: 2;
+  }
+  .trust-roller-track.is-rolling {
+    transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
+  }
+  .trust-roller-track > span {
+    display: block;
+    height: 1em;
+    line-height: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trust-roller-track {
+      transition: none;
+      transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
+    }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduce) {
+    const controller = new AbortController();
+    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
+
+    const stats = document.querySelectorAll<HTMLElement>('.trust-stat');
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.trust-roller-track').forEach((track) => {
+              track.classList.add('is-rolling');
+            });
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+    stats.forEach((s) => io.observe(s));
+    controller.signal.addEventListener('abort', () => io.disconnect(), { once: true });
+  } else {
+    document.querySelectorAll<HTMLElement>('.trust-roller-track').forEach((t) => t.classList.add('is-rolling'));
+  }
+</script>
