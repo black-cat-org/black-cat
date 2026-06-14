@@ -139,12 +139,8 @@ const technologies: Tech[] = [
   .trust-roller-track {
     display: flex;
     flex-direction: column;
-    transform: translateY(0);
-    transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: calc(var(--d-i) * 0.15s);
     --turns: 2;
-  }
-  .trust-roller-track.is-rolling {
+    /* Estático: muestra el dígito final, sin roll por scroll. */
     transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
   }
   .trust-roller-track > span {
@@ -152,39 +148,6 @@ const technologies: Tech[] = [
     height: 1em;
     line-height: 1;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .trust-roller-track {
-      transition: none;
-      transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
-    }
-  }
 </style>
 
-<script>
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (!reduce) {
-    const controller = new AbortController();
-    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
-
-    const stats = document.querySelectorAll<HTMLElement>('.trust-stat');
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.trust-roller-track').forEach((track) => {
-              track.classList.add('is-rolling');
-            });
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.5 },
-    );
-    stats.forEach((s) => io.observe(s));
-    controller.signal.addEventListener('abort', () => io.disconnect(), { once: true });
-  } else {
-    document.querySelectorAll<HTMLElement>('.trust-roller-track').forEach((t) => t.classList.add('is-rolling'));
-  }
-</script>
+<!-- Contadores estáticos: muestran el valor final por CSS, sin trigger de scroll. -->

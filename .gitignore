@@ -23,3 +23,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# design explorations (scratch, no se commitea)
+design-explorations/
+
+# playwright test artifacts
+.playwright-mcp

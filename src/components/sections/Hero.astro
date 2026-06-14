@@ -2,81 +2,201 @@
 import { whatsappUrl } from '../../config/site';
 
 const HERO = {
-  title: { line1: 'Software', line2Gradient: 'de Alto Impacto' },
+  eyebrow: 'Software a medida · línea Black',
+  title: { line1: 'Software de', line2Gradient: 'Alto Impacto' },
   description:
     'La empresa detrás de la línea Black — productos digitales propios y soluciones a medida hechas para potenciar industrias enteras.',
   ctaPrimary: { label: 'Comenzar Proyecto', href: '/contacto' },
   ctaSecondary: { label: 'WhatsApp' },
 } as const;
-
-const line1Words = HERO.title.line1.split(' ');
-const descWords = HERO.description.split(' ');
 ---
 
-<section class="hero-section relative min-h-dvh flex items-center justify-center overflow-hidden pt-16">
-  <!-- Video background (solo desktop + sin reduced-motion). Mobile y reduced-motion ven los blobs CSS. -->
-  <video
-    class="hero-video absolute inset-0 w-full h-full object-cover"
-    autoplay
-    loop
-    muted
-    playsinline
-    preload="metadata"
-    aria-hidden="true"
-  >
-    <source src="/videos/hero-bg.mp4" type="video/mp4" />
-  </video>
+<!--
+  Hero — ventana de app que muestra una terminal tipeando `build → deploy · live`
+  y morphea (barrido de luz, en loop) a un dashboard, dando la impresión de que el
+  producto es el resultado de ese build. Sin video → cero salto de color con el
+  resto del sitio (todo sobre bg-zinc-950). Fuentes propias del Hero: Plus Jakarta
+  Sans (título), Sora (UI), JetBrains Mono (terminal). Respeta prefers-reduced-motion.
+-->
+<section id="hero" class="relative min-h-[100svh] flex items-center overflow-hidden pt-28 md:pt-24 pb-20">
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="grid-veil" aria-hidden="true"></div>
 
-  <!-- Dark overlay para legibilidad del texto sobre el video. -->
-  <div class="absolute inset-0 bg-zinc-950/45" aria-hidden="true"></div>
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] gap-12 lg:gap-10 items-center">
 
-  <!-- Color tint del template original (queda muy sutil sobre el video). -->
-  <div class="absolute inset-0 bg-linear-to-br from-purple-900/15 via-zinc-950/40 to-blue-900/15" aria-hidden="true"></div>
-
-  <!-- Blobs CSS — visibles como fallback en mobile/reduced-motion. -->
-  <div class="hero-blobs absolute inset-0" aria-hidden="true">
-    <div data-hero-blob data-speed="0.3" class="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob will-change-transform"></div>
-    <div data-hero-blob data-speed="0.5" class="absolute top-40 right-10 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 will-change-transform"></div>
-    <div data-hero-blob data-speed="0.2" class="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 will-change-transform"></div>
-  </div>
-
-  <div class="hero-content relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-    <div class="space-y-8">
-      <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold">
-        <span class="block text-white">
-          {line1Words.map((word, i) => (
-            <span class="hero-word inline-block mr-[0.25em] last:mr-0" style={`--word-i: ${i}`}>{word}</span>
-          ))}
+      <!-- ----- Columna texto ----- -->
+      <div id="hero-left" class="text-center lg:text-left">
+        <span class="eyebrow reveal inline-flex items-center gap-2 rounded-full bg-white/[0.05] border border-white/10 px-3.5 py-1.5 text-[12.5px] font-medium tracking-tight text-white/70">
+          <span class="eyebrow-dot pulse inline-block w-1.5 h-1.5 rounded-full"></span>
+          {HERO.eyebrow}
         </span>
-        <span class="hero-line2 block bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent" style={`--line1-count: ${line1Words.length}`}>
-          {HERO.title.line2Gradient}
-        </span>
-      </h1>
 
-      <p class="max-w-2xl mx-auto text-lg sm:text-xl text-gray-400 leading-relaxed">
-        {descWords.map((word, i) => (
-          <span class="hero-word inline-block mr-[0.3em] last:mr-0" style={`--word-i: ${line1Words.length + 1 + i}`}>{word}</span>
-        ))}
-      </p>
+        <h1 class="reveal mt-6 text-[2.7rem] leading-[1.04] sm:text-6xl lg:text-[4.4rem] font-bold tracking-[-0.03em]">
+          {HERO.title.line1}
+          <span class="text-grad">{HERO.title.line2Gradient}</span>
+        </h1>
 
-      <div class="hero-ctas flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-        <a
-          href={HERO.ctaPrimary.href}
-          class="hero-cta-primary inline-flex items-center justify-center min-w-[16rem] px-8 py-4 text-white rounded-btn font-medium text-lg relative overflow-hidden"
-        >
-          <span class="relative z-10">{HERO.ctaPrimary.label}</span>
-        </a>
-        <a
-          href={whatsappUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hero-cta-secondary inline-flex items-center justify-center gap-2 min-w-[16rem] px-8 py-4 border-2 rounded-btn font-medium text-lg"
-        >
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-          </svg>
-          {HERO.ctaSecondary.label}
-        </a>
+        <p class="reveal mt-6 mx-auto lg:mx-0 max-w-md text-[1.05rem] leading-relaxed text-white/55">
+          {HERO.description}
+        </p>
+
+        <div class="reveal mt-9 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+          <a
+            href={HERO.ctaPrimary.href}
+            class="btn inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-zinc-900 text-[15px] font-semibold tracking-tight hover:bg-white/90"
+          >
+            {HERO.ctaPrimary.label}
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a
+            href={whatsappUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white/[0.05] border border-white/10 text-white text-[15px] font-semibold tracking-tight hover:bg-white/[0.09]"
+          >
+            <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.02zM12.05 20.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42-.14-.01-.31-.01-.48-.01a.92.92 0 0 0-.67.31c-.23.25-.88.86-.88 2.07 0 1.22.9 2.4 1.02 2.56.12.17 1.76 2.69 4.27 3.77.6.26 1.06.41 1.42.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+            {HERO.ctaSecondary.label}
+          </a>
+        </div>
+      </div>
+
+      <!-- ----- Columna VENTANA (plantada, quieta) ----- -->
+      <div class="window-col">
+        <div id="appWindow" class="app-window win-glass relative rounded-2xl overflow-hidden">
+
+          <!-- barra superior: label que crossfadea build → app -->
+          <div class="flex items-center gap-2 px-4 h-11 border-b border-white/[0.07] bg-white/[0.02]">
+            <span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span>
+            <span class="w-3 h-3 rounded-full bg-[#febc2e]"></span>
+            <span class="w-3 h-3 rounded-full bg-[#28c840]"></span>
+            <div class="flex-1 flex justify-center">
+              <div class="urlbar px-3 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-[11.5px] tracking-tight">
+                <span class="lbl lbl--term text-white/45" style="font-family:var(--mono)">~/black-cat — build</span>
+                <span class="lbl lbl--app text-white/45">blackcat.app/dashboard</span>
+              </div>
+            </div>
+            <div class="w-12"></div>
+          </div>
+
+          <!-- stage: dashboard (define alto) + terminal overlay + barrido -->
+          <div class="screens">
+
+            <!-- ===== screen DASHBOARD ===== -->
+            <div id="screenDash" class="screen screen--dash">
+              <div class="flex">
+                <aside class="hidden sm:flex flex-col gap-1 w-44 shrink-0 p-3 border-r border-white/[0.06] bg-white/[0.012]">
+                  <div class="flex items-center gap-2 px-2 py-2 mb-2">
+                    <span class="w-6 h-6 rounded-lg grid place-items-center" style="background: linear-gradient(140deg, var(--accent-violet), var(--accent-blue));">
+                      <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/></svg>
+                    </span>
+                    <span class="text-[12.5px] font-semibold tracking-tight text-white/80">Black POS</span>
+                  </div>
+                  <div class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg bg-white/[0.06] text-[12px] font-medium text-white/85">
+                    <span class="w-1.5 h-1.5 rounded-full" style="background: var(--accent-violet)"></span> Resumen
+                  </div>
+                  <div class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[12px] text-white/40"><span class="w-1.5 h-1.5 rounded-full bg-white/20"></span> Ventas</div>
+                  <div class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[12px] text-white/40"><span class="w-1.5 h-1.5 rounded-full bg-white/20"></span> Inventario</div>
+                  <div class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[12px] text-white/40"><span class="w-1.5 h-1.5 rounded-full bg-white/20"></span> Clientes</div>
+                  <div class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[12px] text-white/40"><span class="w-1.5 h-1.5 rounded-full bg-white/20"></span> Ajustes</div>
+                </aside>
+
+                <div class="flex-1 p-4 sm:p-5 min-w-0">
+                  <div class="flex items-center justify-between mb-4">
+                    <div>
+                      <p class="text-[11px] uppercase tracking-[0.16em] text-white/35">Ingresos · 30d</p>
+                      <p class="mt-1 text-[22px] sm:text-[26px] font-bold tracking-tight text-white">
+                        $<span id="count" data-to="284920">0</span>
+                      </p>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/10 border border-emerald-400/20 px-2.5 py-1 text-[11.5px] font-semibold text-emerald-300">
+                      <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 14l5-5 4 4 6-7"/></svg>
+                      +18.4%
+                    </span>
+                  </div>
+
+                  <div class="grid grid-cols-3 gap-2.5 mb-4">
+                    <div class="rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5">
+                      <p class="text-[10.5px] text-white/40 tracking-tight">Pedidos</p>
+                      <p class="mt-1 text-[15px] font-bold tracking-tight text-white/90">1.284</p>
+                    </div>
+                    <div class="rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5">
+                      <p class="text-[10.5px] text-white/40 tracking-tight">Ticket</p>
+                      <p class="mt-1 text-[15px] font-bold tracking-tight text-white/90">$221</p>
+                    </div>
+                    <div class="rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5">
+                      <p class="text-[10.5px] text-white/40 tracking-tight">Activos</p>
+                      <p class="mt-1 flex items-center gap-1.5 text-[15px] font-bold tracking-tight text-white/90">
+                        <span class="pulse inline-block w-1.5 h-1.5 rounded-full" style="background: var(--accent-blue)"></span>92
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="rounded-xl border border-white/[0.07] bg-white/[0.02] p-3.5">
+                    <div class="flex items-center justify-between mb-3">
+                      <p class="text-[11.5px] font-medium text-white/55 tracking-tight">Ventas por semana</p>
+                      <div class="flex gap-2 text-[10px] text-white/35">
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-sm" style="background: var(--accent-violet)"></span>2026</span>
+                      </div>
+                    </div>
+                    <div class="flex items-end gap-2 h-24">
+                      <div class="flex-1 rounded-t-md bar" style="height: 48%; animation-delay:.30s; background: linear-gradient(180deg, rgba(139,124,255,.85), rgba(139,124,255,.35))"></div>
+                      <div class="flex-1 rounded-t-md bar" style="height: 66%; animation-delay:.38s; background: linear-gradient(180deg, rgba(139,124,255,.85), rgba(139,124,255,.35))"></div>
+                      <div class="flex-1 rounded-t-md bar" style="height: 40%; animation-delay:.46s; background: linear-gradient(180deg, rgba(139,124,255,.85), rgba(139,124,255,.35))"></div>
+                      <div class="flex-1 rounded-t-md bar" style="height: 82%; animation-delay:.54s; background: linear-gradient(180deg, rgba(91,157,255,.9),  rgba(91,157,255,.4))"></div>
+                      <div class="flex-1 rounded-t-md bar" style="height: 58%; animation-delay:.62s; background: linear-gradient(180deg, rgba(139,124,255,.85), rgba(139,124,255,.35))"></div>
+                      <div class="flex-1 rounded-t-md bar" style="height: 100%; animation-delay:.70s; background: linear-gradient(180deg, rgba(91,157,255,1),   rgba(91,157,255,.45))"></div>
+                      <div class="flex-1 rounded-t-md bar" style="height: 74%; animation-delay:.78s; background: linear-gradient(180deg, rgba(139,124,255,.85), rgba(139,124,255,.35))"></div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-1 gap-3">
+                    <div>
+                      <div class="flex items-center justify-between mb-1.5">
+                        <p class="text-[11.5px] text-white/55 tracking-tight">Sprint · release v2.4</p>
+                        <p class="text-[11.5px] font-semibold text-white/80">72%</p>
+                      </div>
+                      <div class="h-2 rounded-full bg-white/[0.07] overflow-hidden">
+                        <div class="progress-fill h-full rounded-full" style="--to:72%; background: linear-gradient(90deg, var(--accent-violet), var(--accent-blue))"></div>
+                      </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                      <div class="row flex items-center gap-2.5 text-[11.5px]">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        <span class="text-white/60">Deploy a producción</span>
+                        <span class="ml-auto text-white/30">ok</span>
+                      </div>
+                      <div class="row flex items-center gap-2.5 text-[11.5px]">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background: var(--accent-blue)"></span>
+                        <span class="text-white/60">API de pagos integrada</span>
+                        <span class="ml-auto text-white/30">2m</span>
+                      </div>
+                      <div class="row flex items-center gap-2.5 text-[11.5px]">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background: var(--accent-violet)"></span>
+                        <span class="text-white/60">Tests E2E corriendo</span>
+                        <span class="ml-auto text-white/30">live</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /screen--dash -->
+
+            <!-- ===== screen TERMINAL ===== -->
+            <div id="screenTerm" class="screen screen--term">
+              <div class="term__body px-5 py-5">
+                <div id="termOut"></div>
+                <span id="termCursor" class="cursor"></span>
+                <span class="sr-only">Terminal: black-cat build --prod. Compilado sin errores. Deploy a producción, live en 1.2s. Luego se construye el dashboard de la app.</span>
+              </div>
+            </div>
+
+            <!-- barrido de luz -->
+            <div class="build-sweep" aria-hidden="true"></div>
+
+          </div><!-- /screens -->
+        </div><!-- /app-window -->
       </div>
 
     </div>
@@ -84,154 +204,315 @@ const descWords = HERO.description.split(' ');
 </section>
 
 <style>
-  /* Reveal por palabra (línea 1 + subcopy). */
-  .hero-word {
-    opacity: 0;
-    transform: translateY(0.4em);
-    animation: hero-word-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--word-i) * 0.06s);
+  #hero {
+    /* Tipografía propia del Hero (no afecta al resto del sitio, que usa Inter). */
+    font-family: 'Sora', system-ui, sans-serif;
+    --accent-violet: #8b7cff;
+    --accent-blue:   #5b9dff;
+    --emerald:       #34d399;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
-  @keyframes hero-word-reveal {
-    to { opacity: 1; transform: translateY(0); }
+  /* ---------- Ambiente: glow contenido + grid tenue (se funden en zinc-950) ---------- */
+  #hero .ambient {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(60% 55% at 50% 42%, rgba(139,124,255,.16), transparent 70%),
+      radial-gradient(50% 45% at 68% 60%, rgba(91,157,255,.12), transparent 72%);
+    filter: saturate(1.05);
+  }
+  #hero .grid-veil {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(70% 60% at 50% 45%, #000 0%, transparent 75%);
+            mask-image: radial-gradient(70% 60% at 50% 45%, #000 0%, transparent 75%);
   }
 
-  /* Línea 2 (gradient) entera — no se splitea para preservar bg-clip-text. */
-  .hero-line2 {
-    opacity: 0;
-    transform: translateY(0.4em);
-    animation: hero-line2-reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--line1-count) * 0.06s + 0.1s);
+  /* ---------- Ventana — plantada y quieta ---------- */
+  .app-window {
+    animation: window-enter .9s var(--ease-out) both;
+    box-shadow:
+      0 2px 8px rgba(0,0,0,.4),
+      0 30px 80px -20px rgba(0,0,0,.7),
+      0 60px 140px -40px rgba(91,157,255,.18);
+  }
+  @keyframes window-enter {
+    from { opacity: 0; transform: translateY(28px) scale(.985); }
+    to   { opacity: 1; transform: none; }
   }
 
-  @keyframes hero-line2-reveal {
-    to { opacity: 1; transform: translateY(0); }
+  .win-glass {
+    background: rgba(255,255,255,.045);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    border: 1px solid rgba(255,255,255,.10);
+  }
+  .win-glass::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+    background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 40%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    pointer-events: none;
   }
 
-  /* CTAs: solo fade, sin slide. */
-  .hero-ctas {
-    opacity: 0;
-    animation: hero-fade 0.8s 0.7s ease-out both;
+  /* ---------- Barra de título: crossfade build → app ---------- */
+  .urlbar { position: relative; min-width: 200px; height: 26px; }
+  .lbl { position: absolute; inset: 0; display: grid; place-items: center; transition: opacity .5s var(--ease-out); white-space: nowrap; }
+  .lbl--app { opacity: 0; }
+  .app-window.built .lbl--term { opacity: 0; }
+  .app-window.built .lbl--app  { opacity: 1; }
+
+  /* ---------- Stage: dashboard (define alto) + terminal overlay ---------- */
+  .screens { position: relative; }
+  .screen--dash {
+    position: relative;
+    opacity: 0; transform: scale(.99); filter: blur(3px);
+    transition: opacity .6s var(--ease-out), transform .7s var(--ease-out), filter .6s var(--ease-out);
+  }
+  .screen--dash.is-built { opacity: 1; transform: none; filter: none; }
+  .screen--term {
+    position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(180deg, rgba(24,24,27,.92), rgba(9,9,11,.96));
+    transition: opacity .5s var(--ease-out), transform .55s var(--ease-out), filter .5s var(--ease-out);
+  }
+  .screen--term.is-done {
+    opacity: 0; transform: translateY(-10px) scale(.985); filter: blur(7px);
+    pointer-events: none;
   }
 
-  @keyframes hero-fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  /* barrido de luz que cruza al construir */
+  .build-sweep {
+    position: absolute; left: 0; right: 0; top: -140px; height: 130px; z-index: 3;
+    pointer-events: none; opacity: 0;
+    background: linear-gradient(180deg, transparent, rgba(139,124,255,.15) 42%, rgba(91,157,255,.42) 50%, rgba(139,124,255,.15) 58%, transparent);
+    filter: blur(5px);
+  }
+  .app-window.sweeping .build-sweep { animation: sweep 1s var(--ease-out) forwards; }
+  @keyframes sweep {
+    0%   { top: -140px; opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
   }
 
-  /* CTA primario: gradiente diagonal violet → purple. Hover sutil con brightness y glow. */
-  .hero-cta-primary {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 55%, #6d28d9 100%);
-    box-shadow: 0 4px 24px rgba(139, 92, 246, 0.4);
-    transition: filter 0.6s ease, box-shadow 0.6s ease;
+  /* ---------- Terminal ---------- */
+  .term__body { font-family: var(--mono); font-size: 13.5px; line-height: 1.85; }
+  /* Las líneas y los spans coloreados se inyectan por JS en runtime → no llevan el
+     atributo de scope de Astro. Por eso van como :global (si no, no toman color). */
+  #hero :global(.term__line) { white-space: pre-wrap; }
+  #hero :global(.c-prompt) { color:#6b7280; }
+  #hero :global(.c-cmd)    { color:#e4e4e7; }
+  #hero :global(.c-flag)   { color:#a5b4fc; }
+  #hero :global(.c-ok)     { color:#34d399; }
+  #hero :global(.c-dim)    { color:#71717a; }
+  #hero :global(.c-ship)   { color:#fcd34d; }
+  .cursor{
+    display:inline-block; width:.6ch; height:1.05em; transform: translateY(.16em);
+    background: var(--emerald); margin-left:.06ch; border-radius:1px;
+    animation: blink 1.0s steps(1,end) infinite; box-shadow: 0 0 8px rgba(52,211,153,.5);
   }
-  .hero-cta-primary:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 6px 36px rgba(139, 92, 246, 0.55);
+  @keyframes blink{ 0%,49%{ opacity:1 } 50%,100%{ opacity:0 } }
+
+  /* ---------- UI dashboard: pausada hasta build ---------- */
+  .bar { transform-origin: bottom; animation: bar-grow 1.2s var(--ease-out) both; animation-play-state: paused; }
+  @keyframes bar-grow { from { transform: scaleY(.06); } to { transform: scaleY(1); } }
+  .progress-fill { width: 0%; animation: progress-fill 1.4s var(--ease-out) .15s forwards; animation-play-state: paused; }
+  @keyframes progress-fill { to { width: var(--to, 72%); } }
+  .row { opacity: 0; transform: translateY(7px); animation: row-in .46s var(--ease-out) forwards; animation-play-state: paused; }
+  .row:nth-child(1){ animation-delay:.20s } .row:nth-child(2){ animation-delay:.28s } .row:nth-child(3){ animation-delay:.36s }
+  @keyframes row-in { to { opacity: 1; transform: translateY(0); } }
+  .screen--dash.is-built .bar,
+  .screen--dash.is-built .progress-fill,
+  .screen--dash.is-built .row { animation-play-state: running; }
+
+  .pulse { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1;   box-shadow: 0 0 0 0 rgba(91,157,255,.5); }
+    50%      { opacity: .55; box-shadow: 0 0 0 5px rgba(91,157,255,0); }
   }
 
-  /* CTA secundario: mismos tonos del primario. Hover replica el del primario sin fill. */
-  .hero-cta-secondary {
-    border-color: #8b5cf6;
-    color: #a78bfa;
-    transition: filter 0.6s ease, box-shadow 0.6s ease;
-  }
-  .hero-cta-secondary:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 6px 36px rgba(139, 92, 246, 0.45);
-  }
+  /* ---------- Texto headline (reveal en load) ---------- */
+  /* Entrada "focus-in": enfoca (blur→nítido) + fade, SIN desplazamiento. Todos a la vez. */
+  .reveal { opacity: 0; filter: blur(8px); animation: reveal-focus .8s var(--ease-out) forwards; }
+  @keyframes reveal-focus { to { opacity: 1; filter: blur(0); } }
 
-  /* Video background visible siempre (mobile + desktop). Blobs solo se muestran
-     cuando el user pidió reduced-motion (fallback estático). */
-  .hero-video {
+  .btn { transition: transform .16s var(--ease-out), background-color .16s ease, border-color .16s ease; }
+  .btn:active { transform: scale(.97); }
+
+  /* ---------- Columna izquierda: título Plus Jakarta Sans + gradiente de marca ---------- */
+  #hero-left h1 {
+    position: relative;
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    text-transform: none;
+  }
+  #hero-left .text-grad {
     display: block;
+    /* Dos capas clipeadas al texto: una banda de luz (arriba) + el gradiente de marca (abajo). */
+    background-image:
+      linear-gradient(100deg, transparent, rgba(255,255,255,.38) 50%, transparent),
+      var(--gradient-violet-rose);
+    background-repeat: no-repeat;
+    background-size: 60% 100%, 100% 100%;
+    background-position: -120% 0, 0 0;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    /* La luz cruza las letras una sola vez y queda fuera (gradiente limpio en reposo). */
+    animation: title-shine 1.3s var(--ease-out) .85s 1 both;
   }
-  .hero-blobs {
-    display: none;
+  @keyframes title-shine {
+    to { background-position: 220% 0, 0 0; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-video {
-      display: none;
-    }
-    .hero-blobs {
-      display: block;
-    }
+  #hero-left .eyebrow-dot { background: #8b5cf6; }
+  #hero-left .eyebrow {
+    border-color: rgba(139, 92, 246, 0.22);
+    background: rgba(139, 92, 246, 0.05);
+    color: rgba(255, 255, 255, 0.78);
   }
 
+  /* ---------- reduced motion: directo al dashboard final, sin loop ---------- */
   @media (prefers-reduced-motion: reduce) {
-    .hero-word,
-    .hero-line2,
-    .hero-ctas {
-      opacity: 1;
-      transform: none;
-      animation: none;
-      transition: none;
+    .app-window { animation: none; transform: none; opacity: 1; }
+    .build-sweep { display: none; }
+    .screen--term { display: none; }
+    .screen--dash { opacity: 1; transform: none; filter: none; }
+    .bar, .progress-fill, .row, .pulse, .reveal {
+      animation: none; opacity: 1; transform: none; filter: none;
     }
+    #hero-left .text-grad { animation: none; background-position: 220% 0, 0 0; }
+    .progress-fill { width: var(--to, 72%); }
+    .lbl--term { opacity: 0; } .lbl--app { opacity: 1; }
   }
 </style>
 
+<!-- Scroll nativo fluido (sin smooth-scroll por librería, a pedido). -->
+
+<!-- Animación del Hero: terminal tipea build → deploy, morphea al dashboard, en loop. -->
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  import Lenis from 'lenis';
+  (function () {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const win = document.getElementById('appWindow');
+    const term = document.getElementById('screenTerm');
+    const dash = document.getElementById('screenDash');
+    const out = document.getElementById('termOut');
+    const cursor = document.getElementById('termCursor');
+    const countEl = document.getElementById('count');
+    if (!win || !term || !dash || !out) return;
 
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fmt = (n: number) => n.toLocaleString('es-AR');
+    const TARGET = countEl ? parseInt(countEl.dataset.to || '0', 10) : 0;
 
-  if (!reduce) {
-    gsap.registerPlugin(ScrollTrigger);
+    let timers: number[] = [];
+    const after = (ms: number, fn: () => void) => { const t = window.setTimeout(fn, ms); timers.push(t); return t; };
+    const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
+    document.addEventListener('astro:before-swap', clearTimers, { once: true });
 
-    const controller = new AbortController();
-    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
+    let counterRAF = 0;
+    function startCounter() {
+      if (!countEl) return;
+      if (reduce) { countEl.textContent = fmt(TARGET); return; }
+      let start: number | null = null;
+      const dur = 1100;
+      function step(ts: number) {
+        if (start === null) start = ts;
+        const p = Math.min((ts - start) / dur, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        countEl!.textContent = fmt(Math.round(TARGET * e));
+        if (p < 1) counterRAF = requestAnimationFrame(step); else countEl!.textContent = fmt(TARGET);
+      }
+      counterRAF = requestAnimationFrame(step);
+    }
+    function resetCounter() {
+      if (counterRAF) cancelAnimationFrame(counterRAF);
+      if (countEl) countEl.textContent = '0';
+    }
 
-    // Smooth scroll global con Lenis. Sincronizado con GSAP ticker.
-    const lenis = new Lenis({
-      duration: 1.2,
-      smoothWheel: true,
-    });
-    lenis.on('scroll', ScrollTrigger.update);
-    const tickerCb = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(tickerCb);
-    gsap.ticker.lagSmoothing(0);
-
-    controller.signal.addEventListener('abort', () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      gsap.ticker.remove(tickerCb);
-      lenis.destroy();
-    }, { once: true });
-
-    const section = document.querySelector<HTMLElement>('.hero-section');
-
-    if (section) {
-      // 1) Contenido del Hero se aleja con scrub al hacer scroll.
-      gsap.to('.hero-content', {
-        opacity: 0.15,
-        y: -120,
-        scale: 0.94,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: 'bottom 50%',
-          scrub: 0.5,
-        },
-      });
-
-      // 2) Blobs con parallax + scale.
-      gsap.utils.toArray<HTMLElement>('[data-hero-blob]').forEach((el) => {
-        const speed = parseFloat(el.dataset.speed || '0.3');
-        gsap.to(el, {
-          y: () => window.innerHeight * speed * 1.4,
-          scale: 1.4,
-          opacity: 0.05,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.6,
-          },
-        });
+    function restartDashAnims() {
+      dash!.querySelectorAll<HTMLElement>('.bar, .progress-fill, .row').forEach((el) => {
+        el.style.animation = 'none';
+        void el.offsetWidth;
+        el.style.animation = '';
       });
     }
-  }
+
+    const SEQ = [
+      { html: '<span class="c-prompt">$</span> <span class="c-cmd">black-cat</span> <span class="c-cmd">build</span> <span class="c-flag">--prod</span>', type: true, speed: 18 },
+      { html: '<span class="c-dim">▸ compilando módulos…</span>', type: false, pre: 200 },
+      { html: '<span class="c-ok">✓ 0 errors</span>  <span class="c-dim">·  0 warnings</span>', type: false, pre: 240 },
+      { html: '<span class="c-dim">▸ optimizando bundle  </span><span class="c-ok">98%</span>', type: false, pre: 200 },
+      { html: '<span class="c-ship">▸ shipping a producción…</span>', type: false, pre: 220 },
+      { html: '<span class="c-prompt">$</span> <span class="c-cmd">deploy</span> <span class="c-ok">— live</span> <span class="c-dim">en 1.2s</span>', type: true, speed: 16 },
+    ];
+    const stripTags = (html: string) => { const d = document.createElement('div'); d.innerHTML = html; return d.textContent || ''; };
+
+    const LINE_PAUSE = 140;
+    const HOLD_AFTER_DEPLOY = 360;
+    const DASH_HOLD = 4000;
+    const REVERSE = 560;
+
+    function buildDashboard() {
+      if (cursor) { cursor.style.transition = 'opacity .2s'; cursor.style.opacity = '0'; }
+      win!.classList.add('sweeping');
+      win!.classList.add('built');
+      after(240, () => {
+        term!.classList.add('is-done');
+        dash!.classList.add('is-built');
+        startCounter();
+      });
+      after(1080, () => win!.classList.remove('sweeping'));
+      after(1080 + DASH_HOLD, reverseToTerminal);
+    }
+
+    function reverseToTerminal() {
+      dash!.classList.remove('is-built');
+      after(REVERSE, () => {
+        restartDashAnims();
+        resetCounter();
+        out!.innerHTML = '';
+        if (cursor) { cursor.style.transition = ''; cursor.style.opacity = '1'; }
+        term!.classList.remove('is-done');
+        win!.classList.remove('built');
+        after(280, typeRun);
+      });
+    }
+
+    function typeRun() {
+      let i = 0;
+      function nextLine() {
+        if (i >= SEQ.length) { after(HOLD_AFTER_DEPLOY, buildDashboard); return; }
+        const step = SEQ[i];
+        const line = document.createElement('div');
+        line.className = 'term__line';
+        out!.appendChild(line);
+        after(step.pre || 0, () => {
+          if (step.type) {
+            const plain = stripTags(step.html);
+            let idx = 0;
+            (function typeChar() {
+              line.textContent = plain.slice(0, idx); idx++;
+              if (idx <= plain.length) after(step.speed!, typeChar);
+              else { line.innerHTML = step.html; i++; after(LINE_PAUSE, nextLine); }
+            })();
+          } else { line.innerHTML = step.html; i++; after(LINE_PAUSE, nextLine); }
+        });
+      }
+      nextLine();
+    }
+
+    if (reduce) {
+      if (cursor) cursor.style.display = 'none';
+      win.classList.add('built');
+      dash.classList.add('is-built');
+      startCounter();
+      return;
+    }
+    typeRun();
+  })();
 </script>

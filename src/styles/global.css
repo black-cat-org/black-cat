@@ -7,6 +7,16 @@
   --radius-btn: 0.75rem;
 }
 
+/* Gradientes de marca aprobados (para títulos/acentos). Origen: exploraciones de Hero.
+   Uso típico en texto:
+     background: var(--gradient-violet-rose);
+     -webkit-background-clip: text; background-clip: text; color: transparent;  */
+:root {
+  --gradient-violet-blue: linear-gradient(100deg, #a78bfa, #8b7cff 50%, #5b9dff); /* hero-17 */
+  --gradient-violet-rose: linear-gradient(100deg, #8b5cf6, #f472b6);              /* hero-18 (elegido para el Hero) */
+  --gradient-teal-blue:   linear-gradient(100deg, #2dd4bf, #38bdf8);              /* hero-19 */
+}
+
 @layer utilities {
   @keyframes blob {
     0% {
