@@ -76,152 +76,283 @@ const services = [
     href: '/servicios/soporte-tecnico',
   },
 ];
+
+// Paleta rotada por celda (i % 3): gradiente de marca + glow radial + acentos a juego.
+// Coherente con el hero. Los tokens --gradient-* viven en global.css.
+const PALETTES = [
+  {
+    grad: 'var(--gradient-violet-rose)',
+    glow: 'radial-gradient(120% 92% at 24% -6%, rgba(168,85,247,.22), rgba(244,114,182,.10) 38%, transparent 62%)',
+    underlineGlow: '0 0 16px rgba(244,114,182,.55)',
+    num: 'rgba(244,114,182,.82)',
+    chipMoreBorder: 'rgba(244,114,182,.34)',
+    chipMoreColor: 'rgba(249,168,212,.92)',
+  },
+  {
+    grad: 'var(--gradient-violet-blue)',
+    glow: 'radial-gradient(120% 92% at 24% -6%, rgba(139,124,255,.22), rgba(91,157,255,.10) 38%, transparent 62%)',
+    underlineGlow: '0 0 16px rgba(91,157,255,.55)',
+    num: 'rgba(147,170,255,.85)',
+    chipMoreBorder: 'rgba(124,124,255,.34)',
+    chipMoreColor: 'rgba(191,200,255,.92)',
+  },
+  {
+    grad: 'var(--gradient-teal-blue)',
+    glow: 'radial-gradient(120% 92% at 24% -6%, rgba(45,212,191,.22), rgba(56,189,248,.10) 38%, transparent 62%)',
+    underlineGlow: '0 0 16px rgba(56,189,248,.55)',
+    num: 'rgba(94,234,212,.85)',
+    chipMoreBorder: 'rgba(45,212,191,.34)',
+    chipMoreColor: 'rgba(153,246,228,.92)',
+  },
+];
+
+const MAX_CHIPS = 4;
 ---
 
-<section id="servicios" class="services-section py-24 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4 tracking-tight">
-        Software a medida
-      </h2>
-      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+<!--
+  Services "Software a medida" — grid aireado con hairlines (sin cards), título en gradiente
+  del color de la celda + subrayado que se expande, glow radial al hover, e icono que pasa de
+  tile monocromo (reposo) a anillo + halo gradiente (hover). 3 gradientes de marca rotados por
+  celda. Render estático (sin JS): el hover/reveal es 100% CSS. Respeta prefers-reduced-motion.
+-->
+<section id="servicios" class="svc-section relative py-24 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <span class="h-eyebrow"><span class="dot"></span> Qué hacemos</span>
+      <h2 class="h-title mt-5 text-4xl sm:text-5xl">Software <span class="text-grad">a medida</span></h2>
+      <p class="mt-4 text-lg text-white/55 max-w-2xl mx-auto">
         Cuando necesitás algo único, lo construimos. Estos son nuestros pilares técnicos.
       </p>
     </div>
 
-    <ul class="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 list-none p-0">
-      {services.map((service, i) => (
-        <li class="service-card-wrapper" style={`--card-i: ${i}`}>
-          <a
-            href={service.href}
-            class="service-card group relative block h-full p-6 rounded-2xl transition-all duration-300 overflow-hidden"
-          >
-            <div class="flex flex-col gap-4 h-full relative z-[5]">
-              <div class="card-icon inline-flex items-center justify-center w-11 h-11 rounded-xl">
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                  set:html={ICONS[service.icon]}
-                />
-              </div>
-              <h3 class="card-title text-xl font-semibold tracking-tight">{service.title}</h3>
-              <p class="text-gray-400 text-sm leading-relaxed">{service.description}</p>
-              <ul class="flex flex-wrap gap-1.5 list-none p-0 mt-auto">
-                {service.chips.map((chip) => (
-                  <li class="card-chip text-[11px] px-2 py-1">{chip}</li>
-                ))}
-              </ul>
+    <ul class="svc-grid" role="list">
+      {services.map((s, i) => {
+        const p = PALETTES[i % PALETTES.length];
+        const num = String(i + 1).padStart(2, '0');
+        const shown = s.chips.slice(0, MAX_CHIPS);
+        const extra = s.chips.length - shown.length;
+        const styleVars =
+          `--grad:${p.grad};--glow:${p.glow};--underline-glow:${p.underlineGlow};` +
+          `--num-color:${p.num};--chip-more-border:${p.chipMoreBorder};--chip-more-color:${p.chipMoreColor};` +
+          `--d:${120 + i * 70}ms;`;
+        return (
+          <li class="svc-cell" style={styleVars}>
+            <a href={s.href} class="absolute inset-0 z-10" aria-label={`${s.title}: ${s.description}`}></a>
+            <div class="flex items-center justify-between">
+              <span class="svc-ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[s.icon]} />
+              </span>
+              <span class="svc-num">{num}</span>
             </div>
-          </a>
-        </li>
-      ))}
+            <h3 class="svc-title mt-5">{s.title}</h3>
+            <p class="svc-line">{s.description}</p>
+            <div class="svc-chips" aria-hidden="true">
+              {shown.map((c) => <span class="chip">{c}</span>)}
+              {extra > 0 && <span class="chip chip-more">+{extra}</span>}
+            </div>
+          </li>
+        );
+      })}
     </ul>
   </div>
 </section>
 
 <style>
-  /* Cards visibles directamente (sin animación de entrada por scroll). */
-
-  /* Glass minimal + cursor-tracking inner glow.
-     `contain: layout style` evita reflow en hermanos durante scroll/hover. */
-  .service-card {
-    contain: layout style;
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  /* Tokens + fuentes de la sección (no afectan al resto del sitio). --gradient-* viven en global.css. */
+  .svc-section {
+    font-family: 'Sora', system-ui, sans-serif;
+    --bg: #09090b;
+    --accent-violet: #8b5cf6;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   }
-  .service-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(
-      circle at var(--mx, 50%) var(--my, 0%),
-      rgba(168, 85, 247, 0.22),
-      transparent 60%
-    );
+
+  /* ---- Heading helpers (coherentes con el hero) ---- */
+  .h-eyebrow {
+    display: inline-flex; align-items: center; gap: .5rem;
+    border-radius: 9999px; padding: .375rem .875rem;
+    background: rgba(139,92,246,.05); border: 1px solid rgba(139,92,246,.22);
+    color: rgba(255,255,255,.78); font-size: 12.5px; font-weight: 500; letter-spacing: -.01em;
+  }
+  .h-eyebrow .dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--accent-violet); }
+  .h-title {
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+  }
+  .text-grad {
+    background: var(--gradient-violet-rose);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .chip {
+    display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 9999px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    color: rgba(255,255,255,.85);
+  }
+
+  /* ---- Motion sutil: focus-in en load (sin scroll) ---- */
+  .reveal { opacity: 0; filter: blur(8px); animation: reveal-focus .8s var(--ease-out) forwards; }
+  @keyframes reveal-focus { to { opacity: 1; filter: blur(0); } }
+
+  /* ---- Grid aireado: hairlines internos por gap sobre capa fina (sin cards) ---- */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 16px;
+    overflow: hidden;
+    list-style: none; margin: 0; padding: 0;
+  }
+  @media (max-width: 1024px) { .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px)  { .svc-grid { grid-template-columns: 1fr; } }
+
+  .svc-cell {
+    position: relative;
+    background: var(--bg);
+    padding: 2rem 1.75rem;
+    display: flex; flex-direction: column;
+    min-height: 244px;
+    isolation: isolate;
+    transition: background .45s var(--ease-out);
+  }
+  /* Glow radial (color de la celda): off por defecto, se enciende en hover/focus. */
+  .svc-cell::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: var(--glow, radial-gradient(120% 90% at 24% -6%, rgba(139,92,246,.18), transparent 60%));
+    opacity: 0; transition: opacity .5s var(--ease-out);
+  }
+  .svc-cell:hover { background: rgba(255,255,255,.018); }
+  .svc-cell:hover::before { opacity: 1; }
+
+  /* ---- Icono: reposo tile monocromo; hover = anillo + halo gradiente (40px) ---- */
+  .svc-ic {
+    position: relative; isolation: isolate;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 11px;
+    color: rgba(255,255,255,.62);
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    transition: color .4s var(--ease-out), background .4s var(--ease-out),
+                border-color .4s var(--ease-out), transform .4s var(--ease-out);
+  }
+  /* Anillo gradiente (mask): apagado en reposo. */
+  .svc-ic::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1;
+    padding: 1.5px;
+    background: var(--grad, var(--gradient-violet-rose));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
     opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
+    transition: opacity .4s var(--ease-out), padding .4s var(--ease-out), filter .4s var(--ease-out);
   }
-  .service-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(168, 85, 247, 0.35);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.08) inset,
-      0 12px 32px rgba(0, 0, 0, 0.35);
+  /* Halo/glow gradiente: apagado en reposo, crece al encender. */
+  .svc-ic::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -2;
+    background: var(--grad, var(--gradient-violet-rose));
+    opacity: 0; filter: blur(12px); transform: scale(.9);
+    transition: opacity .5s var(--ease-out), transform .5s var(--ease-out), filter .5s var(--ease-out);
   }
-  .service-card:hover::after {
-    opacity: 1;
+  .svc-cell:hover .svc-ic,
+  .svc-cell:focus-within .svc-ic {
+    color: #fff; background: rgba(255,255,255,.05); border-color: transparent;
+    transform: translateY(-1px);
+  }
+  .svc-cell:hover .svc-ic::before,
+  .svc-cell:focus-within .svc-ic::before { opacity: 1; padding: 2px; filter: brightness(1.12); }
+  .svc-cell:hover .svc-ic::after,
+  .svc-cell:focus-within .svc-ic::after { opacity: .5; transform: scale(1.22); filter: blur(15px); }
+
+  .svc-num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px; font-weight: 500; letter-spacing: .04em;
+    color: rgba(255,255,255,.30);
+    transition: color .4s var(--ease-out);
+  }
+  .svc-cell:hover .svc-num,
+  .svc-cell:focus-within .svc-num { color: var(--num-color, rgba(244,114,182,.78)); }
+
+  /* Título en gradiente del color de la celda + subrayado que se expande. */
+  .svc-title {
+    position: relative; display: inline-block; align-self: flex-start;
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 700; letter-spacing: -.02em; line-height: 1.15; font-size: 1.0625rem;
+    background: var(--grad, var(--gradient-violet-rose));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    filter: saturate(.92) brightness(.96);
+    transition: filter .4s var(--ease-out);
+  }
+  .svc-cell:hover .svc-title,
+  .svc-cell:focus-within .svc-title { filter: saturate(1.1) brightness(1.08); }
+  .svc-title::after {
+    content: ""; position: absolute; left: 0; bottom: -6px; height: 2px; width: 100%;
+    background: var(--grad, var(--gradient-violet-rose)); border-radius: 2px;
+    transform: scaleX(.34); transform-origin: left center; opacity: .8;
+    transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out), opacity .4s var(--ease-out);
+  }
+  .svc-cell:hover .svc-title::after,
+  .svc-cell:focus-within .svc-title::after {
+    transform: scaleX(1); opacity: 1;
+    box-shadow: var(--underline-glow, 0 0 16px rgba(139,92,246,.55));
   }
 
-  /* Icon: gradient violet→pink sólido con glow. */
-  .card-icon {
-    background: linear-gradient(135deg, rgb(168 85 247), rgb(236 72 153));
-    color: white;
-    box-shadow: 0 0 24px rgba(168, 85, 247, 0.3);
+  .svc-line {
+    margin-top: 1rem; font-size: .8125rem; line-height: 1.5;
+    color: rgba(255,255,255,.45); transition: color .4s var(--ease-out);
+  }
+  .svc-cell:hover .svc-line,
+  .svc-cell:focus-within .svc-line { color: rgba(255,255,255,.62); }
+
+  /* Chips: aparecen desde abajo en hover/focus. */
+  .svc-chips {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: auto; padding-top: 1rem;
+    opacity: 0; transform: translateY(6px);
+    transition: opacity .45s var(--ease-out), transform .45s var(--ease-out);
+  }
+  .svc-cell:hover .svc-chips,
+  .svc-cell:focus-within .svc-chips { opacity: 1; transform: translateY(0); }
+  .svc-chips .chip {
+    font-size: 10.5px; padding: 2px 7px;
+    background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1);
+    color: rgba(255,255,255,.74);
+  }
+  .svc-chips .chip-more {
+    background: transparent;
+    border-color: var(--chip-more-border, rgba(139,92,246,.3));
+    color: var(--chip-more-color, rgba(196,181,253,.88));
   }
 
-  /* Title: blanco sólido. */
-  .card-title {
-    color: white;
+  .svc-cell:focus-within { background: rgba(255,255,255,.018); }
+  .svc-cell:focus-within::before { opacity: 1; }
+  .svc-cell a:focus-visible { outline: 2px solid var(--accent-violet); outline-offset: 4px; border-radius: 6px; }
+
+  /* Load focus-in (sin scroll), escalonado por celda. */
+  .svc-cell {
+    opacity: 0; filter: blur(8px);
+    animation: reveal-focus .7s var(--ease-out) forwards; animation-delay: var(--d, 0ms);
   }
 
-  /* Chips: pill blanco translúcido. */
-  .card-chip {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 9999px;
-    color: rgba(255, 255, 255, 0.85);
+  /* TOUCH / SIN HOVER: todo visible siempre (anillo/halo encendido, chips y descripción a la vista). */
+  @media (hover: none), (pointer: coarse) {
+    .svc-cell::before { opacity: .8; }
+    .svc-cell .svc-ic { color: #fff; background: rgba(255,255,255,.05); border-color: transparent; }
+    .svc-cell .svc-ic::before { opacity: 1; }
+    .svc-cell .svc-ic::after { opacity: .34; transform: scale(1.12); }
+    .svc-cell .svc-num { color: var(--num-color, rgba(244,114,182,.78)); }
+    .svc-title::after { transform: scaleX(1); opacity: 1; box-shadow: var(--underline-glow, 0 0 16px rgba(139,92,246,.55)); }
+    .svc-cell .svc-line { color: rgba(255,255,255,.62); }
+    .svc-cell .svc-chips { opacity: 1; transform: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .service-card-wrapper {
-      opacity: 1;
-      transform: none;
-      transition: none;
+    .reveal { animation: none; opacity: 1; filter: none; }
+    .svc-cell, .svc-ic, .svc-ic::before, .svc-ic::after, .svc-chips, .svc-cell::before,
+    .svc-title, .svc-title::after, .svc-line, .svc-num {
+      animation: none !important; transition: none !important;
     }
-    .service-card,
-    .service-card:hover {
-      transform: none;
-      transition: none;
-    }
-    .service-card::after {
-      display: none;
-    }
+    .svc-cell { opacity: 1; filter: none; }
+    .svc-title::after { transform: scaleX(1); opacity: 1; }
   }
 </style>
-
-<script>
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (!reduce) {
-    const controller = new AbortController();
-    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
-
-    // Cursor tracking para el inner glow radial (hover, no scroll).
-    const cursorCards = document.querySelectorAll<HTMLElement>('.service-card');
-    cursorCards.forEach((card) => {
-      card.addEventListener(
-        'mousemove',
-        (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width) * 100;
-          const y = ((e.clientY - rect.top) / rect.height) * 100;
-          card.style.setProperty('--mx', `${x}%`);
-          card.style.setProperty('--my', `${y}%`);
-        },
-        { signal: controller.signal },
-      );
-    });
-  }
-</script>
