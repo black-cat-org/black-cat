@@ -10,169 +10,327 @@ const services = [
   { name: 'Hosting & SSL', href: '/servicios/hosting-ssl' },
 ];
 
-// Iconos Lucide outline (lucide.dev). stroke-width 1.5, currentColor.
+// Iconos Lucide outline (lucide.dev). stroke-width 1.6, currentColor.
 const socialLinks = [
-  {
-    name: 'Instagram',
-    url: siteConfig.social.instagram,
-    icon: '<rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>',
-  },
-  {
-    name: 'LinkedIn',
-    url: siteConfig.social.linkedin,
-    icon: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>',
-  },
-  {
-    name: 'GitHub',
-    url: siteConfig.social.github,
-    icon: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',
-  },
-  {
-    name: 'X',
-    url: siteConfig.social.twitter,
-    icon: '<path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/>',
-  },
-  {
-    name: 'YouTube',
-    url: siteConfig.social.youtube,
-    icon: '<path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/>',
-  },
-  {
-    name: 'TikTok',
-    url: siteConfig.social.tiktok,
-    icon: '<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>',
-  },
+  { name: 'Instagram', url: siteConfig.social.instagram, icon: '<rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>' },
+  { name: 'LinkedIn', url: siteConfig.social.linkedin, icon: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>' },
+  { name: 'GitHub', url: siteConfig.social.github, icon: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>' },
+  { name: 'X', url: siteConfig.social.twitter, icon: '<path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/>' },
+  { name: 'YouTube', url: siteConfig.social.youtube, icon: '<path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/>' },
+  { name: 'TikTok', url: siteConfig.social.tiktok, icon: '<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>' },
 ].filter((s) => s.url !== null);
+
+// Logo gato (mismo que la navbar) + iconos de contacto (Lucide outline).
+const catLogo = '<path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.26 6.5 2.26C10.65 5.09 11.32 5 12 5z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M10.5 16.5l1.5 1 1.5-1"/>';
+const contactIcons = {
+  mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  whatsapp: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+  pin: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+};
 ---
 
-<footer class="bg-linear-to-b from-black to-gray-900 border-t border-gray-800">
-  <!-- CTA Section -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="bg-linear-to-r from-purple-600 to-pink-600 rounded-2xl p-12 text-center">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
-        ¿Listo para iniciar tu proyecto?
-      </h2>
-      <p class="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-        Hablemos de cómo podemos ayudarte a alcanzar tus objetivos digitales
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/contacto"
-          class="px-8 py-4 bg-white text-purple-600 hover:bg-gray-100 rounded-lg font-medium transition-all shadow-lg"
-        >
-          Solicitar Cotización
-        </a>
-        <a
-          href={whatsappUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/30 text-white rounded-lg font-medium transition-all"
-        >
-          Contactar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
+<footer class="bg-zinc-950">
+  <!-- CTA final (combinado: grid + glow + animaciones). Render estático. -->
+  <div class="final-cta px-4 sm:px-6 lg:px-8 py-16">
+    <div class="cta09-card max-w-6xl mx-auto reveal" style="--d:60ms">
+      <div class="cta09-grid" aria-hidden="true"></div>
+      <div class="cta09-glow" aria-hidden="true"><span class="g1"></span><span class="g2"></span></div>
 
-  <!-- Main Footer -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <!-- Brand -->
-      <div class="col-span-1 md:col-span-2">
-        <a href="/" class="flex items-center gap-2 mb-4" aria-label={`${siteConfig.name} — Inicio`}>
-          <span class="text-3xl" aria-hidden="true">🐈‍⬛</span>
-          <span class="text-2xl font-bold text-white">{siteConfig.name}</span>
-        </a>
-        <p class="text-gray-400 mb-6 max-w-md">
-          Desarrollo de software a medida — web, backend, móvil, e-commerce. Basados en {siteConfig.location.city}, {siteConfig.location.country}.
+      <div class="cta09-content">
+        <h2 class="h-title cta09-title reveal" style="--d:140ms">
+          ¿Listo para iniciar <span class="text-grad">tu proyecto?</span>
+        </h2>
+        <p class="cta09-sub reveal" style="--d:220ms">
+          Hablemos de cómo podemos ayudarte a alcanzar tus objetivos digitales.
         </p>
-        {socialLinks.length > 0 && (
-          <ul class="flex gap-4 list-none p-0">
-            {socialLinks.map((item) => (
-              <li>
-                <a
-                  href={item.url!}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-btn flex items-center justify-center text-gray-300 hover:text-white transition-colors"
-                  aria-label={item.name}
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                    set:html={item.icon}
-                  />
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      <!-- Services -->
-      <div>
-        <h3 class="text-white font-semibold mb-4">Servicios</h3>
-        <ul class="space-y-2">
-          {services.map((service) => (
-            <li>
-              <a
-                href={service.href}
-                class="text-gray-400 hover:text-purple-400 transition-colors text-sm"
-              >
-                {service.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- Contact -->
-      <div>
-        <h3 class="text-white font-semibold mb-4">Contacto</h3>
-        <ul class="space-y-2 text-sm text-gray-400">
-          <li>
-            <a href={`mailto:${siteConfig.contact.email}`} class="hover:text-purple-400 transition-colors">
-              {siteConfig.contact.email}
-            </a>
-          </li>
-          <li>
-            <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" class="hover:text-purple-400 transition-colors">
-              WhatsApp
-            </a>
-          </li>
-          <li>{siteConfig.location.city}, {siteConfig.location.country}</li>
-          <li>{siteConfig.hours.label}</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom Bar -->
-  <div class="border-t border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p class="text-gray-400 text-sm">
-          © {new Date().getFullYear()} {siteConfig.name}. Todos los derechos reservados.
-        </p>
-        <div class="flex gap-6 text-sm text-gray-400">
-          <a href="/privacidad" class="hover:text-purple-400 transition-colors">
-            Privacidad
+        <div class="cta09-actions reveal" style="--d:300ms">
+          <a class="btn-white" href="/contacto">
+            Solicitar cotización
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </a>
-          <a href="/terminos" class="hover:text-purple-400 transition-colors">
-            Términos
-          </a>
-          <a href="/cookies" class="hover:text-purple-400 transition-colors">
-            Cookies
+          <a class="btn-ghost" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
+            <span class="wa-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg></span>
+            Contactar por WhatsApp
           </a>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Footer body — bento (marca + servicios + contacto), render estático -->
+  <div class="ft-bento max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-10">
+    <div class="bento">
+      <!-- Marca -->
+      <section class="tile tile-brand p-7 sm:p-8 flex flex-col">
+        <div class="flex items-center gap-3.5">
+          <span class="ft-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={catLogo} /></span>
+          <span class="ft-title text-[1.45rem] leading-none">{siteConfig.name}</span>
+        </div>
+        <p class="mt-5 text-[15px] leading-relaxed text-white/55 max-w-[34ch]">
+          Desarrollo de software a medida — web, backend, móvil, e-commerce. Basados en {siteConfig.location.city}, {siteConfig.location.country}.
+        </p>
+        {socialLinks.length > 0 && (
+          <div class="mt-auto pt-8 flex items-center gap-2.5">
+            {socialLinks.map((item) => (
+              <a class="soc" href={item.url!} aria-label={item.name} title={item.name} target="_blank" rel="noopener noreferrer">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={item.icon} />
+              </a>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <!-- Servicios -->
+      <section class="tile tile-serv p-7 sm:p-8">
+        <div class="flex items-center gap-2.5 mb-1">
+          <span class="h-px w-6" style="background:var(--gradient-violet-rose)"></span>
+          <h3 class="ft-title text-xs uppercase tracking-[0.2em] text-white/45">Servicios</h3>
+        </div>
+        <nav class="mt-3 -my-0.5" aria-label="Servicios">
+          {services.map((s) => (
+            <a class="serv-link" href={s.href}>
+              <span class="dot"></span>
+              <span>{s.name}</span>
+            </a>
+          ))}
+        </nav>
+      </section>
+
+      <!-- Contacto -->
+      <section class="tile tile-contact p-7 sm:p-8">
+        <div class="flex items-center gap-2.5 mb-5">
+          <span class="h-px w-6" style="background:var(--gradient-teal-blue)"></span>
+          <h3 class="ft-title text-xs uppercase tracking-[0.2em] text-white/45">Contacto</h3>
+        </div>
+        <a class="ct-row" href={`mailto:${siteConfig.contact.email}`}>
+          <span class="ct-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={contactIcons.mail} /></span>
+          <span class="ct-link">{siteConfig.contact.email}</span>
+        </a>
+        <a class="ct-row" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
+          <span class="ct-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={contactIcons.whatsapp} /></span>
+          <span class="ct-link">WhatsApp</span>
+        </a>
+        <div class="ct-row">
+          <span class="ct-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={contactIcons.pin} /></span>
+          <span class="ct-link">{siteConfig.location.city}, {siteConfig.location.country}</span>
+        </div>
+        <div class="ct-row">
+          <span class="ct-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={contactIcons.clock} /></span>
+          <span class="ct-link">{siteConfig.hours.label}</span>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="ft-bar mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-[13px] text-white/40">© {new Date().getFullYear()} {siteConfig.name}. Todos los derechos reservados.</p>
+      <nav class="flex items-center gap-3" aria-label="Legal">
+        <a class="legal-link" href="/privacidad">Privacidad</a>
+        <span class="text-white/15">·</span>
+        <a class="legal-link" href="/terminos">Términos</a>
+        <span class="text-white/15">·</span>
+        <a class="legal-link" href="/cookies">Cookies</a>
+      </nav>
+    </div>
+  </div>
 </footer>
+
+<style>
+  /* ===== CTA final — combinado (grid + glow + animaciones). --gradient-* en global.css. ===== */
+  .final-cta {
+    font-family: 'Sora', system-ui, sans-serif;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .final-cta .h-title {
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+  }
+  .final-cta .text-grad {
+    background: var(--gradient-violet-rose);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .final-cta .reveal { opacity: 0; filter: blur(8px); animation: cta-reveal .8s var(--ease-out) forwards; animation-delay: var(--d, 0ms); }
+  @keyframes cta-reveal { to { opacity: 1; filter: blur(0); } }
+
+  .final-cta .btn-white {
+    display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+    padding: .85rem 1.6rem; border-radius: 9999px;
+    font-weight: 600; font-size: .95rem; letter-spacing: -.01em;
+    color: #0a0a0c; background: #fff; box-shadow: 0 14px 30px -14px rgba(255,255,255,.4);
+    transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out), gap .25s var(--ease-out);
+  }
+  .final-cta .btn-white:hover { transform: translateY(-1px); gap: .75rem; box-shadow: 0 18px 38px -14px rgba(255,255,255,.5); }
+  .final-cta .btn-ghost {
+    display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+    padding: .85rem 1.6rem; border-radius: 9999px;
+    font-weight: 600; font-size: .95rem; letter-spacing: -.01em; color: #fff;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14);
+    transition: background .25s var(--ease-out), border-color .25s var(--ease-out);
+  }
+  .final-cta .btn-ghost:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.24); }
+
+  .final-cta .cta09-card {
+    position: relative; isolation: isolate; overflow: hidden;
+    border-radius: 2rem;
+    padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+    text-align: center;
+    /* sombra-glow en el ELEMENTO (no en ::before): el overflow no la recorta → la card "flota". */
+    box-shadow: 0 30px 80px -40px rgba(0,0,0,.85), 0 36px 90px -46px rgba(139,92,246,.30);
+    transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
+  }
+  .final-cta .cta09-card:hover { transform: translateY(-4px); box-shadow: 0 40px 100px -40px rgba(139,92,246,.35), 0 30px 80px -40px rgba(0,0,0,.8); }
+  .final-cta .cta09-card:hover .cta09-glow .g1 { transform: translateX(-50%) scale(1.08); }
+  .final-cta .cta09-card:hover .cta09-glow .g2 { transform: translateX(-50%) scale(1.08); opacity: .46; }
+
+  .final-cta .cta09-card::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 1px 0 rgba(255,255,255,.06) inset; z-index: -3;
+  }
+
+  .final-cta .cta09-grid {
+    position: absolute; inset: 0; z-index: -2; border-radius: inherit;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 56px 56px; background-position: center center;
+    -webkit-mask-image: radial-gradient(120% 120% at 50% 42%, #000 18%, transparent 72%);
+            mask-image: radial-gradient(120% 120% at 50% 42%, #000 18%, transparent 72%);
+  }
+  .final-cta .cta09-grid::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.02) 1px, transparent 1px);
+    background-size: 14px 14px; background-position: center center;
+    -webkit-mask-image: radial-gradient(90% 90% at 50% 42%, #000 0%, transparent 60%);
+            mask-image: radial-gradient(90% 90% at 50% 42%, #000 0%, transparent 60%);
+  }
+
+  .final-cta .cta09-glow { position: absolute; inset: 0; z-index: -1; border-radius: inherit; overflow: hidden; pointer-events: none; }
+  .final-cta .cta09-glow span {
+    position: absolute; border-radius: 9999px; filter: blur(70px); opacity: .5;
+    transition: transform .6s var(--ease-out), opacity .5s var(--ease-out);
+  }
+  .final-cta .cta09-glow .g1 {
+    width: 36rem; height: 22rem; top: -28%; left: 50%; transform: translateX(-50%);
+    background: var(--gradient-violet-blue);
+    animation: cta09-breathe 9s var(--ease-out) infinite;
+  }
+  .final-cta .cta09-glow .g2 {
+    width: 30rem; height: 20rem; bottom: -34%; left: 50%; transform: translateX(-50%);
+    background: var(--gradient-violet-rose); opacity: .32;
+  }
+  @keyframes cta09-breathe { 0%, 100% { opacity: .5; } 50% { opacity: .62; } }
+
+  .final-cta .cta09-content { position: relative; z-index: 1; }
+  .final-cta .cta09-title { font-size: clamp(2.1rem, 5.2vw, 3.6rem); margin: 0 auto; max-width: 16ch; }
+  .final-cta .cta09-sub {
+    margin: 1.15rem auto 0; max-width: 46ch; color: rgba(255,255,255,.6);
+    font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.6; font-weight: 300;
+  }
+  .final-cta .cta09-actions {
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    display: flex; flex-wrap: wrap; gap: .85rem; align-items: center; justify-content: center;
+  }
+  .final-cta .cta09-actions .wa-ico { width: 1.15rem; height: 1.15rem; flex: none; }
+
+  /* ===== Footer body — bento (concepto 05). --gradient-* en global.css. ===== */
+  .ft-bento {
+    font-family: 'Sora', system-ui, sans-serif;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .ft-bento .ft-title { font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif; font-weight: 800; letter-spacing: -0.03em; }
+
+  .ft-bento .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+  .ft-bento .tile {
+    position: relative; border-radius: 18px;
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+    overflow: hidden;
+    transition: border-color .5s var(--ease-out), background-color .5s var(--ease-out), transform .5s var(--ease-out);
+  }
+  .ft-bento .tile::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(120% 120% at 50% -20%, rgba(139,92,246,.16), transparent 55%);
+    opacity: 0; transition: opacity .5s var(--ease-out);
+  }
+  .ft-bento .tile > * { position: relative; z-index: 1; }
+  .ft-bento .tile:hover { border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.055); transform: translateY(-2px); }
+  .ft-bento .tile:hover::before { opacity: 1; }
+
+  .ft-bento .tile-brand   { grid-column: span 5; }
+  .ft-bento .tile-serv    { grid-column: span 4; }
+  .ft-bento .tile-contact { grid-column: span 3; }
+  @media (max-width: 1000px) {
+    .ft-bento .tile-brand   { grid-column: span 12; }
+    .ft-bento .tile-serv    { grid-column: span 7; }
+    .ft-bento .tile-contact { grid-column: span 5; }
+  }
+  @media (max-width: 680px) {
+    .ft-bento .bento { gap: 12px; }
+    .ft-bento .tile-brand, .ft-bento .tile-serv, .ft-bento .tile-contact { grid-column: span 12; }
+  }
+
+  .ft-bento .ft-logo {
+    width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); color: #fff;
+    transition: border-color .4s var(--ease-out);
+  }
+  .ft-bento .ft-logo svg { width: 24px; height: 24px; }
+  .ft-bento .tile-brand:hover .ft-logo { border-color: rgba(167,139,250,.5); }
+
+  .ft-bento .serv-link {
+    display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.62);
+    font-size: 14.5px; line-height: 1; padding: 9px 0;
+    transition: color .35s var(--ease-out), padding-left .35s var(--ease-out);
+  }
+  .ft-bento .serv-link .dot {
+    width: 5px; height: 5px; border-radius: 99px; flex: none; background: rgba(255,255,255,.22);
+    transition: background .35s var(--ease-out), transform .35s var(--ease-out);
+  }
+  .ft-bento .serv-link:hover { color: #fff; padding-left: 4px; }
+  .ft-bento .serv-link:nth-child(3n+1):hover .dot { background: var(--gradient-violet-rose); }
+  .ft-bento .serv-link:nth-child(3n+2):hover .dot { background: var(--gradient-violet-blue); }
+  .ft-bento .serv-link:nth-child(3n+3):hover .dot { background: var(--gradient-teal-blue); }
+  .ft-bento .serv-link:hover .dot { transform: scale(1.4); }
+
+  .ft-bento .ct-row { display: flex; align-items: center; gap: 12px; padding: 7px 0; }
+  .ft-bento .ct-ico {
+    width: 32px; height: 32px; border-radius: 9px; flex: none; display: grid; place-items: center;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.07); color: rgba(255,255,255,.7);
+    transition: color .35s var(--ease-out), border-color .35s var(--ease-out);
+  }
+  .ft-bento .ct-ico svg { width: 16px; height: 16px; }
+  .ft-bento .ct-link { color: rgba(255,255,255,.7); font-size: 14px; transition: color .35s var(--ease-out); }
+  .ft-bento .ct-row:hover .ct-link { color: #fff; }
+  .ft-bento .ct-row:nth-child(2):hover .ct-ico { color: #c4b5fd; border-color: rgba(167,139,250,.4); }
+  .ft-bento .ct-row:nth-child(3):hover .ct-ico { color: #7ee0d6; border-color: rgba(45,212,191,.4); }
+  .ft-bento .ct-row:nth-child(4):hover .ct-ico { color: #9ec5ff; border-color: rgba(91,157,255,.4); }
+
+  .ft-bento .soc {
+    width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center;
+    color: rgba(255,255,255,.5); background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07);
+    transition: color .35s var(--ease-out), background-color .35s var(--ease-out), border-color .35s var(--ease-out), transform .35s var(--ease-out);
+  }
+  .ft-bento .soc svg { width: 17px; height: 17px; }
+  .ft-bento .soc:hover { color: #fff; background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.16); transform: translateY(-2px); }
+
+  .ft-bento .ft-bar { border-top: 1px solid rgba(255,255,255,.06); }
+  .ft-bento .legal-link { color: rgba(255,255,255,.5); font-size: 13px; transition: color .3s var(--ease-out); }
+  .ft-bento .legal-link:hover { color: #fff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .final-cta .reveal { animation: none; opacity: 1; filter: none; }
+    .final-cta .cta09-glow .g1 { animation: none; }
+    .final-cta .cta09-card, .final-cta .cta09-glow span { transition: none; }
+    .final-cta .cta09-card:hover { transform: none; }
+    .final-cta .cta09-card:hover .cta09-glow .g1, .final-cta .cta09-card:hover .cta09-glow .g2 { transform: translateX(-50%); }
+    .ft-bento .tile, .ft-bento .tile::before, .ft-bento .serv-link, .ft-bento .serv-link .dot,
+    .ft-bento .ct-ico, .ft-bento .ct-link, .ft-bento .soc, .ft-bento .ft-logo, .ft-bento .legal-link { transition: none !important; }
+    .ft-bento .tile:hover, .ft-bento .soc:hover { transform: none; }
+  }
+</style>

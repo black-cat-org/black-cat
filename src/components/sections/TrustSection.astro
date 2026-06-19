@@ -1,153 +1,246 @@
 ---
 import { Icon } from 'astro-icon/components';
 
-// Stack completo del sitio. Iconos:
-// - simple-icons:* → monochrome, controlables vía CSS color (la mayoría).
-// - aws → SVG local en src/icons/aws.svg (colores hardcoded en el SVG).
-// `iconColor` override a blanco para brands con icon-color black (Vercel, Expo, OpenAI, Next.js).
+// Stack completo del sitio. Iconos simple-icons (monocromos), coloreados por CSS:
+// blanco translúcido en reposo → color de marca (iconColor) al hover.
 type Tech = {
   name: string;
-  color: string; // gradient text
   icon: string;
-  iconColor?: string;
+  iconColor: string;
 };
 
 const technologies: Tech[] = [
   // Frontend
-  { name: 'React', color: 'from-cyan-400 to-blue-500', icon: 'simple-icons:react', iconColor: '#61DAFB' },
-  { name: 'Next.js', color: 'from-white to-gray-200', icon: 'simple-icons:nextdotjs', iconColor: '#FFFFFF' },
-  { name: 'Astro', color: 'from-fuchsia-400 to-purple-600', icon: 'simple-icons:astro', iconColor: '#BC52EE' },
-  { name: 'TypeScript', color: 'from-blue-500 to-blue-700', icon: 'simple-icons:typescript', iconColor: '#3178C6' },
-  { name: 'Tailwind', color: 'from-cyan-400 to-teal-500', icon: 'simple-icons:tailwindcss', iconColor: '#06B6D4' },
+  { name: 'React', icon: 'simple-icons:react', iconColor: '#61DAFB' },
+  { name: 'Next.js', icon: 'simple-icons:nextdotjs', iconColor: '#FFFFFF' },
+  { name: 'Astro', icon: 'simple-icons:astro', iconColor: '#BC52EE' },
+  { name: 'TypeScript', icon: 'simple-icons:typescript', iconColor: '#3178C6' },
+  { name: 'Tailwind', icon: 'simple-icons:tailwindcss', iconColor: '#06B6D4' },
   // Backend & Data
-  { name: 'GraphQL', color: 'from-pink-500 to-fuchsia-600', icon: 'simple-icons:graphql', iconColor: '#E10098' },
-  { name: 'NestJS', color: 'from-red-500 to-pink-600', icon: 'simple-icons:nestjs', iconColor: '#E0234E' },
-  { name: 'PostgreSQL', color: 'from-blue-600 to-indigo-700', icon: 'simple-icons:postgresql', iconColor: '#4169E1' },
-  { name: 'MongoDB', color: 'from-green-500 to-emerald-600', icon: 'simple-icons:mongodb', iconColor: '#47A248' },
-  { name: 'Supabase', color: 'from-emerald-400 to-green-500', icon: 'simple-icons:supabase', iconColor: '#3FCF8E' },
-  { name: 'Firebase', color: 'from-yellow-400 to-orange-500', icon: 'simple-icons:firebase', iconColor: '#FFCA28' },
+  { name: 'GraphQL', icon: 'simple-icons:graphql', iconColor: '#E10098' },
+  { name: 'NestJS', icon: 'simple-icons:nestjs', iconColor: '#E0234E' },
+  { name: 'PostgreSQL', icon: 'simple-icons:postgresql', iconColor: '#4169E1' },
+  { name: 'MongoDB', icon: 'simple-icons:mongodb', iconColor: '#47A248' },
+  { name: 'Supabase', icon: 'simple-icons:supabase', iconColor: '#3FCF8E' },
+  { name: 'Firebase', icon: 'simple-icons:firebase', iconColor: '#FFCA28' },
   // Mobile
-  { name: 'Swift', color: 'from-orange-500 to-red-500', icon: 'simple-icons:swift', iconColor: '#F05138' },
-  { name: 'Kotlin', color: 'from-purple-500 to-violet-600', icon: 'simple-icons:kotlin', iconColor: '#7F52FF' },
-  { name: 'React Native', color: 'from-cyan-400 to-blue-500', icon: 'simple-icons:react', iconColor: '#61DAFB' },
-  { name: 'Flutter', color: 'from-blue-400 to-cyan-500', icon: 'simple-icons:flutter', iconColor: '#5DADE2' },
-  { name: 'Expo', color: 'from-white to-gray-200', icon: 'simple-icons:expo', iconColor: '#FFFFFF' },
+  { name: 'Swift', icon: 'simple-icons:swift', iconColor: '#F05138' },
+  { name: 'Kotlin', icon: 'simple-icons:kotlin', iconColor: '#7F52FF' },
+  { name: 'React Native', icon: 'simple-icons:react', iconColor: '#61DAFB' },
+  { name: 'Flutter', icon: 'simple-icons:flutter', iconColor: '#5DADE2' },
+  { name: 'Expo', icon: 'simple-icons:expo', iconColor: '#FFFFFF' },
   // IA
-  { name: 'OpenAI', color: 'from-gray-100 to-gray-400', icon: 'simple-icons:openai', iconColor: '#FFFFFF' },
-  { name: 'Claude', color: 'from-orange-400 to-amber-600', icon: 'simple-icons:claude', iconColor: '#D97757' },
-  { name: 'Gemini', color: 'from-indigo-400 to-purple-500', icon: 'simple-icons:googlegemini', iconColor: '#8E75B2' },
+  { name: 'OpenAI', icon: 'simple-icons:openai', iconColor: '#FFFFFF' },
+  { name: 'Claude', icon: 'simple-icons:claude', iconColor: '#D97757' },
+  { name: 'Gemini', icon: 'simple-icons:googlegemini', iconColor: '#8E75B2' },
   // E-commerce
-  { name: 'Shopify', color: 'from-green-500 to-emerald-600', icon: 'simple-icons:shopify', iconColor: '#7AB55C' },
-  { name: 'WooCommerce', color: 'from-purple-500 to-fuchsia-600', icon: 'simple-icons:woocommerce', iconColor: '#96588A' },
-  { name: 'Stripe', color: 'from-indigo-500 to-blue-600', icon: 'simple-icons:stripe', iconColor: '#635BFF' },
+  { name: 'Shopify', icon: 'simple-icons:shopify', iconColor: '#7AB55C' },
+  { name: 'WooCommerce', icon: 'simple-icons:woocommerce', iconColor: '#96588A' },
+  { name: 'Stripe', icon: 'simple-icons:stripe', iconColor: '#635BFF' },
   // Infra & DevOps
-  { name: 'AWS', color: 'from-orange-500 to-amber-600', icon: 'aws' },
-  { name: 'Cloudflare', color: 'from-orange-500 to-yellow-500', icon: 'simple-icons:cloudflare', iconColor: '#F38020' },
-  { name: 'Vercel', color: 'from-gray-100 to-gray-400', icon: 'simple-icons:vercel', iconColor: '#FFFFFF' },
-  { name: 'Docker', color: 'from-blue-500 to-blue-600', icon: 'simple-icons:docker', iconColor: '#2496ED' },
-  { name: 'Kubernetes', color: 'from-blue-500 to-indigo-600', icon: 'simple-icons:kubernetes', iconColor: '#326CE5' },
+  { name: 'AWS', icon: 'simple-icons:amazonwebservices', iconColor: '#FF9900' },
+  { name: 'Cloudflare', icon: 'simple-icons:cloudflare', iconColor: '#F38020' },
+  { name: 'Vercel', icon: 'simple-icons:vercel', iconColor: '#FFFFFF' },
+  { name: 'Docker', icon: 'simple-icons:docker', iconColor: '#2496ED' },
+  { name: 'Kubernetes', icon: 'simple-icons:kubernetes', iconColor: '#326CE5' },
   // Analytics
-  { name: 'PostHog', color: 'from-orange-400 to-red-500', icon: 'simple-icons:posthog', iconColor: '#F54E00' },
-  { name: 'BigQuery', color: 'from-blue-400 to-cyan-500', icon: 'simple-icons:googlebigquery', iconColor: '#669DF6' },
-  { name: 'GA4', color: 'from-orange-500 to-yellow-500', icon: 'simple-icons:googleanalytics', iconColor: '#E37400' },
+  { name: 'PostHog', icon: 'simple-icons:posthog', iconColor: '#F54E00' },
+  { name: 'BigQuery', icon: 'simple-icons:googlebigquery', iconColor: '#669DF6' },
+  { name: 'GA4', icon: 'simple-icons:googleanalytics', iconColor: '#E37400' },
 ];
+
+// Dos filas balanceadas (pares / impares).
+const rowA = technologies.filter((_, i) => i % 2 === 0);
+const rowB = technologies.filter((_, i) => i % 2 === 1);
+
+// KPIs — números gigantes, color rotado por KPI (rose / violet-blue / teal-blue).
+const STATS = [
+  { value: '5+',   label: 'Años de experiencia' },
+  { value: '100+', label: 'Proyectos entregados' },
+  { value: '50+',  label: 'Clientes satisfechos' },
+  { value: '99%',  label: 'Uptime garantizado' },
+];
+const GRADS = ['var(--gradient-violet-rose)', 'var(--gradient-violet-blue)', 'var(--gradient-teal-blue)'];
 ---
 
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
+<!--
+  Stack tecnológico — marquee minimal (2 filas): logos monocromos que viran a su color de
+  marca al hover, con el nombre apareciendo debajo. Abajo, 4 KPIs como números gigantes con
+  el color rotado por KPI. Render estático (sin JS): marquee y hover 100% CSS. Sin animaciones
+  de scroll. Respeta prefers-reduced-motion.
+-->
+<section id="tecnologias" class="trust-section relative py-16 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <p class="text-purple-400 font-semibold mb-2">TECNOLOGÍAS</p>
-      <h2 class="text-3xl sm:text-4xl font-bold text-white">
-        Stack tecnológico moderno
-      </h2>
+    <div class="text-center mb-14 reveal">
+      <h2 class="h-title text-4xl sm:text-5xl">Stack <span class="text-grad">tecnológico moderno</span></h2>
+      <p class="mt-4 text-lg text-white/55 max-w-2xl mx-auto">
+        Trabajamos con las herramientas que el producto necesita — probadas, modernas y a escala.
+      </p>
     </div>
 
-    <!-- Tech Stack Marquee — dos copias anidadas para loop seamless. Pause on hover, scroll manual habilitado. -->
-    <div class="marquee-wrapper relative mb-16">
-      <div class="flex w-max animate-marquee">
-        {[0, 1].map(() => (
-          <div class="flex gap-8 pr-8 shrink-0">
-            {technologies.map((tech) => (
-              <div class="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-gray-900 border border-gray-800 rounded-lg">
-                <Icon
-                  name={tech.icon}
-                  class="w-4 h-4"
-                  style={tech.iconColor ? `color: ${tech.iconColor}` : undefined}
-                  aria-hidden="true"
-                />
-                <span
-                  class={`text-sm font-semibold bg-linear-to-r ${tech.color} bg-clip-text text-transparent whitespace-nowrap`}
-                >
-                  {tech.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        ))}
+    <!-- Marquee: 2 filas en direcciones opuestas, dos copias por fila → loop seamless. -->
+    <div class="reveal" style="animation-delay:.1s">
+      <div class="mq mq--ltr" style="--mq-dur:72s">
+        <div class="mq-track">
+          {[0, 1].map((copy) => (
+            <div class="mq-group" aria-hidden={copy === 1}>
+              {rowA.map((t) => (
+                <div class="mq-item" title={t.name}>
+                  <span class="mq-logo"><Icon name={t.icon} class="mq-ico" style={`--brand:${t.iconColor}`} aria-hidden="true" /></span>
+                  <span class="mq-name">{t.name}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="mq mq--rtl mt-2" style="--mq-dur:84s">
+        <div class="mq-track">
+          {[0, 1].map((copy) => (
+            <div class="mq-group" aria-hidden={copy === 1}>
+              {rowB.map((t) => (
+                <div class="mq-item" title={t.name}>
+                  <span class="mq-logo"><Icon name={t.icon} class="mq-ico" style={`--brand:${t.iconColor}`} aria-hidden="true" /></span>
+                  <span class="mq-name">{t.name}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
 
-    <!-- Stats Grid — rolling-digit counter al entrar al viewport. -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-      {[
-        { value: 5, suffix: '+', label: 'Años de experiencia', color: 'text-purple-400' },
-        { value: 100, suffix: '+', label: 'Proyectos entregados', color: 'text-blue-400' },
-        { value: 50, suffix: '+', label: 'Clientes satisfechos', color: 'text-pink-400' },
-        { value: 99, suffix: '%', label: 'Uptime garantizado', color: 'text-cyan-400' },
-      ].map((stat) => (
-        <div class="trust-stat text-center">
-          <div class={`trust-counter text-4xl sm:text-5xl font-bold ${stat.color} mb-2 tabular-nums inline-flex items-baseline justify-center`}>
-            {String(stat.value).split('').map((digit, di) => (
-              <span class="trust-roller">
-                <span class="trust-roller-track" style={`--digit: ${digit}; --d-i: ${di};`}>
-                  {Array.from({ length: 30 }, (_, n) => <span>{n % 10}</span>)}
-                </span>
-              </span>
-            ))}
-            <span>{stat.suffix}</span>
-          </div>
-          <div class="text-gray-400">{stat.label}</div>
+    <!-- KPIs — números gigantes, color rotado por KPI. -->
+    <dl class="stats-rail mt-24 reveal" style="animation-delay:.18s">
+      {STATS.map((s, i) => (
+        <div class="stat-cell" style={`--grad:${GRADS[i % GRADS.length]}`}>
+          <dd class="stat-value">{s.value}</dd>
+          <dt class="stat-label">{s.label}</dt>
         </div>
       ))}
-    </div>
+    </dl>
   </div>
 </section>
 
 <style>
-  /* Marquee loop seamless: dos copias de la lista en flex anidado.
-     overflow: hidden → el loop se ve continuo sin interferencia de scroll manual.
-     Pause on hover para permitir lectura. */
-  .marquee-wrapper {
-    overflow: hidden;
-  }
-  .marquee-wrapper:hover .animate-marquee {
-    animation-play-state: paused;
+  /* Tokens + fuentes de la sección (no afectan al resto del sitio). --gradient-* en global.css. */
+  .trust-section {
+    font-family: 'Sora', system-ui, sans-serif;
+    --accent-violet: #8b5cf6;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
-  /* Rolling digit counter (slot-machine). Cada track contiene 30 dígitos
-     (3 ciclos de 0-9). El target hace 2 vueltas + aterriza en el dígito
-     final, así incluso targets con 0 se ven girar. Trigger via IntersectionObserver
-     al entrar al viewport. */
-  .trust-roller {
-    display: inline-block;
-    height: 1em;
+  /* ---- Heading helpers (coherentes con el hero/services) ---- */
+  .h-eyebrow {
+    display: inline-flex; align-items: center; gap: .5rem;
+    border-radius: 9999px; padding: .375rem .875rem;
+    background: rgba(139,92,246,.05); border: 1px solid rgba(139,92,246,.22);
+    color: rgba(255,255,255,.78); font-size: 12.5px; font-weight: 500; letter-spacing: -.01em;
+  }
+  .h-eyebrow .dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--accent-violet); }
+  .h-title {
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+  }
+  .text-grad {
+    background: var(--gradient-violet-rose);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+
+  .reveal { opacity: 0; filter: blur(8px); animation: reveal-focus .8s var(--ease-out) forwards; }
+  @keyframes reveal-focus { to { opacity: 1; filter: blur(0); } }
+
+  /* ---- Marquee ---- */
+  .mq {
+    position: relative;
     overflow: hidden;
-    line-height: 1;
-    vertical-align: baseline;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
   }
-  .trust-roller-track {
-    display: flex;
-    flex-direction: column;
-    --turns: 2;
-    /* Estático: muestra el dígito final, sin roll por scroll. */
-    transform: translateY(calc((var(--turns) * 10 + var(--digit)) * -1em));
+  .mq-track {
+    display: flex; width: max-content; will-change: transform;
+    animation: mq-scroll var(--mq-dur, 64s) linear infinite;
   }
-  .trust-roller-track > span {
-    display: block;
-    height: 1em;
-    line-height: 1;
+  .mq--rtl .mq-track { animation-direction: reverse; }
+  .mq:hover .mq-track { animation-play-state: paused; }
+  @keyframes mq-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+  .mq-group { display: flex; flex-shrink: 0; }
+
+  .mq-item {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 7.5rem; height: 5rem;
+    position: relative;
+  }
+  @media (min-width: 640px) { .mq-item { width: 9rem; height: 5.5rem; } }
+
+  /* Logo: el icono va en blanco translúcido en reposo y vira a su color de marca al hover. */
+  .mq-logo { position: relative; width: 30px; height: 30px; }
+  @media (min-width: 640px) { .mq-logo { width: 34px; height: 34px; } }
+  .mq-ico {
+    display: block; width: 100%; height: 100%;
+    color: rgba(255,255,255,.42);
+    transition: color .4s var(--ease-out);
+  }
+  .mq-item:hover .mq-ico { color: var(--brand, #fff); }
+
+  /* Nombre debajo del logo, aparece al hover con un gap. */
+  .mq-name {
+    position: absolute; left: 0; right: 0; bottom: .15rem;
+    text-align: center;
+    font-size: 11px; font-weight: 500; letter-spacing: .01em;
+    color: rgba(255,255,255,.5);
+    opacity: 0; transform: translateY(3px);
+    transition: opacity .35s var(--ease-out), transform .35s var(--ease-out);
+    pointer-events: none;
+  }
+  .mq-item:hover .mq-name { opacity: 1; transform: translateY(0); }
+
+  /* ---- KPIs: números gigantes, sin cajas, color rotado por KPI ---- */
+  .stats-rail {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    column-gap: 2.5rem; row-gap: 4.5rem; margin-inline: 0;
+  }
+  @media (min-width: 1024px) {
+    .stats-rail { grid-template-columns: repeat(4, 1fr); column-gap: 3rem; }
+  }
+  .stat-cell { text-align: center; }
+
+  .stat-value {
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 800; letter-spacing: -0.045em; line-height: .92;
+    font-size: clamp(3.75rem, 13vw, 5.5rem);
+    /* Dos capas clipeadas al texto: banda de luz (shimmer) + el gradiente del KPI. */
+    background-image: linear-gradient(100deg, transparent, rgba(255,255,255,.42) 50%, transparent), var(--grad, var(--gradient-violet-rose));
+    background-repeat: no-repeat;
+    background-size: 60% 100%, 100% 100%;
+    background-position: -120% 0, 0 0;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  /* Hover: la luz recorre el número — el mismo shimmer del título del hero. */
+  .stat-cell:hover .stat-value { animation: kpi-shine .9s var(--ease-out) 1; }
+  @keyframes kpi-shine {
+    from { background-position: -120% 0, 0 0; }
+    to   { background-position: 220% 0, 0 0; }
+  }
+  @media (min-width: 1024px) { .stat-value { font-size: clamp(4.5rem, 6.5vw, 7rem); } }
+
+  .stat-label {
+    margin-top: 1.1rem;
+    font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,.42);
+    letter-spacing: .04em; text-transform: uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; filter: none; }
+    .mq-track { animation: none; }
+    .mq-ico, .mq-name, .stat-cell { transition: none; }
+    .stat-cell:hover .stat-value { animation: none; }
   }
 </style>
-
-<!-- Contadores estáticos: muestran el valor final por CSS, sin trigger de scroll. -->

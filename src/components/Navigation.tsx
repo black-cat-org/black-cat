@@ -96,10 +96,9 @@ export default function Navigation({ currentPath }: Props) {
               {link.name}
             </a>
           ))}
-          <span className="w-px h-5 bg-white/15 mx-1 shrink-0" aria-hidden="true" />
           <a
             href="/contacto"
-            className="px-5 py-2 bg-white hover:bg-white/95 text-zinc-900 rounded-full text-[13.5px] font-semibold tracking-tight transition-colors shrink-0"
+            className="ml-3.5 px-5 py-2 bg-white hover:bg-white/95 text-zinc-900 rounded-full text-[13.5px] font-semibold tracking-tight transition-colors shrink-0"
           >
             Comenzar
           </a>

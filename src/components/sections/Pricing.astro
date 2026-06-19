@@ -1,154 +1,260 @@
 ---
-const plans = [
-  {
-    name: 'Starter',
-    price: '599',
-    description: 'Ideal para landing pages y sitios web básicos',
-    features: [
-      'Hasta 5 páginas',
-      'Diseño responsive',
-      'SEO básico',
-      'Formulario de contacto',
-      'Hosting incluido (1 año)',
-      'SSL gratuito',
-      'Soporte por email',
-    ],
-    highlighted: false,
-  },
-  {
-    name: 'Professional',
-    price: '1,499',
-    description: 'Para aplicaciones web completas y e-commerce',
-    features: [
-      'Páginas ilimitadas',
-      'Diseño personalizado',
-      'SEO avanzado',
-      'Panel administrativo',
-      'Integración de pagos',
-      'API REST personalizada',
-      'Hosting premium (1 año)',
-      'SSL + CDN',
-      'Soporte prioritario',
-    ],
-    highlighted: true,
-  },
-  {
-    name: 'Enterprise',
-    price: 'Custom',
-    description: 'Soluciones empresariales a medida',
-    features: [
-      'Todo de Professional',
-      'Aplicación móvil',
-      'Arquitectura escalable',
-      'CI/CD automatizado',
-      'Múltiples integraciones',
-      'Testing automatizado',
-      'Documentación completa',
-      'Soporte 24/7',
-      'Consultoría técnica',
-    ],
-    highlighted: false,
-  },
+// "Cómo cotizamos" — bento grid. Reemplaza los planes tipo SaaS: la agencia cotiza a
+// medida, así que esta sección EXPLICA cómo se llega al precio (proceso + factores) y deja
+// fijo solo lo que es fijo (mensual). Render estático (sin JS) para evitar el bug de scoping
+// de Astro y servir SSG puro. Gradientes desde global.css. Sin animaciones de scroll.
+
+const GRADS = [
+  'var(--gradient-violet-rose)',
+  'var(--gradient-violet-blue)',
+  'var(--gradient-teal-blue)',
+  'var(--gradient-violet-rose)',
+];
+const GLOWS = [
+  'rgba(244,114,182,.5)',
+  'rgba(124,124,255,.5)',
+  'rgba(45,212,191,.5)',
+  'rgba(244,114,182,.5)',
+];
+
+const STEPS = [
+  { t: 'Contanos tu idea', d: 'Nos escribís qué querés lograr. Sin tecnicismos.' },
+  { t: 'Propuesta clara', d: 'En 48h te mandamos alcance, etapas y precio cerrado.' },
+  { t: 'Construimos por etapas', d: 'Avanzás viendo resultados, con pagos por hito.' },
+  { t: 'Soporte continuo', d: 'Quedamos para mantener, mejorar y escalar.' },
+];
+
+// Íconos (Lucide) — contenido interno del <svg>, inyectado con set:html.
+const ICONS: Record<string, string> = {
+  layers:
+    '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+  plug:
+    '<path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>',
+  palette:
+    '<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+};
+
+const FACTORS = [
+  { ic: 'layers', t: 'Alcance & funcionalidad', d: 'Cuántas pantallas, qué lógica, qué casos de uso.' },
+  { ic: 'plug', t: 'Integraciones & IA', d: 'Pagos, APIs externas, automatizaciones, chatbots.' },
+  { ic: 'palette', t: 'Diseño', d: 'Plantilla optimizada o identidad 100% a medida.' },
+  { ic: 'clock', t: 'Plazos', d: 'Un timeline ajustado mueve la aguja.' },
+];
+
+const MONTHLY = [
+  { name: 'Hosting & SSL', desc: 'CDN, backups, 99.9% uptime', from: '25' },
+  { name: 'Soporte & mantenimiento', desc: 'Updates, fixes, monitoreo', from: '200' },
 ];
 ---
 
-<section id="precios" class="py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
-  <div class="max-w-7xl mx-auto">
-    <!-- Header -->
-    <div class="text-center mb-16">
-      <p class="text-purple-400 font-semibold mb-2">PRECIOS</p>
-      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
-        Planes para cada necesidad
-      </h2>
-      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-        Inversión transparente con resultados garantizados
+<!--
+  Cómo cotizamos — bento asimétrico: tile feature (paso 01) + pasos 02-04 + banda "Qué define
+  tu inversión" + factores + mensual (lo único fijo) + CTA a todo el ancho. Estático, focus-in
+  en load + hover, sin scroll-animations, prefers-reduced-motion respetado.
+-->
+<section id="precios" class="pricing-section relative py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14 reveal">
+      <h2 class="h-title text-4xl sm:text-5xl">Cómo <span class="text-grad">cotizamos</span></h2>
+      <p class="mt-4 text-lg text-white/55 max-w-2xl mx-auto">
+        Cada proyecto es único, así que no usamos plantillas de precio. Te armamos una cotización
+        clara según lo que necesitás — y te la explicamos sin letra chica.
       </p>
     </div>
 
-    <!-- Pricing Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {plans.map((plan) => (
-        <div class="relative">
-          {plan.highlighted && (
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold rounded-full">
-              Más Popular
-            </div>
-          )}
-          <div
-            class={`bg-gray-900 border rounded-xl p-6 ${
-              plan.highlighted
-                ? 'border-purple-600 shadow-xl shadow-purple-900/20'
-                : 'border-gray-800'
-            }`}
-          >
-            <div class="space-y-6">
-              <!-- Plan Name -->
-              <div>
-                <h3 class="text-2xl font-bold text-white">{plan.name}</h3>
-                <p class="text-gray-400 text-sm mt-2">{plan.description}</p>
-              </div>
-
-              <!-- Price -->
-              <div class="flex items-baseline gap-2">
-                {plan.price !== 'Custom' && (
-                  <span class="text-gray-400 text-lg">$</span>
-                )}
-                <span class="text-5xl font-bold text-white">{plan.price}</span>
-                {plan.price !== 'Custom' && (
-                  <span class="text-gray-400">USD</span>
-                )}
-              </div>
-
-              <!-- Features -->
-              <ul class="space-y-3">
-                {plan.features.map((feature) => (
-                  <li class="flex items-start gap-3">
-                    <svg
-                      class="w-5 h-5 text-purple-400 shrink-0 mt-0.5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span class="text-gray-300 text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <!-- CTA Button -->
-              <a
-                href="/contacto"
-                class={`block w-full text-center px-6 py-3 rounded-lg font-medium transition-all ${
-                  plan.highlighted
-                    ? 'bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-900/50'
-                    : 'border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white'
-                }`}
-              >
-                {plan.price === 'Custom' ? 'Contactar' : 'Comenzar'}
-              </a>
-            </div>
+    <div class="bento">
+      <!-- Feature tile: paso 01 (2 cols × 2 rows) -->
+      <div class="tile tile-feature is-hover col-2 row-2 reveal" style={`--grad:${GRADS[0]};--glow:${GLOWS[0]};--d:.13s`}>
+        <span class="cc-kicker">El proceso</span>
+        <div class="mt-auto">
+          <span class="cc-num" style={`--grad:${GRADS[0]}`}>01</span>
+          <div class="cc-step-title" style="font-size:1.35rem;margin-top:1.1rem">{STEPS[0].t}</div>
+          <div class="cc-step-desc" style="font-size:.95rem;max-width:30ch">{STEPS[0].d}</div>
+          <div class="cc-step-desc" style="margin-top:1rem;color:rgba(255,255,255,.38)">
+            Cada proyecto arranca acá. Cuatro pasos, cero sorpresas.
           </div>
         </div>
-      ))}
-    </div>
+      </div>
 
-    <!-- Additional Info -->
-    <div class="mt-12 text-center">
-      <p class="text-gray-400">
-        ¿Necesitas algo específico?{' '}
-        <a
-          href="/contacto"
-          class="text-purple-400 hover:text-purple-300 font-semibold underline"
-        >
-          Hablemos de tu proyecto
+      <!-- Pasos 02, 03, 04 -->
+      {[1, 2, 3].map((i) => (
+        <div class="tile is-hover md-col-1 reveal" style={`--grad:${GRADS[i]};--glow:${GLOWS[i]};--d:${(0.18 + (i - 1) * 0.05).toFixed(2)}s`}>
+          <span class="cc-num" style={`--grad:${GRADS[i]}`}>{`0${i + 1}`}</span>
+          <div class="cc-step-title">{STEPS[i].t}</div>
+          <div class="cc-step-desc">{STEPS[i].d}</div>
+        </div>
+      ))}
+
+      <!-- Banda: "Qué define tu inversión" (ancho completo, slim) -->
+      <div class="tile col-4 reveal" style="padding:1.1rem 1.55rem;background:transparent;border-color:transparent;box-shadow:none;--d:.33s">
+        <div style="display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap">
+          <span class="h-title" style="font-size:1.5rem">Qué define tu inversión</span>
+          <span class="cc-fdesc" style="margin:0">Cuatro variables, no una lista de precios.</span>
+        </div>
+      </div>
+
+      <!-- Factores -->
+      {FACTORS.map((f, i) => (
+        <div class={`tile is-hover ${i === 0 ? 'col-2 md-col-1' : 'md-col-1'} reveal`} style={`--grad:${GRADS[i]};--glow:${GLOWS[i]};--d:${(0.38 + i * 0.05).toFixed(2)}s`}>
+          <span class="cc-fic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[f.ic]} /></span>
+          <div class="cc-ftitle">{f.t}</div>
+          <div class="cc-fdesc">{f.d}</div>
+        </div>
+      ))}
+
+      <!-- Mensual (lo único fijo) — 2 cols -->
+      <div class="tile col-2 reveal" style="--glow:rgba(45,212,191,.4);--d:.58s">
+        <span class="cc-kicker" style="color:rgba(45,212,191,.7)">Lo que sí tiene precio fijo</span>
+        <div style="margin-top:.4rem">
+          {MONTHLY.map((m) => (
+            <div class="cc-mrow">
+              <div>
+                <div class="cc-mname">{m.name}</div>
+                <div class="cc-mdesc">{m.desc}</div>
+              </div>
+              <div class="cc-mprice">${m.from}<small>/mes</small></div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA — ancho completo -->
+      <div class="tile tile-cta col-4 reveal" style="--d:.63s">
+        <h3 class="h-title text-2xl sm:text-3xl">Contanos tu proyecto</h3>
+        <p class="mt-3 text-white/55 max-w-xl mx-auto">
+          Sin compromiso. Te devolvemos alcance, etapas y precio cerrado en 48 horas.
+        </p>
+        <a href="/contacto" class="cc-btn mt-6">
+          Pedí tu cotización
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
         </a>
-      </p>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* Tokens + fuentes de la sección (no afectan al resto del sitio). --gradient-* en global.css. */
+  .pricing-section {
+    font-family: 'Sora', system-ui, sans-serif;
+    --accent-violet: #8b5cf6;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* ---- Heading helpers (coherentes con hero/services/trust) ---- */
+  .h-eyebrow {
+    display: inline-flex; align-items: center; gap: .5rem;
+    border-radius: 9999px; padding: .375rem .875rem;
+    background: rgba(139,92,246,.05); border: 1px solid rgba(139,92,246,.22);
+    color: rgba(255,255,255,.78); font-size: 12.5px; font-weight: 500; letter-spacing: -.01em;
+  }
+  .h-eyebrow .dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--accent-violet); }
+  .h-title {
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+  }
+  .text-grad {
+    background: var(--gradient-violet-rose);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+
+  .reveal { opacity: 0; filter: blur(8px); animation: reveal-focus .8s var(--ease-out) forwards; animation-delay: var(--d, 0ms); }
+  @keyframes reveal-focus { to { opacity: 1; filter: blur(0); } }
+
+  /* ---- Bento grid ---- */
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(0, auto); gap: 1rem; }
+  @media (max-width: 980px) { .bento { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .bento { grid-template-columns: 1fr; } }
+
+  /* spans */
+  .col-2 { grid-column: span 2; }
+  .col-3 { grid-column: span 3; }
+  .col-4 { grid-column: span 4; }
+  .row-2 { grid-row: span 2; }
+  @media (max-width: 980px) {
+    .col-2, .col-3, .col-4 { grid-column: span 2; }
+    .md-col-1 { grid-column: span 1; }
+    .row-2 { grid-row: span 1; }
+  }
+  @media (max-width: 560px) {
+    .col-2, .col-3, .col-4, .md-col-1 { grid-column: span 1; }
+  }
+
+  /* base tile (glass) */
+  .tile {
+    position: relative; border-radius: 18px; overflow: hidden; isolation: isolate;
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
+    padding: 1.5rem 1.55rem; display: flex; flex-direction: column;
+    transition: transform .5s var(--ease-out), border-color .5s var(--ease-out), background .5s var(--ease-out);
+  }
+  .tile::after {
+    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+    background: radial-gradient(120% 90% at 20% -10%, var(--glow, rgba(139,92,246,.16)), transparent 60%);
+    opacity: 0; transition: opacity .5s var(--ease-out);
+  }
+  @media (hover: hover) {
+    .tile.is-hover:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.04); background: rgba(255,255,255,.055); }
+    .tile.is-hover:hover::after { opacity: 1; }
+  }
+
+  /* numbered step badge */
+  .cc-num {
+    width: 3rem; height: 3rem; border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1rem;
+    background: var(--bg, #09090b); border: 1px solid rgba(255,255,255,.12);
+    background-image: var(--grad, var(--gradient-violet-rose)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+    box-shadow: 0 0 0 4px #09090b;
+  }
+  .cc-step-title { margin-top: .95rem; font-family: 'Plus Jakarta Sans', 'Sora', sans-serif; font-weight: 700; font-size: 1.02rem; letter-spacing: -.02em; color: #fff; }
+  .cc-step-desc { margin-top: .25rem; font-size: .85rem; line-height: 1.5; color: rgba(255,255,255,.5); }
+
+  /* factor icon */
+  .cc-fic { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 11px; color: #fff; background: var(--grad, var(--gradient-violet-rose)); box-shadow: 0 0 20px -3px var(--glow, rgba(139,92,246,.5)); }
+  .cc-ftitle { margin-top: .85rem; font-family: 'Plus Jakarta Sans', 'Sora', sans-serif; font-weight: 700; font-size: .95rem; letter-spacing: -.02em; color: #fff; }
+  .cc-fdesc { margin-top: .3rem; font-size: .82rem; line-height: 1.45; color: rgba(255,255,255,.5); }
+
+  .cc-kicker { font-size: .72rem; color: rgba(255,255,255,.4); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+
+  /* feature tile (paso 01) */
+  .tile-feature { background: rgba(255,255,255,.035); }
+  .tile-feature::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(90% 120% at 12% 0%, rgba(139,92,246,.18), transparent 58%);
+  }
+
+  /* mensual tile rows */
+  .cc-mrow { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .95rem 0; }
+  .cc-mrow + .cc-mrow { border-top: 1px solid rgba(255,255,255,.08); }
+  .cc-mname { font-size: .92rem; font-weight: 600; color: rgba(255,255,255,.85); }
+  .cc-mdesc { font-size: .78rem; color: rgba(255,255,255,.45); margin-top: .15rem; }
+  .cc-mprice {
+    font-family: 'Plus Jakarta Sans', 'Sora', sans-serif; font-weight: 800; letter-spacing: -.03em; font-size: 1.35rem; white-space: nowrap;
+    background: var(--gradient-teal-blue); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .cc-mprice small { font-size: .7rem; color: rgba(255,255,255,.4); -webkit-text-fill-color: rgba(255,255,255,.4); }
+
+  /* CTA tile */
+  .tile-cta { align-items: center; justify-content: center; text-align: center; padding: 2.25rem 2rem; background: rgba(255,255,255,.03); }
+  .tile-cta::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(70% 130% at 50% 0%, rgba(139,92,246,.2), transparent 62%);
+  }
+  .cc-btn {
+    display: inline-flex; align-items: center; gap: .55rem; padding: .85rem 1.5rem; border-radius: 9999px;
+    font-weight: 600; font-size: .95rem; color: #0a0a0c; background: #fff; box-shadow: 0 14px 30px -14px rgba(255,255,255,.4);
+    transition: gap .25s var(--ease-out), transform .25s var(--ease-out);
+  }
+  .cc-btn svg { transition: transform .25s var(--ease-out); }
+  @media (hover: hover) {
+    .cc-btn:hover { gap: .8rem; transform: translateY(-1px); }
+    .cc-btn:hover svg { transform: translateX(2px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; filter: none; }
+    .tile, .tile::after, .cc-btn, .cc-btn svg { transition: none; }
+  }
+</style>

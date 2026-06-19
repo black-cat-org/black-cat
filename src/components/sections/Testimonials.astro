@@ -1,89 +1,270 @@
 ---
-const testimonials = [
-  {
-    name: 'Carlos Mendoza',
-    role: 'CEO, TechStart',
-    image: '👨‍💼',
-    content: 'Black Cat transformó nuestra idea en una plataforma escalable en tiempo récord. Su expertise en React y NestJS nos permitió lanzar 3 meses antes de lo previsto.',
-    rating: 5,
-  },
-  {
-    name: 'María González',
-    role: 'Founder, StyleShop',
-    image: '👩‍💼',
-    content: 'Nuestra tienda online pasó de 0 a 10k visitas mensuales. El SEO y la velocidad de carga son impecables. Totalmente recomendados para e-commerce.',
-    rating: 5,
-  },
-  {
-    name: 'Juan Pérez',
-    role: 'CTO, FinanceApp',
-    image: '👨‍💻',
-    content: 'La aplicación móvil que desarrollaron con Flutter superó todas nuestras expectativas. Interface fluida, código limpio y soporte excepcional.',
-    rating: 5,
-  },
-  {
-    name: 'Ana Rodríguez',
-    role: 'Marketing Director, GrowthCo',
-    image: '👩‍💻',
-    content: 'Landing page premium con animaciones increíbles. Aumentamos la conversión en un 40%. El equipo es profesional y cumple los plazos.',
-    rating: 5,
-  },
+// Testimonios — variante "marquee continuo". Logo wall "Confían en Black Cat" + dos filas de
+// tarjetas que se desplazan en direcciones opuestas (marquee CSS, doble copia por fila para loop
+// sin costura, fade en los bordes, pausa al hover). Render estático (sin JS) para SSG puro y para
+// evitar el bug de scoping de Astro. Gradientes desde global.css. Sin animaciones de scroll.
+
+type Testimonial = {
+  name: string;
+  role: string;
+  company: string;
+  initials: string;
+  content: string;
+  rating: number;
+};
+
+const TESTIMONIALS: Testimonial[] = [
+  { name: 'Carlos Mendoza', role: 'CEO', company: 'TechStart', initials: 'CM',
+    content: 'Black Cat transformó nuestra idea en una plataforma escalable en tiempo récord. Su expertise en React y NestJS nos permitió lanzar 3 meses antes de lo previsto.', rating: 5 },
+  { name: 'María González', role: 'Founder', company: 'StyleShop', initials: 'MG',
+    content: 'Nuestra tienda online pasó de 0 a 10k visitas mensuales. El SEO y la velocidad de carga son impecables. Totalmente recomendados para e-commerce.', rating: 5 },
+  { name: 'Juan Pérez', role: 'CTO', company: 'FinanceApp', initials: 'JP',
+    content: 'La aplicación móvil que desarrollaron con Flutter superó todas nuestras expectativas. Interface fluida, código limpio y soporte excepcional.', rating: 5 },
+  { name: 'Ana Rodríguez', role: 'Marketing Director', company: 'GrowthCo', initials: 'AR',
+    content: 'Landing page premium con animaciones increíbles. Aumentamos la conversión en un 40%. El equipo es profesional y cumple los plazos.', rating: 5 },
+  { name: 'Lucía Fernández', role: 'Product Lead', company: 'HealthSync', initials: 'LF',
+    content: 'Migramos un sistema legacy a una arquitectura moderna sin downtime. El acompañamiento técnico fue clave en cada decisión.', rating: 5 },
+  { name: 'Diego Torres', role: 'Owner', company: 'Resto Sur', initials: 'DT',
+    content: 'Nos armaron la tienda y el sistema de pedidos en tiempo récord. Hoy el 60% de las ventas entran por la web.', rating: 5 },
+];
+
+const GRADS = ['var(--gradient-violet-rose)', 'var(--gradient-violet-blue)', 'var(--gradient-teal-blue)'];
+const GLOWS = ['rgba(244,114,182,.5)', 'rgba(124,124,255,.5)', 'rgba(45,212,191,.5)'];
+
+// Dos filas: índices de TESTIMONIALS + offset de gradiente (rota el color entre filas).
+const ROWS = [
+  { dir: 'normal', dur: '64s', base: 0, items: [0, 1, 2, 3] },
+  { dir: 'reverse', dur: '74s', base: 1, items: [4, 5, 0, 3] },
 ];
 ---
 
-<section id="testimonios" class="py-24 px-4 sm:px-6 lg:px-8 bg-black">
+<section id="testimonios" class="testimonials-section relative py-16 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <!-- Header -->
-    <div class="text-center mb-16">
-      <p class="text-purple-400 font-semibold mb-2">TESTIMONIOS</p>
-      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
-        Lo que dicen nuestros clientes
-      </h2>
-      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-        Resultados reales de proyectos exitosos
-      </p>
+    <div class="text-center mb-16 reveal">
+      <h2 class="h-title text-4xl sm:text-5xl">Lo que dicen <span class="text-grad">nuestros clientes</span></h2>
+      <p class="mt-4 text-lg text-white/55 max-w-2xl mx-auto">Resultados reales de proyectos que ya están en producción.</p>
     </div>
 
-    <!-- Testimonials Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {testimonials.map((testimonial) => (
-        <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 relative">
-          <!-- Quote Icon -->
-          <div class="absolute top-6 right-6 text-6xl text-purple-600/10">
-            "
+    <!-- Logo wall -->
+    <div class="reveal" style="--d:120ms">
+      <p class="text-center text-[11.5px] font-medium uppercase tracking-[.22em] text-white/35 mb-5">Confían en Black Cat</p>
+      <div class="ts-logowall">
+        {TESTIMONIALS.map((t, i) => (
+          <div class="ts-logo" style={`--grad:${GRADS[i % 3]}; --glow:${GLOWS[i % 3]};`}>
+            <span class="ts-wordmark"><span class="mk"></span>{t.company}</span>
           </div>
+        ))}
+      </div>
+    </div>
 
-          <div class="relative space-y-4">
-            <!-- Stars -->
-            <div class="flex gap-1">
-              {Array.from({ length: testimonial.rating }).map((_, i) => (
-                <svg
-                  key={i}
-                  class="w-5 h-5 text-yellow-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
+    <!-- Marquee: 2 filas opuestas, doble copia por fila → loop sin costura -->
+    <div class="reveal mt-14" style="--d:240ms">
+      {ROWS.map((r) => (
+        <div class="mq">
+          <div class="mq-viewport">
+            <div class="mq-track" data-dir={r.dir} style={`--mq-dur:${r.dur}`}>
+              {[0, 1].map((copy) => (
+                <div class="mq-group" aria-hidden={copy === 1}>
+                  {r.items.map((idx, i) => {
+                    const t = TESTIMONIALS[idx];
+                    const g = (r.base + i) % 3;
+                    return (
+                      <article class="tcard glass" style={`--grad:${GRADS[g]};--glow:${GLOWS[g]}`}>
+                        <div class="tcard-stars" role="img" aria-label={`${t.rating} de 5 estrellas`}>
+                          {Array.from({ length: t.rating }).map(() => (
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 7.1-1.01L12 2z" /></svg>
+                          ))}
+                        </div>
+                        <p class="tcard-quote">{t.content}</p>
+                        <div class="tcard-foot">
+                          <span class="ts-avatar tcard-avatar" style={`--grad:${GRADS[g]};--glow:${GLOWS[g]}`} aria-hidden="true">{t.initials}</span>
+                          <span>
+                            <span class="tcard-name">{t.name}</span>
+                            <span class="tcard-role">{t.role} · <b>{t.company}</b></span>
+                          </span>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
               ))}
-            </div>
-
-            <!-- Content -->
-            <p class="text-gray-300 leading-relaxed text-lg">
-              {testimonial.content}
-            </p>
-
-            <!-- Author -->
-            <div class="flex items-center gap-4 pt-4">
-              <div class="text-4xl">{testimonial.image}</div>
-              <div>
-                <div class="font-semibold text-white">{testimonial.name}</div>
-                <div class="text-sm text-gray-400">{testimonial.role}</div>
-              </div>
             </div>
           </div>
         </div>
       ))}
     </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-14 reveal" style="--d:260ms">
+      <p class="text-white/50 text-sm mb-5">¿Querés ser el próximo caso de éxito?</p>
+      <a href="/contacto" class="ts-cta">
+        Empezá tu proyecto
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+      </a>
+    </div>
   </div>
 </section>
+
+<style>
+  /* Tokens + fuentes de la sección (no afectan al resto). --gradient-* en global.css. */
+  .testimonials-section {
+    font-family: 'Sora', system-ui, sans-serif;
+    --accent-violet: #8b5cf6;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* ---- Heading helpers (coherentes con hero/services/trust/pricing) ---- */
+  .h-eyebrow {
+    display: inline-flex; align-items: center; gap: .5rem;
+    border-radius: 9999px; padding: .375rem .875rem;
+    background: rgba(139,92,246,.05); border: 1px solid rgba(139,92,246,.22);
+    color: rgba(255,255,255,.78); font-size: 12.5px; font-weight: 500; letter-spacing: -.01em;
+  }
+  .h-eyebrow .dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--accent-violet); }
+  .h-title {
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+  }
+  .text-grad {
+    background: var(--gradient-violet-rose);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .glass {
+    background: rgba(255,255,255,.04);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
+  }
+  .reveal { opacity: 0; filter: blur(8px); animation: reveal-focus .8s var(--ease-out) forwards; animation-delay: var(--d, 0ms); }
+  @keyframes reveal-focus { to { opacity: 1; filter: blur(0); } }
+
+  /* monograma de autor (iniciales en gradiente) */
+  .ts-avatar {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2.75rem; height: 2.75rem; border-radius: 9999px; flex: none;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: .9rem;
+    color: #0a0a0c; background: var(--grad, var(--gradient-violet-rose));
+    box-shadow: 0 0 20px -4px var(--glow, rgba(139,92,246,.5));
+  }
+
+  /* ---- LOGOS / wordmarks (Confían en Black Cat) — sueltos, sin marco ---- */
+  .ts-logowall {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem 1.5rem; align-items: center;
+  }
+  @media (min-width: 640px) { .ts-logowall { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .ts-logowall { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  .ts-logo {
+    position: relative; display: flex; align-items: center; justify-content: center;
+    min-height: 3.5rem; padding: .5rem .75rem;
+  }
+  .ts-wordmark {
+    position: relative; font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800; font-size: 1.0625rem; letter-spacing: -.03em; color: rgba(255,255,255,.42);
+    transition: color .45s var(--ease-out), filter .45s var(--ease-out); filter: grayscale(1);
+    display: inline-flex; align-items: baseline; gap: .12em; white-space: nowrap;
+  }
+  .ts-wordmark .mk {
+    width: .62rem; height: .62rem; border-radius: .18rem; flex: none;
+    background: var(--grad, var(--gradient-violet-rose)); transform: translateY(.06em);
+    opacity: .55; transition: opacity .45s var(--ease-out), box-shadow .45s var(--ease-out);
+  }
+  .ts-logo:hover .ts-wordmark { color: rgba(255,255,255,.96); filter: grayscale(0); }
+  .ts-logo:hover .ts-wordmark .mk { opacity: 1; box-shadow: 0 0 14px -2px var(--glow, rgba(139,92,246,.6)); }
+
+  /* ---- Marquee ---- */
+  .mq {
+    position: relative;
+    display: flow-root; /* BFC: contiene el margin negativo del viewport (no mueve el layout) */
+  }
+  .mq + .mq { margin-top: 1.25rem; }
+
+  /* overflow (recorte horizontal) + mask (fade de bordes) + padding vertical en el MISMO
+     elemento → el lift del hover no lo corta NI el overflow NI la máscara. El margin
+     negativo cancela el padding hacia afuera: el espaciado externo queda idéntico. */
+  .mq-viewport {
+    overflow: hidden;
+    padding: 16px 0;
+    margin: -16px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  }
+
+  .mq-track {
+    display: flex; width: max-content; gap: 1.25rem; will-change: transform;
+    animation: mq-scroll var(--mq-dur, 60s) linear infinite;
+  }
+  .mq-track[data-dir="reverse"] { animation-direction: reverse; }
+  .mq:hover .mq-track { animation-play-state: paused; }
+  .mq-group { display: flex; gap: 1.25rem; flex: none; }
+  @keyframes mq-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+
+  /* tarjeta compacta */
+  .tcard {
+    flex: none; width: 22rem; max-width: 78vw; border-radius: 1rem;
+    padding: 1.35rem 1.5rem; display: flex; flex-direction: column;
+    transition: border-color .4s var(--ease-out), transform .4s var(--ease-out), box-shadow .4s var(--ease-out);
+    position: relative;
+  }
+  .tcard::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    padding: 1px; background: var(--grad, var(--gradient-violet-rose));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity .4s var(--ease-out); pointer-events: none;
+  }
+  .tcard:hover {
+    transform: translateY(-3px); border-color: transparent;
+    box-shadow: 0 18px 40px -22px var(--glow, rgba(139,92,246,.5));
+  }
+  .tcard:hover::before { opacity: .9; }
+
+  .tcard-stars { display: inline-flex; gap: 2px; color: #fbbf24; }
+  .tcard-stars svg { width: 14px; height: 14px; }
+
+  .tcard-quote {
+    font-size: .95rem; line-height: 1.55; color: rgba(255,255,255,.82);
+    letter-spacing: -.005em; margin: .7rem 0 1.1rem;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .tcard-quote::before { content: "\201C"; }
+  .tcard-quote::after  { content: "\201D"; }
+
+  .tcard-foot { display: flex; align-items: center; gap: .7rem; margin-top: auto; }
+  .tcard-avatar { width: 2.4rem; height: 2.4rem; font-size: .8rem; }
+  .tcard-name { display: block; font-weight: 600; font-size: .9rem; letter-spacing: -.01em; line-height: 1.2; }
+  .tcard-role {
+    display: block; font-size: 11.5px;
+    color: rgba(255,255,255,.46); letter-spacing: -.01em; line-height: 1.4; margin-top: 3px;
+  }
+  .tcard-role b { color: rgba(255,255,255,.66); font-weight: 600; }
+
+  /* CTA bajo el marquee (blanco, como el resto del sitio) */
+  .ts-cta {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: .8rem 1.5rem; border-radius: 9999px;
+    font-weight: 600; font-size: .95rem; letter-spacing: -.01em; color: #0a0a0c;
+    background: #fff;
+    box-shadow: 0 14px 30px -14px rgba(255,255,255,.4);
+    transition: transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
+  }
+  .ts-cta:hover { transform: translateY(-2px); box-shadow: 0 18px 38px -14px rgba(255,255,255,.5); }
+  .ts-cta svg { width: 16px; height: 16px; transition: transform .35s var(--ease-out); }
+  .ts-cta:hover svg { transform: translateX(3px); }
+
+  @media (max-width: 640px) {
+    .tcard { width: 19rem; padding: 1.2rem 1.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; filter: none; }
+    .mq-track { animation: none; }
+    .ts-cta:hover, .tcard:hover { transform: none; }
+    .tcard, .ts-cta, .ts-cta svg, .ts-logo, .ts-wordmark { transition: none; }
+  }
+</style>

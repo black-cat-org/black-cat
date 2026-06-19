@@ -18,7 +18,7 @@ const HERO = {
   resto del sitio (todo sobre bg-zinc-950). Fuentes propias del Hero: Plus Jakarta
   Sans (título), Sora (UI), JetBrains Mono (terminal). Respeta prefers-reduced-motion.
 -->
-<section id="hero" class="relative min-h-[100svh] flex items-center overflow-hidden pt-28 md:pt-24 pb-20">
+<section id="hero" class="relative min-h-[100svh] flex items-center overflow-x-clip pt-28 md:pt-24 pb-16">
   <div class="ambient" aria-hidden="true"></div>
   <div class="grid-veil" aria-hidden="true"></div>
 
@@ -27,12 +27,7 @@ const HERO = {
 
       <!-- ----- Columna texto ----- -->
       <div id="hero-left" class="text-center lg:text-left">
-        <span class="eyebrow reveal inline-flex items-center gap-2 rounded-full bg-white/[0.05] border border-white/10 px-3.5 py-1.5 text-[12.5px] font-medium tracking-tight text-white/70">
-          <span class="eyebrow-dot pulse inline-block w-1.5 h-1.5 rounded-full"></span>
-          {HERO.eyebrow}
-        </span>
-
-        <h1 class="reveal mt-6 text-[2.7rem] leading-[1.04] sm:text-6xl lg:text-[4.4rem] font-bold tracking-[-0.03em]">
+        <h1 class="reveal text-[2.7rem] leading-[1.04] sm:text-6xl lg:text-[4.4rem] font-bold tracking-[-0.03em]">
           {HERO.title.line1}
           <span class="text-grad">{HERO.title.line2Gradient}</span>
         </h1>

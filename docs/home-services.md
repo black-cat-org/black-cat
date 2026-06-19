@@ -51,7 +51,7 @@ Decisiones de la sub-sección 2.2 del [`PLAN.md`](./PLAN.md). Sección de servic
 ## 5. Header de la sección
 
 - **h2**: "Software a medida"
-- **Sub-copy**: "Cuando necesitás algo único, lo construimos. Estos son nuestros pilares técnicos."
+- **Sub-copy**: "Cuando necesitas algo único, lo construimos. Estos son nuestros pilares técnicos."
 - Encuadra los servicios como complemento a los productos (línea Black) — no como negocio principal.
 
 ## 6. Sub-pages relacionadas

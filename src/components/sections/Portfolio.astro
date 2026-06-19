@@ -1,112 +1,415 @@
 ---
-const projects = [
-  {
-    title: 'E-commerce Premium',
-    category: 'Tienda Virtual',
-    description: 'Plataforma de comercio electrónico con integración de múltiples pasarelas de pago y panel administrativo completo.',
-    tech: ['Next.js', 'Stripe', 'PostgreSQL'],
-    gradient: 'from-purple-500 to-pink-500',
-    slug: 'ecommerce-premium',
-  },
-  {
-    title: 'App de Gestión',
-    category: 'Aplicación Móvil',
-    description: 'Aplicación móvil multiplataforma para gestión de equipos y proyectos con sincronización en tiempo real.',
-    tech: ['Flutter', 'Firebase', 'REST API'],
-    gradient: 'from-blue-500 to-cyan-500',
-    slug: 'app-gestion',
-  },
-  {
-    title: 'Dashboard Analytics',
-    category: 'Web App',
-    description: 'Panel de control con visualización de datos en tiempo real y reportes personalizables para métricas de negocio.',
-    tech: ['React', 'D3.js', 'NestJS'],
-    gradient: 'from-green-500 to-emerald-500',
-    slug: 'dashboard-analytics',
-  },
-  {
-    title: 'Landing SaaS',
-    category: 'Website',
-    description: 'Landing page de alto rendimiento con animaciones fluidas y optimización SEO para producto SaaS B2B.',
-    tech: ['Astro', 'TailwindCSS', 'Vercel'],
-    gradient: 'from-orange-500 to-red-500',
-    slug: 'landing-saas',
-  },
+// 4 proyectos. `kind` define el mockup CSS abstracto: ecommerce | mobile | dashboard | landing.
+const PROJECTS = [
+  { title: 'E-commerce Premium', category: 'Tienda Virtual', description: 'Plataforma de comercio electrónico con integración de múltiples pasarelas de pago y panel administrativo completo.', tech: ['Next.js', 'Stripe', 'PostgreSQL'], slug: 'ecommerce-premium', kind: 'ecommerce' },
+  { title: 'App de Gestión', category: 'Aplicación Móvil', description: 'App móvil multiplataforma para gestión de equipos y proyectos con sincronización en tiempo real.', tech: ['Flutter', 'Firebase', 'REST API'], slug: 'app-gestion', kind: 'mobile' },
+  { title: 'Dashboard Analytics', category: 'Web App', description: 'Panel de control con visualización de datos en tiempo real y reportes personalizables para métricas de negocio.', tech: ['React', 'D3.js', 'NestJS'], slug: 'dashboard-analytics', kind: 'dashboard' },
+  { title: 'Landing SaaS', category: 'Website', description: 'Landing de alto rendimiento con animaciones fluidas y optimización SEO para producto SaaS B2B.', tech: ['Astro', 'TailwindCSS', 'Vercel'], slug: 'landing-saas', kind: 'landing' },
 ];
+// Gradiente de marca rotado por proyecto (acentos). --gradient-* viven en global.css.
+const GRADS = ['var(--gradient-violet-rose)', 'var(--gradient-violet-blue)', 'var(--gradient-teal-blue)', 'var(--gradient-violet-rose)'];
 ---
 
-<section id="portfolio" class="py-24 px-4 sm:px-6 lg:px-8 bg-black">
+<!--
+  Portfolio "Índice + Preview" — índice de proyectos a la izquierda + panel que se reescribe
+  con un mockup CSS abstracto por tipo de proyecto al hover/click. Sin imágenes reales.
+  El índice y el panel se construyen por JS (interactivo); el CSS va is:global bajo #portfolio
+  para alcanzar el contenido inyectado sin filtrarse al resto del sitio. Respeta reduced-motion.
+-->
+<section id="portfolio" class="relative py-16 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <!-- Header -->
-    <div class="text-center mb-16">
-      <p class="text-purple-400 font-semibold mb-2">PORTFOLIO</p>
-      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
-        Proyectos Destacados
-      </h2>
-      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-        Casos de éxito que transformaron negocios
+    <div class="text-center mb-16 reveal">
+      <h2 class="h-title text-4xl sm:text-5xl">Proyectos <span class="text-grad">destacados</span></h2>
+      <p class="mt-4 text-lg text-white/55 max-w-2xl mx-auto">
+        Casos que transformaron negocios — del problema al producto en producción.
       </p>
     </div>
 
-    <!-- Projects Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {projects.map((project) => (
-        <a href={`/portfolio/${project.slug}`} class="block bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-600 transition-all duration-300 cursor-pointer hover:shadow-xl hover:shadow-purple-900/20 group">
-          <div class="space-y-4">
-            <!-- Gradient Header -->
-            <div class={`h-48 rounded-lg bg-linear-to-br ${project.gradient} opacity-80 flex items-center justify-center group-hover:opacity-100 transition-opacity`}>
-              <div class="text-white text-6xl font-bold opacity-20">
-                {project.title.substring(0, 2).toUpperCase()}
-              </div>
-            </div>
-
-            <!-- Category Badge -->
-            <div class="inline-block px-3 py-1 bg-purple-600/10 text-purple-400 text-xs font-semibold rounded-full">
-              {project.category}
-            </div>
-
-            <!-- Title -->
-            <h3 class="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
-              {project.title}
-            </h3>
-
-            <!-- Description -->
-            <p class="text-gray-400 leading-relaxed">
-              {project.description}
-            </p>
-
-            <!-- Tech Stack -->
-            <div class="flex flex-wrap gap-2">
-              {project.tech.map((tech) => (
-                <span class="text-xs px-3 py-1 bg-gray-800 text-gray-300 rounded-md">
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            <!-- View More Link -->
-            <div class="flex items-center gap-2 text-purple-400 text-sm font-medium pt-2">
-              Ver caso completo
-              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </div>
-          </div>
-        </a>
-      ))}
+    <div class="ip reveal" style="animation-delay:.1s">
+      <div class="ip-list" role="tablist" aria-label="Proyectos destacados" data-list></div>
+      <div class="ip-panel glass" data-panel>
+        <div class="ip-stage" data-stage role="tabpanel"></div>
+      </div>
     </div>
 
-    <!-- CTA -->
-    <div class="text-center mt-12">
-      <a
-        href="/portfolio"
-        class="inline-flex items-center gap-2 px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-btn font-medium transition-all shadow-lg shadow-purple-900/50"
-      >
+    <div class="text-center mt-14">
+      <a href="/portfolio" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-zinc-900 text-[15px] font-semibold tracking-tight hover:bg-white/90 transition-colors">
         Ver más proyectos
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
   </div>
 </section>
+
+<style is:global>
+  @keyframes pf-reveal-focus { to { opacity: 1; filter: blur(0); } }
+
+  /* Todo scopeado bajo #portfolio (nesting) + is:global para alcanzar el contenido inyectado por JS. */
+  #portfolio {
+    font-family: 'Sora', system-ui, sans-serif;
+    --bg: #09090b;
+    --accent-violet: #8b5cf6;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+    /* Heading helpers */
+    .h-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      border-radius: 9999px; padding: .375rem .875rem;
+      background: rgba(139,92,246,.05); border: 1px solid rgba(139,92,246,.22);
+      color: rgba(255,255,255,.78); font-size: 12.5px; font-weight: 500; letter-spacing: -.01em;
+    }
+    .h-eyebrow .dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--accent-violet); }
+    .h-title {
+      font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+    }
+    .text-grad {
+      background: var(--gradient-violet-rose);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    .glass {
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
+    }
+    .chip {
+      display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 9999px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.85);
+    }
+    .reveal { opacity: 0; filter: blur(8px); animation: pf-reveal-focus .8s var(--ease-out) forwards; }
+
+    /* ---------- Grilla índice + panel ---------- */
+    .ip { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+    @media (min-width: 1024px) {
+      .ip { grid-template-columns: minmax(280px, 380px) 1fr; gap: 2rem; align-items: start; }
+    }
+
+    /* ÍNDICE / LISTA */
+    .ip-list {
+      display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .25rem;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .ip-list::-webkit-scrollbar { display: none; }
+    @media (min-width: 1024px) {
+      .ip-list { flex-direction: column; overflow: visible; gap: .375rem; position: sticky; top: 6rem; }
+    }
+
+    .ip-item {
+      flex: 0 0 auto; position: relative;
+      display: flex; align-items: center; gap: .875rem;
+      width: auto; text-align: left;
+      padding: 1rem 1.125rem; border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,.07); background: rgba(255,255,255,.02);
+      color: rgba(255,255,255,.6); cursor: pointer;
+      transition: background .25s var(--ease-out), border-color .25s var(--ease-out), color .25s var(--ease-out);
+    }
+    @media (min-width: 1024px) { .ip-item { width: 100%; } }
+    .ip-item:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(9,9,11,1), 0 0 0 4px rgba(139,92,246,.7); }
+    @media (hover: hover) and (pointer: fine) {
+      .ip-item:hover { background: rgba(255,255,255,.045); color: rgba(255,255,255,.9); }
+    }
+    .ip-item[aria-selected="true"] {
+      color: #fff; border-color: transparent;
+      background:
+        linear-gradient(var(--bg), var(--bg)) padding-box,
+        var(--accent-grad, var(--gradient-violet-rose)) border-box;
+      box-shadow: 0 8px 30px -12px rgba(139,92,246,.45);
+    }
+
+    .ip-num {
+      flex: 0 0 auto;
+      font-family: 'Sora', system-ui, sans-serif;
+      font-size: 12px; font-weight: 600; width: 1.75rem; height: 1.75rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: .5rem; background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08); color: rgba(255,255,255,.5);
+      transition: color .25s var(--ease-out), background .25s var(--ease-out);
+    }
+    .ip-item[aria-selected="true"] .ip-num { color: #fff; background: rgba(139,92,246,.18); border-color: rgba(139,92,246,.4); }
+
+    .ip-item-text { min-width: 0; }
+    .ip-item-title {
+      font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+      font-weight: 700; font-size: 15px; letter-spacing: -.02em; line-height: 1.2; white-space: nowrap;
+    }
+    @media (min-width: 1024px) { .ip-item-title { white-space: normal; } }
+    .ip-item-cat { margin-top: .15rem; font-size: 12px; font-weight: 400; letter-spacing: -.01em; color: rgba(255,255,255,.45); white-space: nowrap; }
+    .ip-item[aria-selected="true"] .ip-item-cat { color: rgba(255,255,255,.7); }
+
+    .ip-item-arrow {
+      flex: 0 0 auto; margin-left: auto; opacity: 0; transform: translateX(-4px);
+      transition: opacity .25s var(--ease-out), transform .25s var(--ease-out); color: rgba(255,255,255,.7);
+    }
+    @media (min-width: 1024px) { .ip-item[aria-selected="true"] .ip-item-arrow { opacity: 1; transform: translateX(0); } }
+    @media (max-width: 1023px) { .ip-item-arrow { display: none; } }
+
+    /* PANEL DE PREVIEW */
+    .ip-panel {
+      position: relative; border-radius: 1.5rem; padding: 1.25rem; overflow: hidden;
+      min-height: 480px; display: flex; flex-direction: column;
+    }
+    @media (min-width: 640px) { .ip-panel { padding: 1.75rem; } }
+    .ip-panel::before {
+      content: ""; position: absolute; inset: 0;
+      background: var(--accent-grad, var(--gradient-violet-rose)); opacity: .07;
+      transition: opacity .5s var(--ease-out); pointer-events: none;
+    }
+
+    .ip-stage {
+      position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1.5rem; flex: 1;
+      opacity: 1; transform: translateY(0); filter: blur(0);
+      transition: opacity .28s var(--ease-out), transform .28s var(--ease-out), filter .28s var(--ease-out);
+    }
+    @media (min-width: 768px) { .ip-stage { flex-direction: row; align-items: stretch; } }
+    .ip-stage[data-anim="out"] { opacity: 0; transform: translateY(6px); filter: blur(3px); }
+
+    .ip-info { flex: 1 1 0; display: flex; flex-direction: column; min-width: 0; }
+    .ip-info-cat {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: 'Sora', system-ui, sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.55);
+    }
+    .ip-info-cat .pip { width: 6px; height: 6px; border-radius: 9999px; background: var(--accent-grad, var(--gradient-violet-rose)); }
+    .ip-info-title {
+      font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+      font-weight: 800; letter-spacing: -.03em; line-height: 1.1; font-size: 1.6rem; margin-top: .75rem;
+    }
+    @media (min-width: 640px) { .ip-info-title { font-size: 1.9rem; } }
+    .ip-info-desc { margin-top: .85rem; font-size: 14.5px; line-height: 1.6; color: rgba(255,255,255,.62); max-width: 38ch; }
+    .ip-chips { margin-top: 1.1rem; display: flex; flex-wrap: wrap; gap: .4rem; }
+    .ip-cta {
+      margin-top: auto; padding-top: 1.5rem; display: inline-flex; align-items: center; gap: .5rem;
+      font-size: 14.5px; font-weight: 600; letter-spacing: -.01em; color: #fff; width: fit-content;
+      transition: gap .2s var(--ease-out);
+    }
+    .ip-cta svg { transition: transform .2s var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) {
+      .ip-cta:hover { gap: .7rem; }
+      .ip-cta:hover svg { transform: translateX(2px); }
+    }
+    .ip-cta:focus-visible { outline: none; border-radius: .5rem; box-shadow: 0 0 0 2px rgba(9,9,11,1), 0 0 0 4px rgba(139,92,246,.7); }
+
+    /* MOCKUP (visual abstracto por kind) */
+    .ip-mock {
+      flex: 1 1 0; position: relative; border-radius: 1rem; min-height: 240px; overflow: hidden;
+      background: radial-gradient(120% 120% at 80% 0%, rgba(255,255,255,.05), transparent 60%), rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 30px 60px -28px rgba(0,0,0,.7), 0 1px 0 rgba(255,255,255,.05) inset; display: flex;
+    }
+    @media (min-width: 768px) { .ip-mock { min-width: 46%; } }
+
+    .mk-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 30px;
+      display: flex; align-items: center; gap: 6px; padding: 0 12px;
+      background: rgba(255,255,255,.035); border-bottom: 1px solid rgba(255,255,255,.07); z-index: 2;
+    }
+    .mk-bar i { width: 8px; height: 8px; border-radius: 9999px; background: rgba(255,255,255,.16); display: block; }
+    .mk-canvas { position: absolute; inset: 30px 0 0 0; padding: 14px; }
+
+    .mk-line { height: 8px; border-radius: 4px; background: rgba(255,255,255,.09); }
+    .mk-soft { background: rgba(255,255,255,.06); }
+    .mk-grad { background: var(--accent-grad, var(--gradient-violet-rose)); }
+    .mk-tile { border-radius: 10px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.06); }
+
+    /* ecommerce */
+    .mk-ecom { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 100%; }
+    .mk-ecom .card { display: flex; flex-direction: column; gap: 6px; }
+    .mk-ecom .ph { flex: 1; min-height: 52px; border-radius: 8px; background: rgba(255,255,255,.05); position: relative; overflow: hidden; }
+    .mk-ecom .ph::after { content: ""; position: absolute; inset: 0; background: var(--accent-grad); opacity: .16; }
+    .mk-ecom .card:nth-child(2) .ph::after { opacity: .28; }
+    .mk-ecom .pr { height: 7px; width: 60%; border-radius: 4px; background: rgba(255,255,255,.12); }
+    .mk-ecom .tag { height: 6px; width: 40%; border-radius: 4px; background: rgba(255,255,255,.07); }
+
+    /* mobile */
+    .mk-mobile { display: flex; align-items: center; justify-content: center; height: 100%; }
+    .mk-phone {
+      width: 116px; height: 100%; max-height: 220px; border-radius: 22px; padding: 10px;
+      background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 20px 40px -20px rgba(0,0,0,.8); display: flex; flex-direction: column; gap: 8px;
+    }
+    .mk-phone .notch { width: 36px; height: 5px; border-radius: 9999px; background: rgba(255,255,255,.18); margin: 2px auto 4px; }
+    .mk-phone .hero { height: 46px; border-radius: 10px; background: var(--accent-grad); opacity: .85; }
+    .mk-phone .row { display: flex; gap: 6px; }
+    .mk-phone .av { width: 22px; height: 22px; border-radius: 9999px; background: rgba(255,255,255,.12); flex: 0 0 auto; }
+    .mk-phone .stk { flex: 1; display: flex; flex-direction: column; gap: 5px; justify-content: center; }
+
+    /* dashboard */
+    .mk-dash { display: flex; gap: 10px; height: 100%; }
+    .mk-dash .side { width: 30px; display: flex; flex-direction: column; gap: 7px; }
+    .mk-dash .side i { height: 8px; border-radius: 3px; background: rgba(255,255,255,.08); display: block; }
+    .mk-dash .side i:first-child { background: var(--accent-grad); opacity: .8; }
+    .mk-dash .main { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .mk-dash .kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .mk-dash .kpis .k { height: 34px; }
+    .mk-dash .chart {
+      flex: 1; border-radius: 10px; position: relative; overflow: hidden;
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+      display: flex; align-items: flex-end; gap: 6px; padding: 10px;
+    }
+    .mk-dash .chart b { display: block; flex: 1; border-radius: 4px 4px 0 0; background: var(--accent-grad); opacity: .55; }
+    .mk-dash .chart b:nth-child(odd) { opacity: .8; }
+    .mk-dash .chart::before { content: ""; position: absolute; left: 10px; right: 10px; top: 38%; border-top: 1px dashed rgba(255,255,255,.12); }
+
+    /* landing */
+    .mk-land { display: flex; flex-direction: column; gap: 9px; height: 100%; }
+    .mk-land .nav { display: flex; align-items: center; gap: 6px; }
+    .mk-land .nav .logo { width: 18px; height: 8px; border-radius: 3px; background: var(--accent-grad); }
+    .mk-land .nav .sp { flex: 1; }
+    .mk-land .nav i { width: 18px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.1); }
+    .mk-land .hero { text-align: center; padding: 6px 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .mk-land .hero .h1 { width: 70%; height: 10px; border-radius: 5px; background: rgba(255,255,255,.18); }
+    .mk-land .hero .h2 { width: 50%; height: 8px; border-radius: 4px; background: rgba(255,255,255,.1); }
+    .mk-land .hero .btn { width: 34%; height: 14px; border-radius: 7px; background: var(--accent-grad); margin-top: 2px; }
+    .mk-land .feat { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; flex: 1; }
+    .mk-land .feat .f { border-radius: 8px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #portfolio .reveal { animation: none; opacity: 1; filter: none; }
+    #portfolio .ip-stage { transition: opacity .15s linear; transform: none !important; filter: none !important; }
+    #portfolio .ip-stage[data-anim="out"] { transform: none !important; filter: none !important; }
+  }
+</style>
+
+<script define:vars={{ PROJECTS, GRADS }}>
+  (() => {
+    const root = document.getElementById('portfolio');
+    if (!root) return;
+    const listEl = root.querySelector('[data-list]');
+    const panelEl = root.querySelector('[data-panel]');
+    const stageEl = root.querySelector('[data-stage]');
+    if (!listEl || !panelEl || !stageEl) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let active = 0;
+    let swapTimer = null;
+
+    function mockup(kind) {
+      switch (kind) {
+        case 'ecommerce':
+          return `<div class="mk-ecom">${Array.from({ length: 6 }).map(() => `
+            <div class="card"><div class="ph"></div><div class="pr"></div><div class="tag"></div></div>`).join('')}</div>`;
+        case 'mobile':
+          return `<div class="mk-mobile"><div class="mk-phone">
+            <div class="notch"></div>
+            <div class="hero"></div>
+            <div class="row"><div class="av"></div><div class="stk">
+              <div class="mk-line" style="width:80%"></div><div class="mk-line mk-soft" style="width:55%"></div></div></div>
+            <div class="row"><div class="av"></div><div class="stk">
+              <div class="mk-line" style="width:70%"></div><div class="mk-line mk-soft" style="width:45%"></div></div></div>
+            <div class="row"><div class="av"></div><div class="stk">
+              <div class="mk-line" style="width:75%"></div><div class="mk-line mk-soft" style="width:50%"></div></div></div>
+          </div></div>`;
+        case 'dashboard':
+          return `<div class="mk-dash">
+            <div class="side"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="main">
+              <div class="kpis"><div class="mk-tile k"></div><div class="mk-tile k"></div><div class="mk-tile k"></div></div>
+              <div class="chart">${Array.from({ length: 9 }).map((_, i) => `<b style="height:${30 + ((i * 53) % 62)}%"></b>`).join('')}</div>
+            </div>
+          </div>`;
+        case 'landing':
+          return `<div class="mk-land">
+            <div class="nav"><div class="logo"></div><div class="sp"></div><i></i><i></i><i></i></div>
+            <div class="hero"><div class="h1"></div><div class="h2"></div><div class="btn"></div></div>
+            <div class="feat"><div class="f"></div><div class="f"></div><div class="f"></div></div>
+          </div>`;
+        default:
+          return '';
+      }
+    }
+
+    function panelHTML(p) {
+      return `
+        <div class="ip-info">
+          <span class="ip-info-cat"><span class="pip"></span>${p.category}</span>
+          <h3 class="ip-info-title">${p.title}</h3>
+          <p class="ip-info-desc">${p.description}</p>
+          <div class="ip-chips">${p.tech.map((t) => `<span class="chip">${t}</span>`).join('')}</div>
+          <a class="ip-cta" href="/portfolio/${p.slug}">
+            Ver caso completo
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="ip-mock">
+          <div class="mk-bar"><i></i><i></i><i></i></div>
+          <div class="mk-canvas">${mockup(p.kind)}</div>
+        </div>`;
+    }
+
+    function applyGrad(grad) {
+      panelEl.style.setProperty('--accent-grad', grad);
+      stageEl.style.setProperty('--accent-grad', grad);
+    }
+
+    function renderPanel(i) {
+      const p = PROJECTS[i];
+      applyGrad(GRADS[i % GRADS.length]);
+      stageEl.innerHTML = panelHTML(p);
+      stageEl.setAttribute('aria-label', `${p.title} — ${p.category}`);
+    }
+
+    function select(i, { focus = false } = {}) {
+      if (i === active && stageEl.childElementCount) {
+        if (focus) listEl.children[i]?.focus();
+        return;
+      }
+      active = i;
+      Array.from(listEl.children).forEach((el, idx) => {
+        const on = idx === i;
+        el.setAttribute('aria-selected', on ? 'true' : 'false');
+        el.tabIndex = on ? 0 : -1;
+        el.style.setProperty('--accent-grad', GRADS[idx % GRADS.length]);
+      });
+      if (focus) listEl.children[i]?.focus();
+
+      if (reduceMotion) { renderPanel(i); return; }
+
+      clearTimeout(swapTimer);
+      stageEl.setAttribute('data-anim', 'out');
+      swapTimer = setTimeout(() => {
+        renderPanel(i);
+        void stageEl.offsetWidth;
+        stageEl.removeAttribute('data-anim');
+      }, 160);
+    }
+
+    PROJECTS.forEach((p, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ip-item';
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+      btn.tabIndex = i === 0 ? 0 : -1;
+      btn.style.setProperty('--accent-grad', GRADS[i % GRADS.length]);
+      btn.innerHTML = `
+        <span class="ip-num">${String(i + 1).padStart(2, '0')}</span>
+        <span class="ip-item-text">
+          <span class="ip-item-title">${p.title}</span>
+          <span class="ip-item-cat">${p.category}</span>
+        </span>
+        <svg class="ip-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+
+      btn.addEventListener('mouseenter', () => {
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) select(i);
+      });
+      btn.addEventListener('click', () => select(i, { focus: true }));
+      btn.addEventListener('keydown', (e) => {
+        const last = PROJECTS.length - 1;
+        let next = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = i >= last ? 0 : i + 1;
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = i <= 0 ? last : i - 1;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = last;
+        if (next !== null) { e.preventDefault(); select(next, { focus: true }); }
+      });
+
+      listEl.appendChild(btn);
+    });
+
+    renderPanel(0);
+  })();
+</script>
