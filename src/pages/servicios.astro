@@ -1,262 +1,350 @@
 ---
+import { Icon } from 'astro-icon/components';
 import Navigation from '../components/Navigation.tsx';
 import Footer from '../components/sections/Footer.astro';
 import Layout from '../layouts/Layout.astro';
-import { whatsappUrl } from '../config/site';
 
+// Desglose de servicios — concepto "Dos tonos" (portado de design-explorations/sv-03b).
+// 8 áreas detalladas: short (one-liner), full (párrafo), tech (stack), features (8 c/u).
 const services = [
   {
-    icon: '⚛️',
-    title: 'Desarrollo Web',
-    slug: 'desarrollo-web',
-    description: 'Aplicaciones web modernas, rápidas y escalables',
-    fullDescription: 'Creamos aplicaciones web de alto rendimiento utilizando las tecnologías más modernas del mercado. Nos especializamos en React, Astro, Next.js y Vue.js para el frontend, garantizando interfaces rápidas, responsive y optimizadas para SEO.',
-    technologies: ['React', 'Astro', 'Next.js', 'TypeScript', 'Vue.js', 'Svelte'],
+    icon: 'code-2', title: 'Frontend', href: '/servicios/desarrollo-web',
+    short: 'Sitios y aplicaciones rápidas, modernas y optimizadas para SEO.',
+    full: 'Construimos interfaces de alto rendimiento con las tecnologías líderes del frontend moderno. Cada pantalla está pensada para cargar al instante, verse impecable en cualquier dispositivo y posicionar en buscadores. Desde landing pages hasta aplicaciones complejas con estado en tiempo real.',
+    tech: ['React', 'Next.js', 'Astro', 'TypeScript', 'Tailwind', 'Vue'],
     features: [
-      'Single Page Applications (SPA)',
-      'Server Side Rendering (SSR)',
-      'Static Site Generation (SSG)',
-      'Progressive Web Apps (PWA)',
-      'Optimización SEO avanzada',
-      'Animaciones y transiciones fluidas',
-      'Arquitectura escalable',
-      'Testing automatizado',
+      'Single Page Applications (SPA) y arquitecturas a componentes',
+      'Server-Side Rendering (SSR) y Static Generation (SSG)',
+      'Progressive Web Apps (PWA) instalables y offline',
+      'Optimización de Core Web Vitals y SEO técnico',
+      'Animaciones y microinteracciones fluidas',
+      'Design systems y componentes reutilizables',
+      'Accesibilidad (WCAG) desde el diseño',
+      'Testing automatizado e integración continua',
     ],
   },
   {
-    icon: '🚀',
-    title: 'Backend & APIs',
-    slug: 'backend-apis',
-    description: 'Arquitecturas robustas y APIs escalables',
-    fullDescription: 'Desarrollamos backends sólidos y APIs RESTful o GraphQL con Node.js, NestJS y Express. Diseñamos arquitecturas escalables, seguras y optimizadas para manejar millones de peticiones.',
-    technologies: ['NestJS', 'Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'Redis'],
+    icon: 'database', title: 'Backend & Data', href: '/servicios/backend-apis',
+    short: 'Sistemas robustos que escalan con tu producto. APIs, tiempo real, datos.',
+    full: 'Diseñamos arquitecturas backend sólidas, seguras y preparadas para crecer. APIs REST o GraphQL, lógica de negocio, autenticación, tiempo real y modelado de datos sobre bases SQL y NoSQL. Construido para soportar tráfico real sin sorpresas ni cuellos de botella.',
+    tech: ['NestJS', 'GraphQL', 'PostgreSQL', 'REST', 'Supabase', 'Firebase', 'MongoDB'],
     features: [
-      'APIs REST y GraphQL',
-      'Microservicios',
-      'Autenticación JWT/OAuth',
-      'Base de datos SQL y NoSQL',
-      'Cache con Redis',
-      'Documentación con Swagger',
+      'APIs REST y GraphQL documentadas (Swagger)',
+      'Microservicios o monolito modular según el caso',
+      'Autenticación y autorización (JWT, OAuth, roles)',
+      'Bases de datos SQL y NoSQL modeladas a tu dominio',
+      'Tiempo real con WebSockets y suscripciones',
+      'Cache y colas con Redis para performance',
+      'Migraciones, seeds y backups automáticos',
       'Testing unitario e integración',
-      'Despliegue en la nube',
     ],
   },
   {
-    icon: '📱',
-    title: 'Apps Móviles',
-    slug: 'apps-moviles',
-    description: 'Aplicaciones nativas y multiplataforma',
-    fullDescription: 'Desarrollamos aplicaciones móviles nativas para iOS y Android, o multiplataforma con Flutter y React Native. Interfaces fluidas, rendimiento óptimo y experiencias de usuario excepcionales.',
-    technologies: ['Flutter', 'React Native', 'Swift', 'Kotlin', 'Firebase'],
+    icon: 'smartphone', title: 'Mobile', href: '/servicios/apps-moviles',
+    short: 'Apps nativas y multiplataforma para iOS y Android.',
+    full: 'Llevamos tu producto al bolsillo de tus usuarios con apps fluidas y de aspecto nativo. Desarrollamos multiplataforma con Flutter o React Native, o nativo con Swift y Kotlin cuando el caso lo pide. Publicación en stores, integraciones y soporte incluidos.',
+    tech: ['Flutter', 'React Native', 'Swift', 'Kotlin', 'Expo', 'Firebase'],
     features: [
-      'Desarrollo iOS y Android',
-      'Diseño Material y Cupertino',
-      'Integración con APIs',
-      'Push notifications',
-      'Pagos in-app',
-      'Geolocalización',
-      'Modo offline',
-      'Publicación en stores',
+      'Desarrollo iOS y Android desde una sola base',
+      'Diseño Material y Human Interface Guidelines',
+      'Integración con tus APIs y servicios',
+      'Notificaciones push y deep links',
+      'Pagos in-app y suscripciones',
+      'Geolocalización, mapas y cámara',
+      'Modo offline y sincronización',
+      'Publicación y mantenimiento en las stores',
     ],
   },
   {
-    icon: '🎨',
-    title: 'Diseño UI/UX',
-    slug: 'diseno-uiux',
-    description: 'Interfaces intuitivas y atractivas',
-    fullDescription: 'Diseñamos interfaces centradas en el usuario, priorizando la usabilidad y la estética. Desde wireframes hasta prototipos interactivos, creamos experiencias visuales que convierten.',
-    technologies: ['Figma', 'Adobe XD', 'Sketch', 'InVision', 'Framer'],
+    icon: 'sparkles', title: 'IA & Automatización', href: '/servicios/ia',
+    short: 'Productos y procesos potenciados con IA. Agentes, chatbots, automatización.',
+    full: 'Integramos inteligencia artificial donde aporta valor real: asistentes que responden con tus datos, agentes que ejecutan tareas y automatizaciones que ahorran horas. Trabajamos con los modelos líderes y patrones probados como RAG para respuestas precisas, citables y bajo control.',
+    tech: ['OpenAI', 'Claude', 'Gemini', 'RAG', 'Agentes', 'LangChain'],
     features: [
-      'Research y análisis de usuarios',
-      'Wireframes y mockups',
-      'Prototipos interactivos',
-      'Design systems',
-      'Testing de usabilidad',
-      'Responsive design',
-      'Accesibilidad (WCAG)',
-      'Branding y identidad visual',
+      'Chatbots y asistentes entrenados con tu información',
+      'RAG: búsqueda + generación sobre tus documentos',
+      'Agentes que ejecutan tareas y flujos complejos',
+      'Automatización de procesos repetitivos',
+      'Generación y análisis de contenido',
+      'Integración con tus herramientas (CRM, mail, ERP)',
+      'Evaluación, guardrails y control de costos',
+      'Privacidad y manejo responsable de datos',
     ],
   },
   {
-    icon: '☁️',
-    title: 'Infraestructura',
-    slug: 'infraestructura',
-    description: 'Cloud, DevOps y despliegue continuo',
-    fullDescription: 'Gestionamos toda la infraestructura cloud de tu proyecto. Configuración de servidores, CI/CD, contenedores Docker, Kubernetes y monitoreo 24/7 para garantizar máxima disponibilidad.',
-    technologies: ['AWS', 'Vercel', 'Docker', 'Kubernetes', 'GitHub Actions', 'Terraform'],
+    icon: 'shopping-bag', title: 'E-commerce', href: '/servicios/ecommerce',
+    short: 'Tiendas online listas para vender. Pasarelas, suscripciones, catálogos.',
+    full: 'Montamos tiendas que venden de verdad: catálogo, carrito, checkout y pagos, con un panel para que gestiones todo sin depender de nadie. Desde Shopify o WooCommerce hasta soluciones 100% a medida con suscripciones y lógica de negocio propia.',
+    tech: ['Shopify', 'WooCommerce', 'Stripe', 'MercadoPago', 'Custom'],
     features: [
-      'Configuración de servidores cloud',
-      'CI/CD automatizado',
-      'Containerización con Docker',
-      'Orquestación con Kubernetes',
-      'Monitoreo y alertas',
-      'Backups automáticos',
-      'Escalado automático',
-      'Optimización de costos',
+      'Catálogo de productos, variantes y stock',
+      'Carrito y checkout optimizado para conversión',
+      'Pasarelas de pago múltiples (Stripe, locales)',
+      'Suscripciones y pagos recurrentes',
+      'Panel de administración e inventario',
+      'Cupones, promociones y reglas de envío',
+      'Integración con email marketing',
+      'Analytics de ventas y reportes',
     ],
   },
   {
-    icon: '🛒',
-    title: 'E-commerce',
-    slug: 'ecommerce',
-    description: 'Tiendas online completas y rentables',
-    fullDescription: 'Desarrollamos tiendas virtuales completas con pasarelas de pago, gestión de inventario, paneles administrativos y herramientas de marketing. Desde Shopify hasta soluciones custom.',
-    technologies: ['Shopify', 'WooCommerce', 'Stripe', 'MercadoPago', 'PayPal'],
+    icon: 'cloud', title: 'Infraestructura & DevOps', href: '/servicios/infraestructura',
+    short: 'Despliegue, escalado y observabilidad. Cloud que no se cae.',
+    full: 'Nos encargamos de que tu producto esté siempre arriba, rápido y seguro. Configuramos la nube, automatizamos despliegues con CI/CD, contenedores y orquestación, y monitoreamos todo para anticiparnos a los problemas antes de que lleguen a tus usuarios.',
+    tech: ['AWS', 'Cloudflare', 'Vercel', 'Docker', 'Kubernetes', 'Terraform'],
     features: [
-      'Catálogo de productos',
-      'Carrito de compras',
-      'Pasarelas de pago múltiples',
-      'Panel de administración',
-      'Gestión de inventario',
-      'Sistema de cupones',
-      'Email marketing',
-      'Analytics y reportes',
+      'Infraestructura cloud configurada a tu medida',
+      'CI/CD automatizado: build, test y deploy',
+      'Contenedores con Docker y orquestación Kubernetes',
+      'CDN, SSL y protección DDoS',
+      'Monitoreo, logs y alertas proactivas',
+      'Backups automáticos y plan de recuperación',
+      'Escalado automático según demanda',
+      'Optimización continua de costos cloud',
     ],
   },
   {
-    icon: '🔒',
-    title: 'Hosting & SSL',
-    slug: 'hosting-ssl',
-    description: 'Hosting rápido y seguro',
-    fullDescription: 'Ofrecemos hosting optimizado para aplicaciones web modernas. Servidores de alto rendimiento, certificados SSL gratuitos, CDN global y monitoreo 24/7.',
-    technologies: ['Vercel', 'Netlify', 'AWS', 'Cloudflare', 'Let\'s Encrypt'],
+    icon: 'bar-chart-3', title: 'Analytics & Data', href: '/servicios/analytics',
+    short: 'Dashboards y métricas que muestran lo que importa.',
+    full: 'Convertimos tus datos en decisiones. Instrumentamos el producto, centralizamos eventos y armamos dashboards claros con las métricas que de verdad mueven el negocio. Para que dejes de adivinar y empieces a medir con confianza.',
+    tech: ['PostHog', 'BigQuery', 'GA4', 'Metabase', 'Looker', 'Mixpanel', 'Snowflake'],
     features: [
-      'Hosting optimizado',
-      'Certificados SSL gratuitos',
-      'CDN global',
-      'DDoS protection',
-      'Backups diarios',
-      'Uptime 99.9%',
-      'Soporte 24/7',
-      'Migraciones gratuitas',
+      'Instrumentación de eventos y embudos',
+      'Dashboards a medida con tus KPIs',
+      'Product analytics (PostHog) y web (GA4)',
+      'Data warehouse y consultas (BigQuery)',
+      'Cohortes, retención y segmentación',
+      'Reportes automáticos y alertas',
+      'A/B testing y feature flags',
+      'Privacidad y cumplimiento (consentimiento, GDPR)',
     ],
   },
   {
-    icon: '🛠️',
-    title: 'Soporte Técnico',
-    slug: 'soporte-tecnico',
-    description: 'Mantenimiento y soporte continuo',
-    fullDescription: 'Brindamos soporte técnico continuo para tu proyecto. Actualizaciones, corrección de bugs, optimizaciones y nuevas funcionalidades. Planes mensuales flexibles.',
-    technologies: ['Monitoring', 'Analytics', 'Hotjar', 'Sentry', 'LogRocket'],
+    icon: 'life-buoy', title: 'Soporte & Consultoría', href: '/servicios/soporte-tecnico',
+    short: 'Soporte continuo después del lanzamiento. Mantenimiento, cobros, ajustes.',
+    full: 'No desaparecemos después del deploy. Te acompañamos con mantenimiento, mejoras continuas, gestión de cobros y consultoría técnica para que tu producto siga creciendo. Planes mensuales flexibles, según lo que tu equipo necesite en cada etapa.',
+    tech: ['Sentry', 'Grafana', 'Prometheus', 'Datadog', 'PagerDuty'],
     features: [
-      'Soporte prioritario',
-      'Actualizaciones de seguridad',
-      'Corrección de bugs',
-      'Optimización de rendimiento',
-      'Nuevas funcionalidades',
-      'Monitoreo proactivo',
-      'Reportes mensuales',
-      'Consultoría técnica',
+      'Soporte prioritario con SLA acordado',
+      'Actualizaciones de seguridad y dependencias',
+      'Corrección de bugs y mejoras de performance',
+      'Nuevas funcionalidades por sprints',
+      'Gestión de suscripciones, cobros y reembolsos',
+      'Monitoreo proactivo y reportes mensuales',
+      'Consultoría técnica y de arquitectura',
+      'Capacitación y traspaso a tu equipo',
     ],
   },
+];
+
+// Iconos-anillo (Lucide). Inline porque no está instalado @iconify-json/lucide.
+const RING_ICONS: Record<string, string> = {
+  'code-2':       '<path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/>',
+  'database':     '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>',
+  'smartphone':   '<rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/>',
+  'sparkles':     '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>',
+  'shopping-bag': '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+  'cloud':        '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>',
+  'bar-chart-3':  '<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
+  'life-buoy':    '<circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/><circle cx="12" cy="12" r="4"/>',
+};
+
+// Stack: [slug simple-icons, color de marca]. Colores tomados de TrustSection (home).
+// Sólo entradas con logo real; los ítems sin marca (REST, RAG, Agentes, Custom) se omiten.
+const TECHS: Record<string, [string, string]> = {
+  'React': ['react', '#61DAFB'], 'Next.js': ['nextdotjs', '#FFFFFF'], 'Astro': ['astro', '#BC52EE'],
+  'TypeScript': ['typescript', '#3178C6'], 'Tailwind': ['tailwindcss', '#06B6D4'], 'Vue': ['vuedotjs', '#4FC08D'],
+  'NestJS': ['nestjs', '#E0234E'], 'GraphQL': ['graphql', '#E10098'], 'PostgreSQL': ['postgresql', '#4169E1'],
+  'Supabase': ['supabase', '#3FCF8E'], 'Firebase': ['firebase', '#FFCA28'], 'MongoDB': ['mongodb', '#47A248'],
+  'Flutter': ['flutter', '#5DADE2'], 'React Native': ['react', '#61DAFB'], 'Swift': ['swift', '#F05138'],
+  'Kotlin': ['kotlin', '#7F52FF'], 'Expo': ['expo', '#FFFFFF'], 'OpenAI': ['openai', '#FFFFFF'],
+  'Claude': ['claude', '#D97757'], 'Gemini': ['googlegemini', '#8E75B2'], 'LangChain': ['langchain', '#FFFFFF'],
+  'Shopify': ['shopify', '#7AB55C'], 'WooCommerce': ['woocommerce', '#96588A'], 'Stripe': ['stripe', '#635BFF'],
+  'MercadoPago': ['mercadopago', '#00B1EA'], 'AWS': ['amazonwebservices', '#FF9900'], 'Cloudflare': ['cloudflare', '#F38020'],
+  'Vercel': ['vercel', '#FFFFFF'], 'Docker': ['docker', '#2496ED'], 'Kubernetes': ['kubernetes', '#326CE5'],
+  'Terraform': ['terraform', '#7B42BC'], 'PostHog': ['posthog', '#F54E00'], 'BigQuery': ['googlebigquery', '#669DF6'],
+  'GA4': ['googleanalytics', '#E37400'], 'Metabase': ['metabase', '#509EE3'], 'Looker': ['looker', '#4285F4'],
+  'Mixpanel': ['mixpanel', '#7856FF'], 'Snowflake': ['snowflake', '#29B5E8'], 'Sentry': ['sentry', '#8C5393'],
+  'Grafana': ['grafana', '#F46800'], 'Prometheus': ['prometheus', '#E6522C'], 'Datadog': ['datadog', '#632CA6'],
+  'PagerDuty': ['pagerduty', '#06AC38'],
+};
+
+// Sigla de categoría por servicio (marca gigante y tenue al lado del icono).
+const MARKS: Record<string, string> = {
+  'Frontend': 'UI',
+  'Backend & Data': 'API',
+  'Mobile': 'APP',
+  'IA & Automatización': 'AI',
+  'E-commerce': 'STORE',
+  'Infraestructura & DevOps': 'CLOUD',
+  'Analytics & Data': 'DATA',
+  'Soporte & Consultoría': '24/7',
+};
+
+// Gradiente / tono / wash rotados por servicio (i % 3). --gradient-* viven en global.css.
+const GRADS = ['var(--gradient-violet-rose)', 'var(--gradient-violet-blue)', 'var(--gradient-teal-blue)'];
+const TONES = ['#f472b6', '#8b7cff', '#2dd4bf'];
+const WASH = [
+  ['rgba(139,92,246,.22)', 'rgba(244,114,182,.17)'],
+  ['rgba(167,139,250,.20)', 'rgba(91,157,255,.17)'],
+  ['rgba(45,212,191,.19)', 'rgba(56,189,248,.17)'],
 ];
 ---
 
 <Layout
   title="Servicios"
-  description="Ofrecemos servicios integrales de desarrollo: aplicaciones web, APIs, apps móviles, diseño UI/UX, e-commerce, hosting y soporte técnico."
+  description="Ocho áreas, un mismo estándar: frontend, backend, apps móviles, IA, e-commerce, infraestructura, analytics y soporte. Software a medida de principio a fin."
 >
   <Navigation client:load currentPath={Astro.url.pathname} />
 
-  <!-- Hero Section -->
-  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
-    <div class="max-w-7xl mx-auto text-center">
-      <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
-        Nuestros <span class="bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Servicios</span>
-      </h1>
-      <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-        Soluciones tecnológicas completas para transformar tu negocio. Desde el concepto hasta el lanzamiento y más allá.
-      </p>
-    </div>
-  </section>
+  <!-- Desglose de servicios — "Dos tonos" -->
+  <section id="servicios" class="sv-section relative pt-32 pb-10 px-4 sm:px-6 lg:px-8 overflow-x-clip">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <h1 class="h-title text-4xl sm:text-6xl">Software <span class="text-grad">a medida</span></h1>
+        <p class="mt-5 text-lg text-white/55 max-w-2xl mx-auto">
+          Ocho áreas, un mismo estándar. Del frontend al soporte, construimos lo que tu producto necesita.
+        </p>
+      </div>
 
-  <!-- Services Grid -->
-  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
-    <div class="max-w-7xl mx-auto space-y-24">
-      {services.map((service, index) => (
-        <div id={service.slug} class="scroll-mt-20">
-          <div class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-            {/* Content */}
-            <div class={index % 2 === 1 ? 'lg:order-2' : ''}>
-              <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-600/20 rounded-full text-sm text-purple-400 mb-4">
-                <span class="text-2xl">{service.icon}</span>
-                <span>Servicio</span>
+      {services.map((s, i) => {
+        const g = i % 3;
+        const grad = GRADS[g];
+        const tone = TONES[g];
+        const wash1 = WASH[g][0];
+        const wash2 = WASH[g][1];
+        const washLeft = i % 2 === 0;
+        const washDir = washLeft ? '90deg' : '270deg';
+        const washX = washLeft ? '8%' : '92%';
+        const rowStyle = `--grad:${grad}; --tone:${tone}; --wash1:${wash1}; --wash2:${wash2}; --d:${i * 70}ms`;
+        const stack = s.tech.filter((t) => TECHS[t]);
+        const slug = s.href.split('/').pop();
+        return (
+          <div id={slug} class="ds-row grid grid-cols-1 lg:grid-cols-2 gap-y-12 lg:gap-x-16 py-16 lg:py-20 scroll-mt-24 reveal" style={rowStyle}>
+            {/* Zona TINTADA: icono + sigla + título + párrafo + stack */}
+            <div class={washLeft ? 'lg:order-1' : 'lg:order-2'}>
+              <div class="ds-wash relative px-2 sm:px-7 lg:px-10 py-1" style={`--washdir:${washDir}; --washx:${washX};`}>
+                <div class="relative flex items-center gap-5">
+                  <div class="ds-iconring flex items-center justify-center w-12 h-12 rounded-full" style="background: rgba(255,255,255,.025);">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style={`color:${tone}`} set:html={RING_ICONS[s.icon]} />
+                  </div>
+                  <span class="ds-mark text-4xl sm:text-5xl whitespace-nowrap select-none" style="color: rgba(255,255,255,.08)">{MARKS[s.title]}</span>
+                </div>
+
+                <h2 class="h-title mt-6 text-3xl sm:text-4xl text-white">{s.title}</h2>
+                <p class="mt-3 text-[15px] font-medium" style={`color:${tone}`}>{s.short}</p>
+                <p class="mt-5 text-[15.5px] leading-relaxed text-white/70 max-w-[46ch]">{s.full}</p>
+
+                <div class="mt-7">
+                  <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/35">Stack</p>
+                  <div class="mt-4 tstack-row">
+                    {stack.map((t) => (
+                      <span class="tlogo" title={t} style={`--brand:${TECHS[t][1]}`}>
+                        <Icon name={`simple-icons:${TECHS[t][0]}`} class="tlogo-ico" aria-hidden="true" />
+                        <span class="tlogo-name">{t}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <h2 class="text-4xl font-bold text-white mb-4">{service.title}</h2>
-              <p class="text-lg text-gray-300 mb-6">{service.fullDescription}</p>
+            </div>
 
-              <!-- Technologies -->
-              <div class="mb-6">
-                <h3 class="text-sm font-semibold text-gray-400 mb-3">TECNOLOGÍAS</h3>
-                <div class="flex flex-wrap gap-2">
-                  {service.technologies.map((tech) => (
-                    <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded-md text-sm">
-                      {tech}
-                    </span>
+            {/* Zona PLANA: qué incluye (8 features con marca de línea de gradiente) */}
+            <div class={washLeft ? 'lg:order-2' : 'lg:order-1'}>
+              <div class="relative px-2 sm:px-7 lg:px-10 py-1 lg:pt-2">
+                <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/35">Qué incluye</p>
+                <div class="mt-5">
+                  {s.features.map((f) => (
+                    <div class="ds-feat flex items-start gap-4 py-[13px]">
+                      <span class="ds-dot"></span>
+                      <span class="text-[14.5px] leading-snug text-white/65">{f}</span>
+                    </div>
                   ))}
                 </div>
               </div>
-
-              <a
-                href="/contacto"
-                class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-btn font-medium transition-all shadow-lg shadow-purple-900/50"
-              >
-                Solicitar presupuesto
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </a>
-            </div>
-
-            {/* Features */}
-            <div class={index % 2 === 1 ? 'lg:order-1' : ''}>
-              <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-                <h3 class="text-xl font-bold text-white mb-6">Características</h3>
-                <ul class="space-y-3">
-                  {service.features.map((feature) => (
-                    <li class="flex items-start gap-3">
-                      <svg class="w-5 h-5 text-purple-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span class="text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black to-gray-900">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-4xl font-bold text-white mb-4">
-        ¿Listo para comenzar tu proyecto?
-      </h2>
-      <p class="text-xl text-gray-400 mb-8">
-        Contáctanos y recibe una consultoría gratuita
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/contacto"
-          class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-btn font-medium transition-all shadow-lg shadow-purple-900/50"
-        >
-          Solicitar Cotización
-        </a>
-        <a
-          href={whatsappUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="px-8 py-4 border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white rounded-btn font-medium transition-all"
-        >
-          Chatear por WhatsApp
-        </a>
-      </div>
+        );
+      })}
     </div>
   </section>
 
   <Footer />
 </Layout>
+
+<style>
+  /* ===== Sección Servicios — concepto "Dos tonos" (portado de sv-03b) ===== */
+  .sv-section {
+    font-family: 'Sora', system-ui, sans-serif;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .h-title {
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+  }
+  .text-grad {
+    background: var(--gradient-violet-rose);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+
+  /* Entrada focus-in (sin scroll-reveals). */
+  .reveal { opacity: 0; filter: blur(8px); animation: reveal-focus .8s var(--ease-out) forwards; animation-delay: var(--d, 0ms); }
+  @keyframes reveal-focus { to { opacity: 1; filter: blur(0); } }
+
+  .ds-row { position: relative; }
+
+  /* Zona tintada: wash de gradiente que sangra hacia el fondo, sin borde ni caja. */
+  .ds-wash { position: relative; isolation: isolate; }
+  .ds-wash::before {
+    content: ""; position: absolute; inset: -2.5rem -1.5rem; z-index: -1; pointer-events: none;
+    -webkit-mask-image: linear-gradient(var(--washdir, 90deg), #000 0%, #000 50%, transparent 96%);
+            mask-image: linear-gradient(var(--washdir, 90deg), #000 0%, #000 50%, transparent 96%);
+    background:
+      radial-gradient(125% 85% at var(--washx, 0%) 24%, var(--wash1) 0%, transparent 60%),
+      radial-gradient(95% 75% at var(--washx, 0%) 98%, var(--wash2) 0%, transparent 58%);
+  }
+
+  /* Aro del icono: anillo de gradiente, sin relleno de caja. */
+  .ds-iconring { position: relative; }
+  .ds-iconring::after {
+    content: ""; position: absolute; inset: 0; border-radius: 9999px;
+    padding: 1.5px; background: var(--grad);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: .9;
+  }
+
+  /* Sigla de categoría detrás del icono. */
+  .ds-mark { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+
+  /* Stack: logos simple-icons coloreados por currentColor (mismo mecanismo que home>tecnologías):
+     gris uniforme en reposo → color de marca al hover, con el nombre apareciendo debajo. */
+  .tstack-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2rem 1.9rem; }
+  .tlogo { position: relative; width: 30px; height: 30px; display: block; }
+  .tlogo-ico {
+    width: 30px; height: 30px; display: block; fill: currentColor;
+    color: rgba(255,255,255,.42);
+    transition: color .4s var(--ease-out), transform .4s var(--ease-out);
+  }
+  .tlogo:hover .tlogo-ico { color: var(--brand); transform: translateY(-1px); }
+  .tlogo-name {
+    position: absolute; top: calc(100% + .6rem); left: 50%;
+    transform: translateX(-50%) translateY(2px); white-space: nowrap;
+    font-size: 11px; font-weight: 500; letter-spacing: .01em; color: rgba(255,255,255,.6);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s var(--ease-out), transform .3s var(--ease-out);
+  }
+  .tlogo:hover .tlogo-name { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* Features: marca = línea corta de gradiente (sin dividers, sin hover). */
+  .ds-feat { position: relative; }
+  .ds-dot { flex: none; width: .85rem; height: 2px; margin-top: .62em; border-radius: 2px; background: var(--grad); opacity: .9; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; filter: none; }
+    .tlogo-ico, .tlogo-name { transition: none; }
+  }
+</style>
