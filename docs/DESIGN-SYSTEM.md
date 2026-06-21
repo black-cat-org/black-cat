@@ -30,7 +30,7 @@ exacto — no inventes, no redondees.
 | `#18181b` (zinc-900) | casi-negro | **canónico** para texto sobre botones blancos |
 | `#0a0a0c` | negro casi puro | iniciales del **avatar** sobre gradiente (Testimonials `ts-avatar`) |
 
-`--bg: #09090b` se redeclara localmente en Services, Portfolio (`#portfolio`) y Pricing (`cc-num`).
+`--bg: #09090b` está definido **una vez** en `:root` de `global.css` (antes se redeclaraba en cada sección).
 
 ### Texto — escala de opacidad de blanco (las que SÍ se usan)
 
@@ -118,6 +118,10 @@ Usados cuando hace falta un color plano coherente (icono `ds-row`, `pip`, tono d
 ```js
 const TONES = ['#f472b6' /* rose */, '#8b7cff' /* violet */, '#2dd4bf' /* teal */];
 ```
+
+> Estos 3 tonos también viven en `@theme` de `global.css` como `--color-brand-rose/violet/teal`,
+> así que están disponibles como **utilities Tailwind** (`bg-brand-rose`, `text-brand-violet`, …) y
+> como `var(--color-brand-*)`. Tailwind v4 sólo los emite cuando se usan (tree-shaking) — es lo esperado.
 
 ### Rotación por índice (`i % 3`)
 
@@ -267,8 +271,8 @@ Pill de "kicker" sobre el título. Recipe canónico (duplicado en cada sección)
 .h-eyebrow .dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--accent-violet); }
 ```
 
-`--accent-violet: #8b5cf6` (unificado en las 6 secciones). El eyebrow está definido en casi todas
-las secciones aunque varias no lo renderizan hoy.
+`--accent-violet: #8b5cf6`, definido **una vez** en `:root` de `global.css`. El eyebrow está definido
+en casi todas las secciones aunque varias no lo renderizan hoy.
 
 ### `.chip` (recipe canónico)
 
@@ -376,7 +380,7 @@ para que se desvanezca hacia un lado (alterna izq/der por fila con `--washdir`/`
 --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 ```
 
-Declarado localmente en CADA sección. Es **el ease de todo** (hover, reveals, transiciones).
+Definido **una vez** en `:root` de `global.css` (antes se redeclaraba en cada sección). Es **el ease de todo** (hover, reveals, transiciones).
 
 ### `.reveal` — focus-in en load (NO scroll)
 

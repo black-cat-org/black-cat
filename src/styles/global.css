@@ -5,6 +5,13 @@
   /* Radius unificado para todos los botones/CTAs del sitio (12px = rounded-xl).
      Usar `rounded-btn` en lugar de `rounded-xl` cuando se construya un CTA. */
   --radius-btn: 0.75rem;
+
+  /* Tonos sólidos de marca (un color por gradiente de marca). Quedan disponibles como
+     utilities Tailwind (`bg-brand-rose`, `text-brand-violet`, …) y como `var(--color-brand-*)`
+     para el CSS scopeado. Mismos hex que el array TONES usado en JS. */
+  --color-brand-rose: #f472b6;
+  --color-brand-violet: #8b7cff;
+  --color-brand-teal: #2dd4bf;
 }
 
 /* Gradientes de marca aprobados (para títulos/acentos). Origen: exploraciones de Hero.
@@ -12,6 +19,13 @@
      background: var(--gradient-violet-rose);
      -webkit-background-clip: text; background-clip: text; color: transparent;  */
 :root {
+  /* Fondo, easing y violeta de acento. Centralizados acá (antes se redeclaraban idénticos
+     en cada sección). El CSS scopeado los consume con var(--bg) / var(--ease-out) / var(--accent-violet). */
+  --bg: #09090b;                                                                 /* zinc-950 */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --accent-violet: #8b5cf6;
+
+  /* Gradientes de marca aprobados. */
   --gradient-violet-blue: linear-gradient(100deg, #a78bfa, #8b7cff 50%, #5b9dff); /* hero-17 */
   --gradient-violet-rose: linear-gradient(100deg, #8b5cf6, #f472b6);              /* hero-18 (elegido para el Hero) */
   --gradient-teal-blue:   linear-gradient(100deg, #2dd4bf, #38bdf8);              /* hero-19 */
