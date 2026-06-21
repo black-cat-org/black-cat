@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import { siteConfig, pageTitle } from '../config/site';
 
 interface Props {
@@ -35,6 +36,9 @@ const lang = siteConfig.languages[0];
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- View Transitions: navegación tipo-SPA con transiciones en todo el sitio. -->
+    <ClientRouter />
 
     <meta name="generator" content={Astro.generator} />
   </head>

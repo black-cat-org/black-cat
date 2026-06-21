@@ -6,12 +6,11 @@
      Usar `rounded-btn` en lugar de `rounded-xl` cuando se construya un CTA. */
   --radius-btn: 0.75rem;
 
-  /* Tonos sólidos de marca (un color por gradiente de marca). Quedan disponibles como
-     utilities Tailwind (`bg-brand-rose`, `text-brand-violet`, …) y como `var(--color-brand-*)`
-     para el CSS scopeado. Mismos hex que el array TONES usado en JS. */
-  --color-brand-rose: #f472b6;
-  --color-brand-violet: #8b7cff;
-  --color-brand-teal: #2dd4bf;
+  /* Tonos sólidos de marca como utilities Tailwind (`bg-brand-rose`, `text-brand-violet`, …).
+     Aliasean los --brand-* de :root, así el hex vive en UN solo lugar (abajo). */
+  --color-brand-rose: var(--brand-rose);
+  --color-brand-violet: var(--brand-violet);
+  --color-brand-teal: var(--brand-teal);
 }
 
 /* Gradientes de marca aprobados (para títulos/acentos). Origen: exploraciones de Hero.
@@ -24,6 +23,12 @@
   --bg: #09090b;                                                                 /* zinc-950 */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --accent-violet: #8b5cf6;
+
+  /* Tonos sólidos de marca (un color por gradiente). Fuente ÚNICA del hex; los consume
+     el CSS/JS con var(--brand-rose|violet|teal) y el @theme los aliasea para Tailwind. */
+  --brand-rose: #f472b6;
+  --brand-violet: #8b7cff;
+  --brand-teal: #2dd4bf;
 
   /* Gradientes de marca aprobados. */
   --gradient-violet-blue: linear-gradient(100deg, #a78bfa, #8b7cff 50%, #5b9dff); /* hero-17 */

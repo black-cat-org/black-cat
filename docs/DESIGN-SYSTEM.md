@@ -460,6 +460,7 @@ El escalonado se hace con `animation-delay: var(--d, 0ms)` e inyectando `--d` po
 - **Cuándo `<style is:global>` + nesting:** cuando el contenido se inyecta por JS (ej. **Portfolio**: índice y panel se construyen en runtime). Se scopea manualmente anidando todo bajo `#portfolio { … }` para no filtrar al resto del sitio. El Hero usa `:global(.term__line)`, `:global(.c-ok)`, etc. por la misma razón (los spans de la terminal se inyectan).
 - **astro-icon** (`integrations: [react(), icon()]`). Sets instalados: **`@iconify-json/simple-icons`** y **`@iconify-json/logos`**. **`lucide` NO está instalado** → los iconos Lucide se **inlinean** como `set:html` del contenido del `<svg>` (ver `ICONS` / `RING_ICONS` en Services, Pricing, Footer, servicios.astro).
 - **Iconos de marca:** `<Icon name="simple-icons:<slug>" />` + color por `--brand: <iconColor>` (no por prop de color). El icono va `currentColor`/`fill: currentColor`, gris en reposo, color de marca en hover.
+- **View Transitions (todo el sitio):** `<ClientRouter />` (de `astro:transitions`) vive en `Layout.astro`, así que la navegación es tipo-SPA con transiciones entre páginas. **Consecuencia clave:** los `<script>` que construyen/animan por JS NO se re-ejecutan solos al navegar. Por eso Hero, Portfolio (y gracias) llevan **`data-astro-rerun`** para reiniciarse en cada navegación. **Regla:** cualquier contenido nuevo armado por JS debe llevar `data-astro-rerun` (o escuchar `astro:page-load`), o quedará vacío/congelado al volver a su página por navegación SPA.
 
 ---
 

@@ -389,7 +389,7 @@ const HERO = {
 
 <!-- Animación del Hero: terminal tipea build → deploy, morphea al dashboard, en loop. -->
 <script>
-  (function () {
+  document.addEventListener("astro:page-load", function () {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const win = document.getElementById('appWindow');
     const term = document.getElementById('screenTerm');
@@ -507,5 +507,5 @@ const HERO = {
       return;
     }
     typeRun();
-  })();
+  });
 </script>
