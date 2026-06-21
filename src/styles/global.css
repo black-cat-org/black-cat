@@ -71,5 +71,10 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Sora', system-ui, sans-serif;
+}
+
+/* Resaltado de selección de texto con el violeta de marca (igual que home/servicios). */
+::selection {
+  background: rgba(139, 92, 246, 0.28);
 }

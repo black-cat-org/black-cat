@@ -46,7 +46,7 @@ src/
 │       ├── Testimonials.astro
 │       └── Footer.astro
 ├── layouts/
-│   └── Layout.astro              # HTML root + SEO + Inter font + bg negro
+│   └── Layout.astro              # HTML root + SEO + fuentes (Jakarta/Sora/Mono · Inter legacy) + bg negro
 ├── pages/                        # Routing file-based
 │   ├── index.astro               # Home (compone secciones)
 │   ├── servicios.astro           # Overview
@@ -62,6 +62,7 @@ src/
 public/                           # Favicon y estáticos
 astro.config.mjs                  # Integraciones (React) + plugin de Vite (Tailwind)
 docs/
+├── DESIGN-SYSTEM.md              # Sistema de diseño: colores, gradientes, tipografía, motion, componentes (autoritativo)
 └── PLAN.md                       # Backlog de pulido sección por sección
 ```
 
@@ -73,10 +74,13 @@ docs/
 - Secciones del home van en `src/components/sections/`. Componentes reutilizables transversales irían directo en `src/components/`.
 
 ### Estilos
-- **Solo Tailwind utilities** en clases. Las animaciones custom (`blob`, `marquee`) viven en `src/styles/global.css` dentro de `@layer utilities`.
-- **Tema dark fijo** (`<html class="dark">`). El sitio no tiene toggle light/dark.
-- **Fuente:** Inter (300–900) cargada desde Google Fonts en `Layout.astro`.
-- **Paleta operativa actual** (las clases más usadas): `bg-black`, `text-white`, `text-gray-300/400`, púrpura `purple-400/600/700`, gradientes `from-purple-400 via-pink-400 to-blue-400`. Es la paleta heredada del template; la identidad real (logo, paleta, tipografía corporativa) todavía está por definir — ver `docs/PLAN.md` sección 0.1.
+- **🎨 Design system autoritativo:** [`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) — colores, gradientes, tipografía, bordes, glows, sombras, movimiento, componentes y reglas DO/DON'T, todo con **valores exactos del código real** (home + `/servicios`). **Leerlo antes de tocar cualquier UI.** Es la fuente de la verdad del look & feel.
+- **Solo Tailwind utilities** en clases; animaciones custom (`blob`, `marquee`) en `src/styles/global.css` (`@layer utilities`). CSS de componente en `<style>` scopeado (o `is:global` con nesting para HTML inyectado por JS).
+- **Tema dark fijo** sobre **zinc-950 `#09090b`** (`<html class="dark">`). Sin toggle light/dark.
+- **Tipografía (excluyente):** Plus Jakarta Sans = títulos (`.h-title`), Sora = cuerpo/UI, JetBrains Mono = **solo** la terminal del Hero. Inter es legacy (el `<body>` aún cae a Inter en `global.css`, pero cada sección redefine a Sora). **Mono prohibido fuera de la terminal.**
+- **Marca = 3 gradientes** en `:root` de `global.css` (`--gradient-violet-rose` default · `--gradient-violet-blue` · `--gradient-teal-blue`), rotados `i % 3`, usados como **acento** (clip a texto, anillos, washes `.07–.22`, glows) — nunca como relleno. Tonos sólidos: `#f472b6` / `#8b7cff` / `#2dd4bf`. Glass: fill `.04` / borde `.08`.
+- **Prohibido:** el púrpura del template (`purple-600`, `from-purple-400 via-pink-400 to-blue-400`), emoji (todo es SVG), cards/pills genéricas, y animaciones disparadas por scroll. **Respetar `prefers-reduced-motion` siempre.**
+- La identidad corporativa formal (logo, naming) sigue por definir — ver `docs/PLAN.md` sección 0.1.
 
 ### Layout y SEO
 - Toda página usa `<Layout title=... description=...>`. El `Layout.astro` ya incluye Open Graph, viewport, charset, favicon SVG y meta description.
