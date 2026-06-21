@@ -1,192 +1,195 @@
 ---
+import { Icon } from 'astro-icon/components';
 import Navigation from '../components/Navigation.tsx';
 import Footer from '../components/sections/Footer.astro';
 import Layout from '../layouts/Layout.astro';
 
+// Página /portfolio — concepto "Meta / imagen 2 columnas" (portado de design-explorations/pfp3-07-a).
+// Filas editoriales con zigzag estricto 1-en-1, imagen real en marco limpio, métrica clipeada a
+// gradiente + label en gris, y stack como logos (astro-icon → simple-icons, mismo mecanismo que servicios).
+// NOTA: las imágenes son placeholders (picsum). Reemplazar por screenshots reales o generadas.
 const projects = [
   {
-    title: 'E-commerce Premium',
-    category: 'Tienda Virtual',
-    description: 'Plataforma de comercio electrónico completa con integración de múltiples pasarelas de pago, gestión de inventario y panel administrativo avanzado.',
-    challenge: 'Crear una experiencia de compra fluida con checkout en un solo paso y sistema de recomendaciones personalizado.',
-    solution: 'Desarrollamos una SPA con Next.js y Stripe, implementando un sistema de cache inteligente que redujo el tiempo de carga en un 60%.',
-    results: ['10k visitas mensuales', '+40% conversión', '99.9% uptime', 'SEO ranking #1'],
+    title: 'E-commerce Premium', category: 'Tienda Virtual', year: '2024', slug: 'ecommerce-premium',
+    description: 'Plataforma de comercio electrónico completa con múltiples pasarelas de pago, gestión de inventario y panel administrativo avanzado.',
+    challenge: 'Crear una experiencia de compra fluida con checkout en un solo paso y recomendaciones personalizadas.',
+    solution: 'SPA con Next.js y Stripe, con un sistema de cache inteligente que redujo el tiempo de carga un 60%.',
+    results: ['10k visitas/mes', '+40% conversión', '99.9% uptime', 'SEO ranking #1'],
     tech: ['Next.js', 'Stripe', 'PostgreSQL', 'Redis', 'AWS'],
-    gradient: 'from-purple-500 to-pink-500',
-    year: '2024',
-    slug: 'ecommerce-premium',
   },
   {
-    title: 'App de Gestión',
-    category: 'Aplicación Móvil',
-    description: 'Aplicación móvil multiplataforma para gestión de equipos y proyectos con sincronización en tiempo real y modo offline.',
-    challenge: 'Sincronización confiable de datos entre múltiples usuarios en tiempo real con soporte offline completo.',
-    solution: 'Flutter con Firebase Firestore y sistema de resolución de conflictos automático. Implementación de queue local para modo offline.',
+    title: 'App de Gestión', category: 'Aplicación Móvil', year: '2024', slug: 'app-gestion',
+    description: 'App móvil multiplataforma para gestión de equipos y proyectos con sincronización en tiempo real y modo offline.',
+    challenge: 'Sincronización confiable entre múltiples usuarios en tiempo real, con soporte offline completo.',
+    solution: 'Flutter con Firebase Firestore y resolución de conflictos automática, más una queue local para offline.',
     results: ['5k usuarios activos', '4.8★ rating', '-50% tiempo gestión', 'iOS + Android'],
-    tech: ['Flutter', 'Firebase', 'REST API', 'SQLite', 'Push Notifications'],
-    gradient: 'from-blue-500 to-cyan-500',
-    year: '2024',
-    slug: 'app-gestion',
+    tech: ['Flutter', 'Firebase', 'REST API', 'SQLite', 'Push'],
   },
   {
-    title: 'Dashboard Analytics',
-    category: 'Web App',
+    title: 'Dashboard Analytics', category: 'Web App', year: '2023', slug: 'dashboard-analytics',
     description: 'Panel de control con visualización de datos en tiempo real y reportes personalizables para métricas de negocio y KPIs.',
-    challenge: 'Renderizar grandes volúmenes de datos sin afectar el rendimiento y permitir personalización total de dashboards.',
-    solution: 'React con D3.js para visualizaciones, backend NestJS con WebSockets para datos en tiempo real y caching inteligente.',
-    results: ['1M+ data points', '<100ms latency', '50+ dashboards', 'Export a PDF/Excel'],
+    challenge: 'Renderizar grandes volúmenes de datos sin afectar el rendimiento, con dashboards totalmente personalizables.',
+    solution: 'React con D3.js para las visualizaciones y un backend NestJS con WebSockets y caching inteligente.',
+    results: ['1M+ data points', '<100ms latencia', '50+ dashboards', 'Export PDF/Excel'],
     tech: ['React', 'D3.js', 'NestJS', 'WebSockets', 'PostgreSQL'],
-    gradient: 'from-green-500 to-emerald-500',
-    year: '2023',
-    slug: 'dashboard-analytics',
   },
   {
-    title: 'Landing SaaS',
-    category: 'Website',
-    description: 'Landing page de alto rendimiento con animaciones fluidas y optimización SEO para producto SaaS B2B.',
-    challenge: 'Crear una landing page que cargue en menos de 1 segundo y convierta visitantes en leads cualificados.',
+    title: 'Landing SaaS', category: 'Website', year: '2024', slug: 'landing-saas',
+    description: 'Landing page de alto rendimiento con animaciones fluidas y optimización SEO para un producto SaaS B2B.',
+    challenge: 'Una landing que cargue en menos de 1 segundo y convierta visitantes en leads cualificados.',
     solution: 'Astro con Islands Architecture, lazy loading de imágenes y formularios integrados con HubSpot.',
-    results: ['0.8s load time', '100 Lighthouse', '+35% leads', '60% bounce reduction'],
-    tech: ['Astro', 'TailwindCSS', 'Vercel', 'HubSpot', 'Google Analytics'],
-    gradient: 'from-orange-500 to-red-500',
-    year: '2024',
-    slug: 'landing-saas',
+    results: ['0.8s load time', '100 Lighthouse', '+35% leads', '-60% bounce'],
+    tech: ['Astro', 'Tailwind', 'Vercel', 'HubSpot', 'GA4'],
   },
   {
-    title: 'Fintech App',
-    category: 'Aplicación Web',
+    title: 'Fintech App', category: 'Aplicación Web', year: '2023', slug: 'fintech-app',
     description: 'Plataforma fintech para transferencias internacionales con verificación KYC y cumplimiento regulatorio completo.',
-    challenge: 'Garantizar máxima seguridad en transacciones financieras y cumplir con regulaciones internacionales.',
-    solution: 'Arquitectura de microservicios con NestJS, autenticación 2FA, encriptación end-to-end y auditorías automáticas.',
-    results: ['$2M+ procesados', 'PCI DSS compliant', '100% transactions seguras', '15 países'],
-    tech: ['NestJS', 'PostgreSQL', 'Redis', 'AWS', 'Microservices'],
-    gradient: 'from-indigo-500 to-purple-500',
-    year: '2023',
-    slug: 'fintech-app',
+    challenge: 'Máxima seguridad en transacciones financieras y cumplimiento de regulaciones internacionales.',
+    solution: 'Microservicios con NestJS, autenticación 2FA, encriptación end-to-end y auditorías automáticas.',
+    results: ['$2M+ procesados', 'PCI DSS', '100% seguras', '15 países'],
+    tech: ['NestJS', 'PostgreSQL', 'Redis', 'AWS', 'Microservicios'],
   },
   {
-    title: 'Social Network',
-    category: 'Plataforma Social',
-    description: 'Red social de nicho para profesionales creativos con sistema de portfolios, mensajería y colaboraciones.',
-    challenge: 'Escalar la plataforma para soportar millones de usuarios con contenido multimedia pesado.',
+    title: 'Social Network', category: 'Plataforma Social', year: '2023', slug: 'social-network',
+    description: 'Red social de nicho para profesionales creativos con portfolios, mensajería y colaboraciones.',
+    challenge: 'Escalar a millones de usuarios con contenido multimedia pesado sin perder rendimiento.',
     solution: 'Next.js con ISR, CDN global de Cloudflare, compresión automática de imágenes y video streaming optimizado.',
     results: ['500k usuarios', '10M posts', '99.95% uptime', '<2s page load'],
     tech: ['Next.js', 'GraphQL', 'MongoDB', 'Cloudflare', 'S3'],
-    gradient: 'from-pink-500 to-rose-500',
-    year: '2023',
-    slug: 'social-network',
   },
 ];
 
-const categories = ['Todos', ...new Set(projects.map(p => p.category))];
+// Gradiente / tono rotados por proyecto (i % 3). Viven en global.css.
+const GRADS = ['var(--gradient-violet-rose)', 'var(--gradient-violet-blue)', 'var(--gradient-teal-blue)'];
+const TONES = ['var(--brand-rose)', 'var(--brand-violet)', 'var(--brand-teal)'];
+
+// Stack: [slug simple-icons, color de marca]. Mismo map que servicios.astro / TrustSection (home).
+// Sólo entradas con logo real; los ítems sin marca (Redis, REST API, SQLite, etc.) se omiten.
+const TECHS: Record<string, [string, string]> = {
+  'React': ['react', '#61DAFB'], 'Next.js': ['nextdotjs', '#FFFFFF'], 'Astro': ['astro', '#BC52EE'],
+  'TypeScript': ['typescript', '#3178C6'], 'Tailwind': ['tailwindcss', '#06B6D4'], 'Vue': ['vuedotjs', '#4FC08D'],
+  'NestJS': ['nestjs', '#E0234E'], 'GraphQL': ['graphql', '#E10098'], 'PostgreSQL': ['postgresql', '#4169E1'],
+  'Supabase': ['supabase', '#3FCF8E'], 'Firebase': ['firebase', '#FFCA28'], 'MongoDB': ['mongodb', '#47A248'],
+  'Flutter': ['flutter', '#5DADE2'], 'React Native': ['react', '#61DAFB'], 'Swift': ['swift', '#F05138'],
+  'Kotlin': ['kotlin', '#7F52FF'], 'Expo': ['expo', '#FFFFFF'], 'OpenAI': ['openai', '#FFFFFF'],
+  'Claude': ['claude', '#D97757'], 'Gemini': ['googlegemini', '#8E75B2'], 'LangChain': ['langchain', '#FFFFFF'],
+  'Shopify': ['shopify', '#7AB55C'], 'WooCommerce': ['woocommerce', '#96588A'], 'Stripe': ['stripe', '#635BFF'],
+  'MercadoPago': ['mercadopago', '#00B1EA'], 'AWS': ['amazonwebservices', '#FF9900'], 'Cloudflare': ['cloudflare', '#F38020'],
+  'Vercel': ['vercel', '#FFFFFF'], 'Docker': ['docker', '#2496ED'], 'Kubernetes': ['kubernetes', '#326CE5'],
+  'Terraform': ['terraform', '#7B42BC'], 'PostHog': ['posthog', '#F54E00'], 'BigQuery': ['googlebigquery', '#669DF6'],
+  'GA4': ['googleanalytics', '#E37400'], 'Metabase': ['metabase', '#509EE3'], 'Looker': ['looker', '#4285F4'],
+  'Mixpanel': ['mixpanel', '#7856FF'], 'Snowflake': ['snowflake', '#29B5E8'], 'Sentry': ['sentry', '#8C5393'],
+  'Grafana': ['grafana', '#F46800'], 'Prometheus': ['prometheus', '#E6522C'], 'Datadog': ['datadog', '#632CA6'],
+  'PagerDuty': ['pagerduty', '#06AC38'],
+};
+
+// Separa "head" (primera palabra, va clipeada a gradiente) del "rest" (label en gris).
+const splitResult = (r: string): [string, string] => {
+  const i = r.indexOf(' ');
+  return i === -1 ? [r, ''] : [r.slice(0, i), r.slice(i + 1)];
+};
 ---
 
 <Layout
   title="Portfolio"
-  description="Explora nuestros proyectos destacados: e-commerce, apps móviles, plataformas web y soluciones empresariales que transformaron negocios."
+  description="Casos de éxito de Black Cat: e-commerce, apps móviles, plataformas web y soluciones empresariales que generaron resultados medibles."
 >
   <Navigation client:load currentPath={Astro.url.pathname} />
 
-  <!-- Hero Section -->
-  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-black via-gray-900 to-black">
-    <div class="max-w-7xl mx-auto text-center">
-      <h1 class="text-5xl sm:text-6xl font-bold text-white mb-6">
-        Nuestro <span class="bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Portfolio</span>
-      </h1>
-      <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-        Casos de éxito que demuestran nuestro compromiso con la excelencia. Proyectos reales que generaron resultados medibles.
-      </p>
-    </div>
-  </section>
+  <section id="pf" class="relative pt-32 pb-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
 
-  <!-- Projects -->
-  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-black">
-    <div class="max-w-7xl mx-auto">
-      <!-- Filter (could be enhanced with JS) -->
-      <div class="flex flex-wrap gap-3 justify-center mb-16">
-        {categories.map((category) => (
-          <button class="px-4 py-2 bg-gray-800 hover:bg-purple-600 text-gray-300 hover:text-white rounded-btn text-sm font-medium transition-all">
-            {category}
-          </button>
-        ))}
-      </div>
+      <header class="text-center mb-12 reveal">
+        <h1 class="h-title text-4xl sm:text-6xl">Proyectos <span class="text-grad">que entregamos</span></h1>
+        <p class="mt-5 text-lg text-white/55 max-w-2xl mx-auto">
+          Casos reales, del problema al producto en producción, con resultados medibles.
+        </p>
+      </header>
 
-      <!-- Projects Grid -->
-      <div class="space-y-24">
-        {projects.map((project, index) => (
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Image/Gradient */}
-            <div class={index % 2 === 1 ? 'lg:order-2' : ''}>
-              <div class={`h-96 rounded-2xl bg-linear-to-br ${project.gradient} opacity-90 flex flex-col items-center justify-center p-8 relative overflow-hidden`}>
-                <div class="absolute inset-0 bg-black/20"></div>
-                <div class="relative z-10 text-center">
-                  <div class="text-white text-8xl font-bold opacity-30 mb-4">
-                    {project.title.substring(0, 2).toUpperCase()}
-                  </div>
-                  <div class="text-white/80 text-sm font-medium">
-                    {project.year}
-                  </div>
+      <div>
+        {projects.map((p, i) => {
+          const grad = GRADS[i % 3];
+          const tone = TONES[i % 3];
+          const imgRight = i % 2 === 0;
+          const img = `https://picsum.photos/seed/blackcat-${p.slug}/1200/900`;
+
+          const media = (
+            <div class="order-2 md:order-none">
+              <a href={`/portfolio/${p.slug}`} class="row-link block w-full" aria-label={`Ver caso ${p.title}`}>
+                <div class="row-frame aspect-[4/3] w-full">
+                  <img src={img} alt={`Vista del proyecto ${p.title}`} loading="lazy" width="1200" height="900" />
                 </div>
-              </div>
+              </a>
             </div>
+          );
 
-            {/* Content */}
-            <div class={index % 2 === 1 ? 'lg:order-1' : ''}>
-              <div class="inline-block px-3 py-1 bg-purple-600/10 text-purple-400 text-xs font-semibold rounded-full mb-4">
-                {project.category}
+          const meta = (
+            <div class="order-1 md:order-none">
+              <div class="flex items-baseline gap-3 text-sm text-white/45">
+                <span class="uppercase tracking-[0.18em] text-[11px]">{p.category}</span>
+                <span class="w-1 h-1 rounded-full bg-white/25"></span>
+                <span class="tabular-nums">{p.year}</span>
               </div>
-              <h2 class="text-4xl font-bold text-white mb-4">{project.title}</h2>
-              <p class="text-lg text-gray-300 mb-6">{project.description}</p>
+              <h2 class="h-title text-2xl sm:text-3xl mt-3">{p.title}</h2>
+              <p class="mt-4 text-[15px] leading-relaxed text-white/70 max-w-xl">{p.description}</p>
 
-              {/* Challenge & Solution */}
-              <div class="space-y-4 mb-6">
-                <div>
-                  <h3 class="text-sm font-semibold text-purple-400 mb-2">DESAFÍO</h3>
-                  <p class="text-gray-400">{project.challenge}</p>
-                </div>
-                <div>
-                  <h3 class="text-sm font-semibold text-purple-400 mb-2">SOLUCIÓN</h3>
-                  <p class="text-gray-400">{project.solution}</p>
-                </div>
+              <div class="mt-6 space-y-3 max-w-xl">
+                <p class="text-[14px] leading-relaxed text-white/70">
+                  <span class="font-semibold tracking-wide" style={`color:${tone}`}>Desafío. </span>{p.challenge}
+                </p>
+                <p class="text-[14px] leading-relaxed text-white/70">
+                  <span class="font-semibold tracking-wide" style={`color:${tone}`}>Solución. </span>{p.solution}
+                </p>
               </div>
 
-              {/* Results */}
-              <div class="mb-6">
-                <h3 class="text-sm font-semibold text-gray-400 mb-3">RESULTADOS</h3>
-                <div class="grid grid-cols-2 gap-3">
-                  {project.results.map((result) => (
-                    <div class="px-4 py-2 bg-gray-900 border border-gray-800 rounded-lg text-center">
-                      <div class="text-purple-400 font-bold">{result}</div>
+              <div class="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-x-5 gap-y-4">
+                {p.results.map((r) => {
+                  const [head, rest] = splitResult(r);
+                  return (
+                    <div class="flex flex-col gap-0.5">
+                      <span
+                        class="res-head text-lg sm:text-xl"
+                        style={`background:${grad};-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;`}
+                      >{head}</span>
+                      <span class="text-[11px] leading-tight text-white/50">{rest || ' '}</span>
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
 
-              {/* Tech Stack */}
-              <div class="mb-6">
-                <h3 class="text-sm font-semibold text-gray-400 mb-3">TECNOLOGÍAS</h3>
-                <div class="flex flex-wrap gap-2">
-                  {project.tech.map((tech) => (
-                    <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded-md text-sm">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+              <div class="mt-7 tstack-row">
+                {p.tech.map((t) => TECHS[t] && (
+                  <span class="tlogo" title={t} style={`--brand:${TECHS[t][1]}`}>
+                    <Icon name={`simple-icons:${TECHS[t][0]}`} class="tlogo-ico" aria-hidden="true" />
+                    <span class="tlogo-name">{t}</span>
+                  </span>
+                ))}
               </div>
 
-              {/* CTA Button */}
               <a
-                href={`/portfolio/${project.slug}`}
-                class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-btn font-medium transition-all shadow-lg shadow-purple-900/50"
+                href={`/portfolio/${p.slug}`}
+                class="row-link group mt-8 inline-flex items-center gap-2 text-sm font-medium text-white/90 hover:text-white"
               >
-                Ver Caso de Estudio Completo
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                <span>Ver caso de estudio completo</span>
+                <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </a>
             </div>
-          </div>
-        ))}
+          );
+
+          return (
+            <article
+              class:list={['pf-row group reveal', i > 0 ? 'py-12 sm:py-16 border-t border-white/[0.07]' : 'pb-12 sm:pb-16']}
+              style={`--d:${120 + i * 90}ms`}
+            >
+              <div class="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+                {imgRight ? <>{meta}{media}</> : <>{media}{meta}</>}
+              </div>
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -195,5 +198,84 @@ const categories = ['Todos', ...new Set(projects.map(p => p.category))];
 </Layout>
 
 <style>
-  /* Simple filter functionality could be added with Alpine.js or vanilla JS */
+  #pf {
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .h-title {
+    font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
+  .text-grad {
+    background: var(--gradient-violet-rose);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .res-head {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .reveal {
+    opacity: 0;
+    filter: blur(8px);
+    animation: reveal-focus 0.8s var(--ease-out) forwards;
+    animation-delay: var(--d, 0ms);
+  }
+  @keyframes reveal-focus {
+    to { opacity: 1; filter: blur(0); }
+  }
+
+  /* Marco editorial de imagen */
+  .row-frame {
+    position: relative;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.75);
+    transition: transform 0.5s var(--ease-out), border-color 0.5s var(--ease-out);
+    will-change: transform;
+  }
+  .row-frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .row-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    transition: background 0.5s var(--ease-out);
+  }
+  .row-link .arrow { transition: transform 0.4s var(--ease-out); }
+  .row-link:hover .arrow { transform: translateX(5px); }
+  .pf-row:hover .row-frame { transform: translateY(-3px); border-color: rgba(255, 255, 255, 0.16); }
+  .pf-row:hover .row-frame::after { background: rgba(0, 0, 0, 0.2); }
+
+  /* Stack: logos simple-icons por currentColor (mismo mecanismo que servicios / home).
+     Gris en reposo → color de marca al hover, con el nombre como tooltip. Más aire entre íconos. */
+  .tstack-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem 1.75rem; }
+  .tlogo { position: relative; width: 26px; height: 26px; display: block; }
+  .tlogo-ico {
+    width: 26px; height: 26px; display: block; fill: currentColor;
+    color: rgba(255, 255, 255, 0.42);
+    transition: color 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+  }
+  .tlogo:hover .tlogo-ico { color: var(--brand); transform: translateY(-1px); }
+  .tlogo-name {
+    position: absolute; top: calc(100% + 0.5rem); left: 50%;
+    transform: translateX(-50%) translateY(2px); white-space: nowrap;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.6);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+  }
+  .tlogo:hover .tlogo-name { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; filter: none; }
+    .row-frame, .row-frame::after, .row-link .arrow, .tlogo-ico, .tlogo-name { transition: none; }
+    .pf-row:hover .row-frame { transform: none; }
+  }
 </style>
